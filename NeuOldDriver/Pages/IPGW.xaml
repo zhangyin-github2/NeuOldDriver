@@ -9,14 +9,76 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
+    <Page.Resources>
+        <Style x:Key="ContainerStyle" TargetType="StackPanel">
+            <Setter Property="Orientation" Value="Horizontal"></Setter>
+            <Setter Property="Margin" Value="0,25,0,0"></Setter>
+        </Style>
+        <Style x:Key="LabelStyle" TargetType="TextBlock">
+            <Setter Property="Margin" Value="10,0,0,0"></Setter>
+            <Setter Property="Width" Value="100"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Right"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        </Style>
+        <Style x:Key="ValueStyle" TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="Margin" Value="0,0,10,0"></Setter>
+        </Style>
+    </Page.Resources>
+
     <Page.DataContext>
         <models:IPGWModel x:Name="data"></models:IPGWModel>
     </Page.DataContext>
-
-    <SplitView DisplayMode="CompactOverlay" OpenPaneLength="300" CompactPaneLength="0" IsPaneOpen="True"
-               PanePlacement="Right" x:Name="split">
+    
+    <SplitView DisplayMode="CompactInline" OpenPaneLength="300" CompactPaneLength="0" PanePlacement="Right"
+               IsPaneOpen="{Binding Path=NotLoggedIn, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+               Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <SplitView.Pane>
-            <controls:Login Background="Gray" Finished="Login_Finished"></controls:Login>
+            <controls:Login Background="Gray" Finished="DoLogin"></controls:Login>
         </SplitView.Pane>
+        <SplitView.Content>
+            <StackPanel Orientation="Vertical"
+                        HorizontalAlignment="Center">
+                <TextBlock Margin="0,100,0,0" Text="账户信息"
+                           HorizontalAlignment="Center"
+                           FontSize="25" FontWeight="Bold">
+                </TextBlock>
+                <StackPanel Style="{StaticResource ContainerStyle}">
+                    <TextBlock Style="{StaticResource LabelStyle}"
+                               Text="已用流量：">
+                    </TextBlock>
+                    <TextBlock Style="{StaticResource ValueStyle}"
+                               Text="{Binding}">
+                    </TextBlock>
+                </StackPanel>
+                <StackPanel Style="{StaticResource ContainerStyle}">
+                    <TextBlock Style="{StaticResource LabelStyle}"
+                               Text="已用时间：">
+                    </TextBlock>
+                    <TextBlock Style="{StaticResource ValueStyle}"
+                               Text="{Binding}">
+                    </TextBlock>
+                </StackPanel>
+                <StackPanel Style="{StaticResource ContainerStyle}">
+                    <TextBlock Style="{StaticResource LabelStyle}"
+                               Text="账户余额：">
+                    </TextBlock>
+                    <TextBlock Style="{StaticResource ValueStyle}"
+                               Text="{Binding}">
+                    </TextBlock>
+                </StackPanel>
+                <StackPanel Style="{StaticResource ContainerStyle}">
+                    <TextBlock Style="{StaticResource LabelStyle}"
+                               Text="IP地址：">
+                    </TextBlock>
+                    <TextBlock Style="{StaticResource ValueStyle}"
+                               Text="{Binding}">
+                    </TextBlock>
+                </StackPanel>
+                <Button x:Name="logoutButton" HorizontalAlignment="Center"
+                        Content="注销" Width="350" Margin="0,25,0,0"></Button>
+            </StackPanel>
+        </SplitView.Content>
     </SplitView>
 </Page>
