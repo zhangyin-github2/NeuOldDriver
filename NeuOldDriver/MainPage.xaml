@@ -3,11 +3,43 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:NeuOldDriver"
+    xmlns:controls="using:NeuOldDriver.Controls"
+    xmlns:pages="using:NeuOldDriver.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
-    </Grid>
+    <SplitView x:Name="NavMenuContainer" Style="{StaticResource NavMenuContainer}"
+               Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <SplitView.Pane>
+            <RelativePanel VerticalAlignment="Stretch">
+                <RadioButton x:Name="NavMenuToggle" Style="{StaticResource NavButton}"
+                             Tag="{StaticResource MenuIcon}"
+                             RelativePanel.AlignTopWithPanel="True">
+                </RadioButton>
+                <ListBox SelectionChanged="PageNavigate" Style="{StaticResource NavMenu}"
+                          RelativePanel.Below="NavMenuToggle" x:Name="NavMenu">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate x:DataType="controls:NavButtonData">
+                            <StackPanel Orientation="Horizontal" Width="{StaticResource OpenPaneLength}">
+                                <FontIcon Style="{StaticResource NavButtonIcon}"
+                                          Glyph="{x:Bind Glyph}">
+                                </FontIcon>
+                                <TextBlock Style="{StaticResource NavButtonText}"
+                                           Text="{x:Bind Label}">
+                                </TextBlock>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                    <controls:NavButtonData Glyph="{StaticResource OtherUserIcon}" Label="教务处" Page="pages:AAO"></controls:NavButtonData>
+                    <controls:NavButtonData Glyph="{StaticResource GlobeIcon}" Label="IP网关" Page="pages:IPGW"></controls:NavButtonData>
+                    <controls:NavButtonData Glyph="{StaticResource CommentIcon}" Label="吐槽" Page="pages:Discussion"></controls:NavButtonData>
+                    <controls:NavButtonData Glyph="{StaticResource BooksIcon}" Label="图书馆" Page="pages:Library"></controls:NavButtonData>
+                </ListBox>
+            </RelativePanel>
+        </SplitView.Pane>
+        <SplitView.Content>
+            <Frame x:Name="MainFrame"></Frame>
+        </SplitView.Content>
+    </SplitView>
 </Page>

@@ -3,9 +3,20 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:NeuOldDriver.Pages"
+    xmlns:models="using:NeuOldDriver.Models"
+    xmlns:controls="using:NeuOldDriver.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    
+    <Page.DataContext>
+        <models:IPGWModel x:Name="data"></models:IPGWModel>
+    </Page.DataContext>
+
+    <SplitView DisplayMode="CompactOverlay" OpenPaneLength="300" CompactPaneLength="0" IsPaneOpen="True"
+               PanePlacement="Right" x:Name="split">
+        <SplitView.Pane>
+            <controls:Login Background="Gray" Finished="Login_Finished"></controls:Login>
+        </SplitView.Pane>
+    </SplitView>
 </Page>

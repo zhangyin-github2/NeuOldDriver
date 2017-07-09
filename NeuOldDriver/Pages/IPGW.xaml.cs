@@ -1,17 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
+﻿using Windows.UI.Xaml.Controls;
 
 // “空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234238 上有介绍
 
@@ -22,6 +9,10 @@ namespace NeuOldDriver.Pages {
     public sealed partial class IPGW : Page {
         public IPGW() {
             this.InitializeComponent();
+        }
+
+        private void Login_Finished(object sender, Models.LoginData e) {
+            split.IsPaneOpen = false;
         }
     }
 }
