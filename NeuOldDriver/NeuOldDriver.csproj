@@ -108,8 +108,14 @@
     <Compile Include="Pages\AAO.xaml.cs">
       <DependentUpon>AAO.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\ClassSchedule.xaml.cs">
+      <DependentUpon>ClassSchedule.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Discussion.xaml.cs">
       <DependentUpon>Discussion.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\GradeCheck.xaml.cs">
+      <DependentUpon>GradeCheck.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\IPGW.xaml.cs">
       <DependentUpon>IPGW.xaml</DependentUpon>
@@ -152,7 +158,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\ClassSchedule.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\Discussion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\GradeCheck.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
