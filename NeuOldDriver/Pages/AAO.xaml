@@ -7,7 +7,23 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Width="1280" HorizontalAlignment="Left">
+        <AppBarButton x:Name="查成绩" HorizontalAlignment="Left" Label="查成绩" Margin="165,140,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.706,1.5" Icon="List" Height="65" Width="86"/>
+        <AppBarButton HorizontalAlignment="Left" Icon="Mail" Label="查学分" Margin="365,140,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.412,-0.118"/>
+        <AppBarButton HorizontalAlignment="Left" Label="查考场" Margin="565,140,0,0" VerticalAlignment="Top" Icon="Map"/>
+        <AppBarButton HorizontalAlignment="Left" Icon="AllApps" Label="培养计划" Margin="765,140,0,0" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="165,90,0,0" TextWrapping="Wrap" Text="教务处查询" VerticalAlignment="Top" RenderTransformOrigin="0.597,3.5" FontSize="22"/>
+        <TextBlock HorizontalAlignment="Left" Margin="165,265,0,0" TextWrapping="Wrap" Text="学习助手" VerticalAlignment="Top" RenderTransformOrigin="-0.226,1" FontSize="22"/>
+        <AppBarButton HorizontalAlignment="Left" Icon="OutlineStar" Label="教室评分" Margin="365,305,0,0" VerticalAlignment="Top"/>
+        <AppBarButton HorizontalAlignment="Left" Label="学习自律助手" Margin="565,305,0,0" VerticalAlignment="Top">
+            <AppBarButton.Icon>
+                <SymbolIcon/>
+            </AppBarButton.Icon>
+        </AppBarButton>
+        <TextBlock HorizontalAlignment="Left" Margin="165,430,0,0" TextWrapping="Wrap" Text="选课助手" VerticalAlignment="Top" FontSize="22"/>
+        <AppBarButton HorizontalAlignment="Left" Icon="FourBars" Label="选课推荐" Margin="165,505,0,0" VerticalAlignment="Top"/>
+        <AppBarButton HorizontalAlignment="Left" Icon="WebCam" Label="选课系统" Margin="365,505,0,0" VerticalAlignment="Top"/>
+        <AppBarButton HorizontalAlignment="Left" Icon="Street" Label="空教室查询" Margin="165,305,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Page>
