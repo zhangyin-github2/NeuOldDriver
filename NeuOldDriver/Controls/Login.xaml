@@ -33,7 +33,7 @@
             <TextBlock Grid.Column="1" Grid.Row="2" Text="密   码" 
                        VerticalAlignment="Center" HorizontalAlignment="Right">
             </TextBlock>
-            <TextBox Grid.Column="3" Grid.Row="2" x:Name="password"></TextBox>
+            <PasswordBox Grid.Column="3" Grid.Row="2" x:Name="password"></PasswordBox>
         </Grid>
 
         <StackPanel Orientation="Vertical" Margin="0,25">

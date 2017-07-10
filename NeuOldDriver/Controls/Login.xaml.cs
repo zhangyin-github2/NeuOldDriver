@@ -14,13 +14,13 @@ namespace NeuOldDriver.Controls {
         public event EventHandler<LoginData> Finished {
             add {
                 EventRegistrationTokenTable<EventHandler<LoginData>>
-                    .GetOrCreateEventRegistrationTokenTable(ref m_tokenTable)
-                    .AddEventHandler(value);
+                .GetOrCreateEventRegistrationTokenTable(ref m_tokenTable)
+                .AddEventHandler(value);
             }
             remove {
                 EventRegistrationTokenTable<EventHandler<LoginData>>
-                    .GetOrCreateEventRegistrationTokenTable(ref m_tokenTable)
-                    .RemoveEventHandler(value);
+                .GetOrCreateEventRegistrationTokenTable(ref m_tokenTable)
+                .RemoveEventHandler(value);
             }
         }
 
@@ -28,7 +28,7 @@ namespace NeuOldDriver.Controls {
             EventRegistrationTokenTable<EventHandler<LoginData>>
             .GetOrCreateEventRegistrationTokenTable(ref m_tokenTable)
             .InvocationList
-            ?.Invoke(this, new LoginData(username.Text, password.Text, remember.IsChecked ?? false));
+            ?.Invoke(this, new LoginData(username.Text, password.Password, remember.IsChecked ?? false));
         }
 
         public Login() {
