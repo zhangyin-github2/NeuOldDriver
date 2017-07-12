@@ -23,5 +23,10 @@ namespace NeuOldDriver.Pages {
         public AAO() {
             this.InitializeComponent();
         }
+
+        private void AppBarButton_Click()
+        {
+
+        }
     }
 }

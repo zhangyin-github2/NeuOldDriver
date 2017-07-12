@@ -78,6 +78,7 @@
                 </StackPanel>
                 <Button x:Name="logoutButton" HorizontalAlignment="Center"
                         Content="注销" Width="350" Margin="0,25,0,0"></Button>
+                <controls:Login Height="100" Width="100"/>
             </StackPanel>
         </SplitView.Content>
     </SplitView>
