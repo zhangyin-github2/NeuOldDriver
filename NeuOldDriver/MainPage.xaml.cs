@@ -5,7 +5,7 @@ using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 
-using NeuOldDriver.Controls;
+using NeuOldDriver.Models;
 
 namespace NeuOldDriver {
     /// <summary>
@@ -16,15 +16,27 @@ namespace NeuOldDriver {
         public MainPage() {
             this.InitializeComponent();
 
+            Action<Frame> SetBackButton = (frame) => {
+                SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
+                frame.CanGoBack ?
+                AppViewBackButtonVisibility.Visible :
+                AppViewBackButtonVisibility.Collapsed;
+            };
+
+            SetBackButton(MainFrame);
+
             NavMenuToggle.Click += (sender, e) => {
                 NavMenuContainer.IsPaneOpen = !NavMenuContainer.IsPaneOpen;
             };
 
+            NavMenu.SelectionChanged += (sender, e) => {
+                var page = ((sender as Selector).SelectedItem as NavButtonData).Page as Type;
+                if (MainFrame.SourcePageType != page)
+                    MainFrame.Navigate(page);
+            };
+
             MainFrame.Navigated += (sender, e) => {
-                SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
-                    (sender as Frame).CanGoBack ?
-                    AppViewBackButtonVisibility.Visible :
-                    AppViewBackButtonVisibility.Collapsed;
+                SetBackButton(sender as Frame);
 
                 NavMenu.SelectedItem = NavMenu.Items.FirstOrDefault((item) => {
                     return ((item as NavButtonData).Page as Type) == MainFrame.SourcePageType;
@@ -37,17 +49,6 @@ namespace NeuOldDriver {
                     MainFrame.GoBack();
                 }
             };
-
-            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
-                MainFrame.CanGoBack ?
-                AppViewBackButtonVisibility.Visible :
-                AppViewBackButtonVisibility.Collapsed;
-        }
-
-        private void PageNavigate(object sender, SelectionChangedEventArgs e) {
-            var page = ((sender as Selector).SelectedItem as NavButtonData).Page as Type;
-            if (MainFrame.SourcePageType != page)
-                MainFrame.Navigate(page);
         }
     }
 }

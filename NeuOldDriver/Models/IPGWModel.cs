@@ -4,26 +4,45 @@ using System.ComponentModel;
 namespace NeuOldDriver.Models {
 
     public class IPGWModel : INotifyPropertyChanged {
-        private bool loggedIn = false;
+        private bool   notLogged = true;
+        private int    used = 0;
+        private long   usedTime = 0;
+        private int    balance = 0;
+        private string ip;
 
-        private int  used;
-        private long usedTime;
+        public bool NotLoggedIn {
+            get { return notLogged; }
+            private set { notLogged = value; NotifyPropertyChanged("NotLoggedIn"); }
+        }
 
-        public bool NotLoggedIn { get { return !loggedIn; } }
+        public int Used {
+            get { return used; }
+            private set { used = value; NotifyPropertyChanged("Used"); }
+        }
 
-        public int Used { get { return used; } }
+        public long UsedTime {
+            get { return usedTime; }
+            private set { usedTime = value; NotifyPropertyChanged("UsedTime"); }
+        }
 
-        public long UsedTime { get { return UsedTime; } }
+        public int Balance {
+            get { return balance; }
+            private set { balance = value; NotifyPropertyChanged("Balance"); }
+        }
+
+        public string IP {
+            get { return ip; }
+            private set { ip = value; NotifyPropertyChanged("IP"); }
+        }
 
         public void DoLogin(LoginData data) {
-            loggedIn = true;
-            NotifyPropertyChanged("NotLoggedIn");
+            NotLoggedIn = false;
             Refresh();
         }
 
         public void Refresh() {
-            NotifyPropertyChanged("Used");
-            NotifyPropertyChanged("UsedTime");
+            Used = 100;
+            UsedTime = 100;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -3,9 +3,9 @@
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace NeuOldDriver.Controls {
+namespace NeuOldDriver.Models {
 
-    public class NavButtonData : Control {
+    public class NavButtonData : DependencyObject {
         public string Glyph {
             get {
                 return (string)GetValue(GlyphProperty);

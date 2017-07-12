@@ -30,12 +30,12 @@
     <Page.DataContext>
         <models:IPGWModel x:Name="data"></models:IPGWModel>
     </Page.DataContext>
-    
+
     <SplitView DisplayMode="CompactInline" OpenPaneLength="300" CompactPaneLength="0" PanePlacement="Right"
                IsPaneOpen="{Binding Path=NotLoggedIn, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <SplitView.Pane>
-            <controls:Login Background="Gray" Finished="DoLogin"></controls:Login>
+            <controls:Login x:Name="loginControl" Background="Gray"></controls:Login>
         </SplitView.Pane>
         <SplitView.Content>
             <StackPanel Orientation="Vertical"
@@ -49,7 +49,7 @@
                                Text="已用流量：">
                     </TextBlock>
                     <TextBlock Style="{StaticResource ValueStyle}"
-                               Text="{Binding}">
+                               Text="{Binding Path=Used, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                     </TextBlock>
                 </StackPanel>
                 <StackPanel Style="{StaticResource ContainerStyle}">
@@ -57,7 +57,7 @@
                                Text="已用时间：">
                     </TextBlock>
                     <TextBlock Style="{StaticResource ValueStyle}"
-                               Text="{Binding}">
+                               Text="{Binding Path=UsedTime, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                     </TextBlock>
                 </StackPanel>
                 <StackPanel Style="{StaticResource ContainerStyle}">
@@ -65,7 +65,7 @@
                                Text="账户余额：">
                     </TextBlock>
                     <TextBlock Style="{StaticResource ValueStyle}"
-                               Text="{Binding}">
+                               Text="{Binding Path=Balance, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                     </TextBlock>
                 </StackPanel>
                 <StackPanel Style="{StaticResource ContainerStyle}">
@@ -73,12 +73,11 @@
                                Text="IP地址：">
                     </TextBlock>
                     <TextBlock Style="{StaticResource ValueStyle}"
-                               Text="{Binding}">
+                               Text="{Binding Path=IP, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                     </TextBlock>
                 </StackPanel>
                 <Button x:Name="logoutButton" HorizontalAlignment="Center"
                         Content="注销" Width="350" Margin="0,25,0,0"></Button>
-                <controls:Login Height="100" Width="100"/>
             </StackPanel>
         </SplitView.Content>
     </SplitView>
