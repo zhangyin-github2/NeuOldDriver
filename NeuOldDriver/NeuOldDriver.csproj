@@ -99,22 +99,25 @@
     <Compile Include="Controls\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\NavButtonData.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\IPGWModel.cs" />
     <Compile Include="Models\LoginData.cs" />
+    <Compile Include="Models\NavButtonData.cs" />
     <Compile Include="Pages\AAO.xaml.cs">
       <DependentUpon>AAO.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\ClassSchedule.xaml.cs">
+    <Compile Include="Pages\AAOSubPage\Concentrate.xaml.cs">
+      <DependentUpon>Concentrate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AAOSubPage\ClassSchedule.xaml.cs">
       <DependentUpon>ClassSchedule.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Discussion.xaml.cs">
       <DependentUpon>Discussion.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\GradeCheck.xaml.cs">
+    <Compile Include="Pages\AAOSubPage\GradeCheck.xaml.cs">
       <DependentUpon>GradeCheck.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\IPGW.xaml.cs">
@@ -158,7 +161,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\ClassSchedule.xaml">
+    <Page Include="Pages\AAOSubPage\Concentrate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AAOSubPage\ClassSchedule.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -166,7 +173,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\GradeCheck.xaml">
+    <Page Include="Pages\AAOSubPage\GradeCheck.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

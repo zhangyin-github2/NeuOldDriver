@@ -1,8 +1,8 @@
 ﻿<Page
-    x:Class="NeuOldDriver.Pages.ClassSchedule"
+    x:Class="NeuOldDriver.Pages.AAOSubPage.ClassSchedule"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:NeuOldDriver.Pages"
+    xmlns:local="using:NeuOldDriver.Pages.AAOSubPage"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
