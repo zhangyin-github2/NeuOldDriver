@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 
 using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
@@ -15,6 +14,8 @@ namespace NeuOldDriver {
 
         public MainPage() {
             this.InitializeComponent();
+
+            (App.Current as App).MainFrame = this.MainFrame;
 
             Action<Frame> SetBackButton = (frame) => {
                 SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
@@ -37,10 +38,6 @@ namespace NeuOldDriver {
 
             MainFrame.Navigated += (sender, e) => {
                 SetBackButton(sender as Frame);
-
-                NavMenu.SelectedItem = NavMenu.Items.FirstOrDefault((item) => {
-                    return ((item as NavButtonData).Page as Type) == MainFrame.SourcePageType;
-                });
             };
 
             SystemNavigationManager.GetForCurrentView().BackRequested += (sender, e) => {
