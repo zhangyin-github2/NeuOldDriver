@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Linq;
 
 using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
 
 using NeuOldDriver.Models;
 
@@ -15,7 +15,7 @@ namespace NeuOldDriver {
         public MainPage() {
             this.InitializeComponent();
 
-            (App.Current as App).MainFrame = this.MainFrame;
+            (App.Current as App).MainFrame = this.mainFrame;
 
             Action<Frame> SetBackButton = (frame) => {
                 SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
@@ -24,28 +24,43 @@ namespace NeuOldDriver {
                 AppViewBackButtonVisibility.Collapsed;
             };
 
-            SetBackButton(MainFrame);
-
-            NavMenuToggle.Click += (sender, e) => {
-                NavMenuContainer.IsPaneOpen = !NavMenuContainer.IsPaneOpen;
+            navMenuToggle.Click += (sender, e) => {
+                navMenuContainer.IsPaneOpen = !navMenuContainer.IsPaneOpen;
             };
 
-            NavMenu.SelectionChanged += (sender, e) => {
-                var page = ((sender as Selector).SelectedItem as NavButtonData).Page as Type;
-                if (MainFrame.SourcePageType != page)
-                    MainFrame.Navigate(page);
+            navMenu.SelectionChanged += (sender, e) => {
+                var page = (e.AddedItems[0] as PageButtonData).Page;
+                mainFrame.Navigate(page);
             };
 
-            MainFrame.Navigated += (sender, e) => {
+            mainFrame.Navigating += (sender, e) => {
+                if (e.SourcePageType == mainFrame.SourcePageType) 
+                    e.Cancel = true;
+            };
+
+            mainFrame.Navigated += (sender, e) => {
+                var pageInList = navMenu.Items.FirstOrDefault((item) => {
+                    var pageType = (item as PageButtonData).Page;
+                    return pageType == e.SourcePageType;
+                });
+
+                if (pageInList != null) {
+                    navMenu.SelectedItem = pageInList;
+                    mainFrame.BackStack.Clear();
+                }
+
                 SetBackButton(sender as Frame);
             };
 
             SystemNavigationManager.GetForCurrentView().BackRequested += (sender, e) => {
-                if (MainFrame.CanGoBack) {
+                if (mainFrame.CanGoBack) {
                     e.Handled = true;
-                    MainFrame.GoBack();
+                    mainFrame.GoBack();
                 }
             };
+
+            SetBackButton(mainFrame);
+            navMenu.SelectedIndex = 0;
         }
     }
 }

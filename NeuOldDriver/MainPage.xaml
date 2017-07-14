@@ -9,18 +9,70 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <SplitView x:Name="NavMenuContainer" Style="{StaticResource NavMenuContainer}"
+    <Page.Resources>
+        <x:Double x:Key="CompactPaneLength">50</x:Double>
+        <x:Double x:Key="OpenPaneLength">200</x:Double>
+
+        <Style TargetType="SplitView" x:Key="NavMenuContainer">
+            <Setter Property="DisplayMode" Value="CompactOverlay"></Setter>
+            <Setter Property="IsPaneOpen" Value="False"></Setter>
+            <Setter Property="CompactPaneLength" Value="{StaticResource CompactPaneLength}"></Setter>
+            <Setter Property="OpenPaneLength" Value="{StaticResource OpenPaneLength}"></Setter>
+        </Style>
+
+        <Style TargetType="FontIcon" x:Key="NavButtonIcon">
+            <Setter Property="Width" Value="{StaticResource CompactPaneLength}"></Setter>
+            <Setter Property="Height" Value="{StaticResource CompactPaneLength}"></Setter>
+            <Setter Property="FontFamily" Value="Segoe MDL2 Assets"></Setter>
+            <Setter Property="FontSize" Value="30"></Setter>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="NavButtonText">
+            <Setter Property="FontSize" Value="18"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        </Style>
+
+        <Style TargetType="ListView" x:Key="NavMenu">
+            <Setter Property="SelectionMode" Value="Single"></Setter>
+            <Setter Property="VerticalAlignment" Value="Stretch"></Setter>
+            <Setter Property="IsItemClickEnabled" Value="True"></Setter>
+            <Setter Property="ItemContainerStyle">
+                <Setter.Value>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Padding" Value="0,5,0,0"></Setter>
+                        <Setter Property="Margin" Value="0"></Setter>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="RadioButton" x:Key="NavButton">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <StackPanel Orientation="Horizontal" Width="{StaticResource OpenPaneLength}">
+                            <FontIcon Style="{StaticResource NavButtonIcon}"
+                                      Glyph="{TemplateBinding Tag}">
+                            </FontIcon>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+    
+    <SplitView x:Name="navMenuContainer" Style="{StaticResource NavMenuContainer}"
                Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <SplitView.Pane>
             <RelativePanel VerticalAlignment="Stretch">
-                <RadioButton x:Name="NavMenuToggle" Style="{StaticResource NavButton}"
+                <RadioButton x:Name="navMenuToggle" Style="{StaticResource NavButton}"
                              Tag="{StaticResource MenuIcon}"
                              RelativePanel.AlignTopWithPanel="True">
                 </RadioButton>
-                <ListBox x:Name="NavMenu" Style="{StaticResource NavMenu}"
-                         RelativePanel.Below="NavMenuToggle">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate x:DataType="models:NavButtonData">
+                <ListView x:Name="navMenu" Style="{StaticResource NavMenu}"
+                          RelativePanel.Below="navMenuToggle">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="models:PageButtonData">
                             <StackPanel Orientation="Horizontal" Width="{StaticResource OpenPaneLength}">
                                 <FontIcon Style="{StaticResource NavButtonIcon}"
                                           Glyph="{x:Bind Glyph}">
@@ -30,16 +82,18 @@
                                 </TextBlock>
                             </StackPanel>
                         </DataTemplate>
-                    </ListBox.ItemTemplate>
-                    <models:NavButtonData Glyph="{StaticResource OtherUserIcon}" Label="教务处" Page="pages:AAO"></models:NavButtonData>
-                    <models:NavButtonData Glyph="{StaticResource GlobeIcon}" Label="IP网关" Page="pages:IPGW"></models:NavButtonData>
-                    <models:NavButtonData Glyph="{StaticResource CommentIcon}" Label="吐槽" Page="pages:Discussion"></models:NavButtonData>
-                    <models:NavButtonData Glyph="{StaticResource BooksIcon}" Label="图书馆" Page="pages:Library"></models:NavButtonData>
-                </ListBox>
+                    </ListView.ItemTemplate>
+                    <models:PageButtonData Glyph="{StaticResource OtherUserIcon}" Label="教务处" Page="pages:AAO"></models:PageButtonData>
+                    <models:PageButtonData Glyph="{StaticResource GlobeIcon}" Label="IP网关" Page="pages:IPGW"></models:PageButtonData>
+                    <models:PageButtonData Glyph="{StaticResource CommentIcon}" Label="吐槽" Page="pages:Discussion"></models:PageButtonData>
+                    <models:PageButtonData Glyph="{StaticResource BooksIcon}" Label="图书馆" Page="pages:Library"></models:PageButtonData>
+                </ListView>
             </RelativePanel>
         </SplitView.Pane>
         <SplitView.Content>
-            <Frame x:Name="MainFrame"></Frame>
+            <Frame x:Name="mainFrame" 
+                   ScrollViewer.VerticalScrollBarVisibility="Auto"
+                   ScrollViewer.VerticalScrollMode="Auto"></Frame>
         </SplitView.Content>
     </SplitView>
 </Page>
