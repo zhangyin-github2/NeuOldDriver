@@ -23,5 +23,21 @@ namespace NeuOldDriver.Pages.AAOSubPage {
         public Recommend() {
             this.InitializeComponent();
         }
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var combo = (ComboBox)sender;
+            var item = (ComboBoxItem)combo.SelectedItem;
+        }
+
+        private void MyListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selectedItems = MyListBox.Items.Cast<ListBoxItem>()
+                .Where(p => p.IsSelected)
+                .Select(t => t.Content.ToString())
+                .ToArray();
+            ListBoxResultTextBlock.Text = string.Join(",", selectedItems);
+
+        }
+
     }
 }
