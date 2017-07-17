@@ -7,7 +7,8 @@
     xmlns:models="using:NeuOldDriver.Models"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    NavigationCacheMode="Enabled">
 
     <Page.Resources>
         
@@ -37,10 +38,9 @@
                           Glyph="{x:Bind Glyph}" Grid.Row="0">
                 </FontIcon>
 
-                <TextBlock Text="{x:Bind Label}" MaxWidth="80" FontSize="18" 
+                <TextBlock Text="{x:Bind Label}" Width="80" FontSize="18" Margin="0"
                            TextWrapping="Wrap" TextAlignment="Center"
-                           Foreground="Gray"
-                           Grid.Row="2">
+                           Foreground="Gray" Grid.Row="2">
                 </TextBlock>
             </Grid>
         </DataTemplate>
@@ -81,7 +81,7 @@
 
         <TextBlock Style="{StaticResource LabelStyle}" Text="选课助手"></TextBlock>
         <ListView Style="{StaticResource ButtonContainer}" ItemClick="PageNavigate">
-            <models:PageButtonData Glyph="{StaticResource BooksIcon}" Label="选课推荐"></models:PageButtonData>
+            <models:PageButtonData Glyph="{StaticResource BooksIcon}" Label="选课推荐" Page="pages:Recommend"></models:PageButtonData>
             <models:PageButtonData Glyph="{StaticResource BooksIcon}" Label="选课系统"></models:PageButtonData>
         </ListView>
     </StackPanel>
