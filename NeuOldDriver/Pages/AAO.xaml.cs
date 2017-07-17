@@ -28,5 +28,11 @@ namespace NeuOldDriver.Pages {
         {
 
         }
+
+        private void AppBarButton_Click_1(object sender, RoutedEventArgs e)
+        {
+            var frame = (App.Current as App).MainFrame;
+            frame.Navigate(typeof(AAOSubPage.Concentrate));
+        }
     }
 }

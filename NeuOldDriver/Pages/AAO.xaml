@@ -14,8 +14,8 @@
         <AppBarButton HorizontalAlignment="Left" Icon="AllApps" Label="培养计划" Margin="765,140,0,0" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="165,90,0,0" TextWrapping="Wrap" Text="教务处查询" VerticalAlignment="Top" RenderTransformOrigin="0.597,3.5" FontSize="22"/>
         <TextBlock HorizontalAlignment="Left" Margin="165,265,0,0" TextWrapping="Wrap" Text="学习助手" VerticalAlignment="Top" RenderTransformOrigin="-0.226,1" FontSize="22"/>
-        <AppBarButton HorizontalAlignment="Left" Icon="OutlineStar" Label="教室评分" Margin="365,305,0,0" VerticalAlignment="Top"/>
-        <AppBarButton HorizontalAlignment="Left" Label="学习自律助手" Margin="565,305,0,0" VerticalAlignment="Top">
+        <AppBarButton HorizontalAlignment="Left" Icon="OutlineStar" Label="教师考评" Margin="365,305,0,0" VerticalAlignment="Top"/>
+        <AppBarButton HorizontalAlignment="Left" Label="学习自律助手" Margin="565,305,0,0" VerticalAlignment="Top" Click="AppBarButton_Click_1">
             <AppBarButton.Icon>
                 <SymbolIcon/>
             </AppBarButton.Icon>
