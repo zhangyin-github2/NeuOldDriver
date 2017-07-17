@@ -25,10 +25,16 @@ namespace NeuOldDriver.Controls {
         }
 
         internal void OnFinished() {
+            var data = new LoginData() {
+                username = username.Text,
+                password = password.Password,
+                remember = remember.IsChecked ?? false
+            };
+
+
             EventRegistrationTokenTable<EventHandler<LoginData>>
             .GetOrCreateEventRegistrationTokenTable(ref m_tokenTable)
-            .InvocationList
-            ?.Invoke(this, new LoginData(username.Text, password.Password, remember.IsChecked ?? false));
+            .InvocationList?.Invoke(this, data);
         }
 
         public Login() {

@@ -102,7 +102,6 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\UserData.cs" />
     <Compile Include="Models\LoginData.cs" />
     <Compile Include="Models\PageButtonData.cs" />
     <Compile Include="Pages\AAO.xaml.cs">

@@ -12,9 +12,11 @@ namespace NeuOldDriver.Utils {
 
     public static class WebUtils {
 
+        private const int TIMEOUT = 5;
+
         public static HttpClient Client { get; } = new HttpClient();
 
-        private static HttpStringContent UTF8StringContent(string content) {
+        public static HttpStringContent UTF8StringContent(string content) {
             return new HttpStringContent(content,
                                          Windows.Storage.Streams.UnicodeEncoding.Utf8,
                                          Constants.ACCEPT_FORM);
@@ -38,12 +40,14 @@ namespace NeuOldDriver.Utils {
             return GetCookie(name, uri) != null;
         }
 
-        public static async Task<Ret> NetworkRequest<Ret>(HttpRequestMessage request, Func<HttpResponseMessage, Task<Ret>> responseHandler, int timeout = 5) {
+        private static async Task<Ret> NetworkRequest<Ret>(HttpRequestMessage request, Func<HttpResponseMessage, Task<Ret>> responseHandler, int timeout) {
             using (var cts = new CancellationTokenSource()) {
                 cts.CancelAfter(TimeSpan.FromSeconds(timeout));
                 using (var response = await Client.SendRequestAsync(request).AsTask(cts.Token)) {
                     try {
-                        return await responseHandler(response);
+                        if(response.IsSuccessStatusCode)
+                            return await responseHandler(response);
+                        return default(Ret);
                     } catch(TaskCanceledException) {
                         return default(Ret);
                     } 
@@ -51,17 +55,36 @@ namespace NeuOldDriver.Utils {
             }
         }
 
-        public static async Task<Ret> NetworkRequest<Ret>(string url, Func<HttpResponseMessage, Task<Ret>> responseHandler, HttpMethod method, int timeout = 5) {
-            using (var request = new HttpRequestMessage(method, new Uri(url)))
-                return await NetworkRequest(request, responseHandler, timeout);
-        }
-
-        public static async Task<Ret> NetworkRequest<Ret>(Action<HttpRequestMessage> requestModifier, Func<HttpResponseMessage, Task<Ret>> responseHandler, int timeout = 5) {
+        /// <summary>
+        /// Issue a network request
+        /// </summary>
+        /// <typeparam name="Ret">expected return type after response handled</typeparam>
+        /// <param name="requestModifier">modifications to be made to request</param>
+        /// <param name="responseHandler">response handler</param>
+        /// <param name="timeout">timeout of network request</param>
+        /// <returns>returned value of response handler</returns>
+        public static async Task<Ret> NetworkRequest<Ret>(Action<HttpRequestMessage> requestModifier, Func<HttpResponseMessage, Task<Ret>> responseHandler, int timeout = TIMEOUT) {
             using (var request = new HttpRequestMessage()) {
                 requestModifier(request);
                 return await NetworkRequest(request, responseHandler, timeout);
             }
         }
 
+        /// <summary>
+        /// Issue a network request
+        /// </summary>
+        /// <typeparam name="Ret">expected return type after response handled</typeparam>
+        /// <param name="url">request's target url</param>
+        /// <param name="content">request's content</param>
+        /// <param name="responseHandler">response handler</param>
+        /// <param name="method">request's method, GET, POST, etc.</param>
+        /// <param name="timeout">timeout of network request</param>
+        /// <returns>returned value of response handler</returns>
+        public static async Task<Ret> NetworkRequest<Ret>(string url, string content, Func<HttpResponseMessage, Task<Ret>> responseHandler, HttpMethod method, int timeout = TIMEOUT) {
+            using (var request = new HttpRequestMessage(method, new Uri(url))) {
+                request.Content = UTF8StringContent(content);
+                return await NetworkRequest(request, responseHandler, timeout);
+            }
+        }
     }
 }

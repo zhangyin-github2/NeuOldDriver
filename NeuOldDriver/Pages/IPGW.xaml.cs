@@ -1,18 +1,20 @@
 ﻿using Windows.UI.Xaml.Controls;
 
-using NeuOldDriver.Models;
-
 namespace NeuOldDriver.Pages {
 
     public sealed partial class IPGW : Page {
 
         public IPGW() {
             this.InitializeComponent();
-        }
 
-        private void DoLogin(object sender, LoginData e) {
-            //data.DoLogin(e);
-            
+            loginControl.Finished += async (sender, e) => {
+                if (await vm.Login(e))
+                    await vm.UpdateInfo();
+            };
+
+            logoutButton.Click += async (sender, e) => {
+                await vm.Logout();
+            };
         }
     }
 }

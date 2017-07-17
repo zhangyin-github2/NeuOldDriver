@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:NeuOldDriver.Pages"
     xmlns:models="using:NeuOldDriver.Models"
+    xmlns:vm="using:NeuOldDriver.ViewModels"
     xmlns:controls="using:NeuOldDriver.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -29,14 +30,14 @@
     </Page.Resources>
 
     <Page.DataContext>
-        <models:UserData x:Name="data"></models:UserData>
+        <vm:IPGWViewModel x:Name="vm"></vm:IPGWViewModel>
     </Page.DataContext>
 
     <SplitView DisplayMode="CompactInline" OpenPaneLength="300" CompactPaneLength="0" PanePlacement="Right"
-               IsPaneOpen="{Binding Path=NotLoggedIn, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+               IsPaneOpen="{x:Bind Path=vm.NotLogged, Mode=OneWay}"
                Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <SplitView.Pane>
-            <controls:Login x:Name="loginControl" Background="Gray" Finished="DoLogin"></controls:Login>
+            <controls:Login x:Name="loginControl" Background="Gray"></controls:Login>
         </SplitView.Pane>
         <SplitView.Content>
             <StackPanel Orientation="Vertical"
