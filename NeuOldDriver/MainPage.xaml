@@ -91,9 +91,9 @@
             </RelativePanel>
         </SplitView.Pane>
         <SplitView.Content>
-            <Frame x:Name="mainFrame" 
-                   ScrollViewer.VerticalScrollBarVisibility="Auto"
-                   ScrollViewer.VerticalScrollMode="Auto"></Frame>
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <Frame x:Name="mainFrame"></Frame>
+            </ScrollViewer>
         </SplitView.Content>
     </SplitView>
 </Page>

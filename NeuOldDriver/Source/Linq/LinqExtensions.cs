@@ -10,6 +10,13 @@ namespace NeuOldDriver.Linq {
                 action(item);
         }
 
+        public static void ForEach<T>(this IEnumerable<T> source, Func<T, bool> action) {
+            foreach(var item in source) {
+                if (!action(item))
+                    break;
+            }
+        }
+
         public static IEnumerable<T> Merge<T>(this IEnumerable<IEnumerable<T>> list) {
             foreach (var elem in list) {
                 foreach (var subelem in elem)

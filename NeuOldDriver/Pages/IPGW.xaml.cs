@@ -11,7 +11,7 @@ namespace NeuOldDriver.Pages {
         }
 
         private void DoLogin(object sender, LoginData e) {
-            data.DoLogin(e);
+            //data.DoLogin(e);
             
         }
     }
