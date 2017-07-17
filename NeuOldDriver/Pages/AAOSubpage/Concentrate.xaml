@@ -7,7 +7,21 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="ms-appx:///Assets/2c6d14f4fc96f18630460ebe5b94fb46.jpg"></ImageBrush>
+        </Grid.Background>
+        <Grid Width="400" Height="400">
+            <Ellipse Stroke="WhiteSmoke" StrokeThickness="1"/>
+            <Ellipse x:Name="MyEllipse" Stroke="White" StrokeThickness="1"  RenderTransformOrigin="0.5,0.5">
+                <Ellipse.RenderTransform>
+                    <RotateTransform Angle="-90"/>
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <TextBlock x:Name="txt" Foreground="White"  FontWeight="Light" FontSize="120" HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.6" FontFamily="Segoe UI Light" ></TextBlock>
+        </Grid>
+        <Button Content="开始专注" HorizontalAlignment="Left" Margin="576,626,0,0" VerticalAlignment="Top" Height="48" Width="127" RenderTransformOrigin="0.504,0.15" Click="Button_Click" FontFamily="Comic Sans MS" FontSize="24" Opacity="0.7" />
+
 
     </Grid>
 </Page>
