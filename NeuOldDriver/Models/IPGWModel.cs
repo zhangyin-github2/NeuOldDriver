@@ -1,6 +1,8 @@
 ﻿using System.Threading.Tasks;
 using System.ComponentModel;
 
+using NeuOldDriver.Utils;
+
 namespace NeuOldDriver.Models {
 
     public class IPGWModel : INotifyPropertyChanged {

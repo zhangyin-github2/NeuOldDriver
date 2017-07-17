@@ -5,7 +5,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace NeuOldDriver.Models {
 
-    public class NavButtonData : DependencyObject {
+    public class PageButtonData : DependencyObject {
         public string Glyph {
             get {
                 return (string)GetValue(GlyphProperty);
@@ -32,12 +32,12 @@ namespace NeuOldDriver.Models {
         }
 
         public static readonly DependencyProperty PageProperty =
-            DependencyProperty.RegisterAttached("Page", typeof(Page), typeof(NavButtonData), new PropertyMetadata(false));
+            DependencyProperty.RegisterAttached("Page", typeof(Page), typeof(PageButtonData), null);
 
         public static readonly DependencyProperty GlyphProperty =
-            DependencyProperty.RegisterAttached("Glyph", typeof(string), typeof(NavButtonData), new PropertyMetadata(false));
+            DependencyProperty.RegisterAttached("Glyph", typeof(string), typeof(PageButtonData), null);
 
         public static readonly DependencyProperty LabelProperty =
-            DependencyProperty.RegisterAttached("Label", typeof(string), typeof(NavButtonData), new PropertyMetadata(false));
+            DependencyProperty.RegisterAttached("Label", typeof(string), typeof(PageButtonData), null);
     };
 }
