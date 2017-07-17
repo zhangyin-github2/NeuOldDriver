@@ -5,7 +5,7 @@
     xmlns:local="using:NeuOldDriver.Pages.AAOSubPage"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d" Loaded="Page_Loaded">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
@@ -75,6 +75,59 @@
                 <TextBlock Grid.Row="4" Grid.Column="0" VerticalAlignment="Center">7/8</TextBlock>
                 <TextBlock Grid.Row="5" Grid.Column="0" VerticalAlignment="Center">9/10</TextBlock>
                 <TextBlock Grid.Row="6" Grid.Column="0" VerticalAlignment="Center">11/12</TextBlock>
+
+                <TextBlock Name="MON12" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Name="MON34" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Name="MON56" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Name="MON78" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Name="MON910" Grid.Row="5" Grid.Column="1" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Name="MON1112" Grid.Row="6" Grid.Column="1" VerticalAlignment="Center"></TextBlock>
+
+                <TextBlock Name="TUE12" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Name="TUE34" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Name="TUE56" Grid.Row="3" Grid.Column="2" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Name="TUE78" Grid.Row="4" Grid.Column="2" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Name="TUE910" Grid.Row="5" Grid.Column="2" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Name="TUE1112" Grid.Row="6" Grid.Column="2" VerticalAlignment="Center"></TextBlock>
+
+                <TextBlock Name="WED12" Grid.Row="1" Grid.Column="3" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Name="WED34" Grid.Row="2" Grid.Column="3" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Name="WED56" Grid.Row="3" Grid.Column="3" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Name="WED78" Grid.Row="4" Grid.Column="3" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Name="WED910" Grid.Row="5" Grid.Column="3" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Name="WED1112" Grid.Row="6" Grid.Column="3" VerticalAlignment="Center"></TextBlock>
+
+                <TextBlock Name="THU12" Grid.Row="1" Grid.Column="4" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Name="THU34" Grid.Row="2" Grid.Column="4" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Name="THU56" Grid.Row="3" Grid.Column="4" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Name="THU78" Grid.Row="4" Grid.Column="4" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Name="THU910" Grid.Row="5" Grid.Column="4" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Name="THU1112" Grid.Row="6" Grid.Column="4" VerticalAlignment="Center"></TextBlock>
+
+                <TextBlock Name="FRI12" Grid.Row="1" Grid.Column="5" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Name="FRI34" Grid.Row="2" Grid.Column="5" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Name="FRI56" Grid.Row="3" Grid.Column="5" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Name="FRI78" Grid.Row="4" Grid.Column="5" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Name="FRI910" Grid.Row="5" Grid.Column="5" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Name="FRI1112" Grid.Row="6" Grid.Column="5" VerticalAlignment="Center"></TextBlock>
+
+                <TextBlock Name="STA12" Grid.Row="1" Grid.Column="6" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Name="STA34" Grid.Row="2" Grid.Column="6" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Name="STA56" Grid.Row="3" Grid.Column="6" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Name="STA78" Grid.Row="4" Grid.Column="6" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Name="STA910" Grid.Row="5" Grid.Column="6" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Name="STA1112" Grid.Row="6" Grid.Column="6" VerticalAlignment="Center"></TextBlock>
+
+                <TextBlock Name="SUN12" Grid.Row="1" Grid.Column="7" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Name="SUN34" Grid.Row="2" Grid.Column="7" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Name="SUN56" Grid.Row="3" Grid.Column="7" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Name="SUN78" Grid.Row="4" Grid.Column="7" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Name="SUN910" Grid.Row="5" Grid.Column="7" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Name="SUN1112" Grid.Row="6" Grid.Column="7" VerticalAlignment="Center"></TextBlock>
+
+
+
+
             </Grid>
         </Grid>
     </Grid>
