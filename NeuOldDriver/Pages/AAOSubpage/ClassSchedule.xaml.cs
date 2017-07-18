@@ -525,36 +525,42 @@ namespace NeuOldDriver.Pages.AAOSubPage
   </body >
 </html > 
         ";
-            
-            //for (i = 2; i < 9; i++)
-            //{
-                List<string> datas = new List<string>();//定义1个列表用于保存结果
-
-                //使用预设编码读入HTML
-                HtmlDocument htmlDocument = new HtmlDocument();
-                htmlDocument.LoadHtml(strWebContent);//加载HTML字符串，如果是文件可以用htmlDocument.Load方法加载
-
-            string tr = "html/body/table/tr[2]/td/table/tr/td/table/tr/td/div/table/tr[4]/td[2]";
-
-                HtmlNode htmlNode = htmlDocument.DocumentNode.SelectSingleNode(tr);
-                //html/body/table/tr[2]/td/table/tr/td/table/tr/td/div/table/tr[4]/td[2]
-                HtmlNodeCollection collection = htmlNode.ChildNodes;//跟Xpath一样，轻松的定位到相应节点下
-
-
-                foreach (HtmlNode node in collection)
+            int i = 2, j = 4;
+            for (; j < 10; j++)
+            {
+                for (i = 2; i < 9; i++)
                 {
-                    //去除\r\n以及空格，获取到相应td里面的数据
-                    string[] line = node.InnerText.Split(new char[] { '\r', '\n', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                    List<string> datas = new List<string>();//定义1个列表用于保存结果
 
-                    //如果符合条件，就加载到对象列表里面
-                    if (line.Length == 1)
-                        datas.Add(line[0]);
+                    //使用预设编码读入HTML
+                    HtmlDocument htmlDocument = new HtmlDocument();
+                    htmlDocument.LoadHtml(strWebContent);//加载HTML字符串，如果是文件可以用htmlDocument.Load方法加载
+
+                    string str1 = "html/body/table/tr[2]/td/table/tr/td/table/tr/td/div/table/tr[";
+                    string str2 = "]/td[";
+                    string str3 = "]";
+                    string str = str1 + j + str2 + i + str3;
+
+                    HtmlNode htmlNode = htmlDocument.DocumentNode.SelectSingleNode(str);
+                    //html/body/table/tr[2]/td/table/tr/td/table/tr/td/div/table/tr[4]/td[2]
+                    HtmlNodeCollection collection = htmlNode.ChildNodes;//跟Xpath一样，轻松的定位到相应节点下
+
+
+                    foreach (HtmlNode node in collection)
+                    {
+                        //去除\r\n以及空格，获取到相应td里面的数据
+                        string[] line = node.InnerText.Split(new char[] { '\r', '\n', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+                        //如果符合条件，就加载到对象列表里面
+                        if (line.Length == 1)
+                            datas.Add(line[0]);
+                    }
+
+                    string strTemp1 = string.Join("\n", datas.ToArray());
+                    textBlocks[j - 4][i - 2].Text = strTemp1;
+
                 }
-
-                string strTemp1 = string.Join("\n", datas.ToArray());
-                textBlocks[0][0].Text = strTemp1;
-
-           // }
+            }
 
         }
     }
