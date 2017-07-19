@@ -136,7 +136,7 @@
     <Compile Include="Source\Global\Constants.cs" />
     <Compile Include="Source\Linq\LinqExtensions.cs" />
     <Compile Include="Source\Utils\CommonUtils.cs" />
-    <Compile Include="Source\Utils\Timer.cs" />
+    <Compile Include="Source\Utils\CountdownTimer.cs" />
     <Compile Include="Source\Utils\UWPUtils.cs" />
     <Compile Include="Source\Utils\WebUtils.cs" />
     <Compile Include="ViewModels\IPGWViewModel.cs" />
