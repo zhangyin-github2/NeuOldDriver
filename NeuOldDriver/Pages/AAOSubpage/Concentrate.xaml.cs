@@ -1,19 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.System.Threading;
-using Windows.UI.Core;
+
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
+using Windows.UI.Xaml.Controls;
+
+using NeuOldDriver.Utils;
 
 // “空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234238 上有介绍
 
@@ -23,58 +14,40 @@ namespace NeuOldDriver.Pages.AAOSubPage {
     /// </summary>
     public sealed partial class Concentrate : Page {
 
-        private ThreadPoolTimer timer = null;
+        private const int countdown = 1800;
 
-        internal enum State {
-            Stopped, Running, Paused
-        };
-
-        private State state = State.Stopped;
-
-        private int seconds = 0;
+        private CountdownTimer timer = new CountdownTimer(countdown);
 
         public Concentrate() {
             this.InitializeComponent();
+
+            timer.Tick += (sender, seconds) => {
+                double temp = (385 * Math.PI) * seconds / 15;
+                MyEllipse.StrokeDashArray = new DoubleCollection() { temp, 1000 };
+                txt.Text = String.Format("{0:00}:{1:00}", seconds / 60, seconds % 60);
+            };
+
+            timer.Done += (sender, e) => {
+                timer.Countdown = countdown;
+                concentrateButton.Content = "开始专注";
+            };
         }
 
-        private void Button_Click(object _sender, RoutedEventArgs _e)
-        {
-            var button = _sender as Button;
-            if (timer != null)
-                timer.Cancel();
-
-            const int count = 1800;
-
-            switch (state)
-            {
-                case State.Running:
+        private void StateTransit(object sender, RoutedEventArgs e) {
+            var button = sender as Button;
+            switch(timer.State) {
+                case TimerState.Running:
+                    button.Content = "继续";
+                    timer.Pause();
+                    break;
+                case TimerState.Paused:
                     button.Content = "暂停";
-                    state = State.Paused;
-                    return;
-                case State.Paused:
-                    button.Content = "继续专注";
-                    state = State.Running;
-                    return;
-                case State.Stopped:
+                    timer.Resume();
+                    break;
+                case TimerState.Stopped:
                     button.Content = "暂停";
-                    state = State.Running;
-                    timer = ThreadPoolTimer.CreatePeriodicTimer(async (source) =>
-                    {
-                        await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-                        {
-                            seconds += 1;
-                            double temp = (385 * Math.PI) * seconds / count / 15;
-                            MyEllipse.StrokeDashArray = new DoubleCollection() { temp, 1000 };
-                            txt.Text = String.Format("{0:00}:{1:00}", (count - seconds) / 60, (count - seconds) % 60);
-                            if (seconds == count)
-                            {
-                                timer.Cancel();
-                                seconds = 0;
-                                timer = null;
-                            }
-                        });
-                    }, TimeSpan.FromSeconds(1));
-                    return;
+                    timer.Start();
+                    break;
             }
         }
 
