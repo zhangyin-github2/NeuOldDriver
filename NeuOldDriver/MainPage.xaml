@@ -46,6 +46,17 @@
             </Setter>
         </Style>
 
+        <DataTemplate x:DataType="models:PageButtonData" x:Key="ButtonTemplate">
+            <StackPanel Orientation="Horizontal" Width="{StaticResource OpenPaneLength}">
+                <FontIcon Style="{StaticResource NavButtonIcon}"
+                                          Glyph="{x:Bind Glyph}">
+                </FontIcon>
+                <TextBlock Style="{StaticResource NavButtonText}"
+                                           Text="{x:Bind Label}">
+                </TextBlock>
+            </StackPanel>
+        </DataTemplate>
+
         <Style TargetType="RadioButton" x:Key="NavButton">
             <Setter Property="Template">
                 <Setter.Value>
@@ -70,19 +81,7 @@
                              RelativePanel.AlignTopWithPanel="True">
                 </RadioButton>
                 <ListView x:Name="navMenu" Style="{StaticResource NavMenu}"
-                          RelativePanel.Below="navMenuToggle">
-                    <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="models:PageButtonData">
-                            <StackPanel Orientation="Horizontal" Width="{StaticResource OpenPaneLength}">
-                                <FontIcon Style="{StaticResource NavButtonIcon}"
-                                          Glyph="{x:Bind Glyph}">
-                                </FontIcon>
-                                <TextBlock Style="{StaticResource NavButtonText}"
-                                           Text="{x:Bind Label}">
-                                </TextBlock>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
+                          RelativePanel.Below="navMenuToggle" ItemTemplate="{StaticResource ButtonTemplate}">
                     <models:PageButtonData Glyph="{StaticResource OtherUserIcon}" Label="教务处" Page="pages:AAO"></models:PageButtonData>
                     <models:PageButtonData Glyph="{StaticResource GlobeIcon}" Label="IP网关" Page="pages:IPGW"></models:PageButtonData>
                     <models:PageButtonData Glyph="{StaticResource CommentIcon}" Label="吐槽" Page="pages:Discussion"></models:PageButtonData>

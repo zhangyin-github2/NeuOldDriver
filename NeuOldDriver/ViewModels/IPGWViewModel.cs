@@ -64,20 +64,15 @@ namespace NeuOldDriver.ViewModels {
               .Append("&username=").Append(WebUtility.UrlEncode(username))
               .Append("&password=").Append(WebUtility.UrlEncode(password));
 
-            var success = await WebUtils.NetworkRequest((request) => {
-                request.Method = HttpMethod.Post;
-                request.RequestUri = new Uri(Constants.IPGW_AUTH);
-                request.Content = WebUtils.UTF8StringContent(sb.ToString());
-                request.Headers.Referer = new Uri(Constants.IPGW_LOGIN);
+            var success = await WebUtils.NetworkRequest(Constants.IPGW_LOGIN, sb.ToString(), (request) => {
+                request.Headers.Add("Referer", Constants.IPGW_AUTH);
                 request.Headers.Add("Accept", "text/html, application/xhtml+xml, image/jxr, */*");
             }, async (response) => {
-                // response handler must be async
                 return await Task.Run(() => {
                     string ret;
-                    response.Headers.TryGetValue("Set-Cookie", out ret);
-                    return ret.Contains("login");
+                    return response.Headers.TryGetValue("Set-Cookie", out ret) && ret.Contains("login");
                 });
-            });
+            }, HttpMethod.Post);
 
             if (success)
                 NotLogged = false;
@@ -91,15 +86,12 @@ namespace NeuOldDriver.ViewModels {
               .Append("&username=").Append(WebUtility.UrlEncode(username))
               .Append("&password=").Append(WebUtility.UrlEncode(password));
 
-            var success = await WebUtils.NetworkRequest((request) => {
-                request.Method = HttpMethod.Post;
-                request.RequestUri = new Uri(Constants.IPGW_AUTH);
-                request.Headers.Referer = new Uri(Constants.IPGW_LOGIN);
-                request.Content = WebUtils.UTF8StringContent(sb.ToString());
+            var success = await WebUtils.NetworkRequest(Constants.IPGW_AUTH, sb.ToString(), (request) => {
+                request.Headers.Add("Referer", Constants.IPGW_AUTH);
                 request.Headers.Add("Accept", "*/*");
             }, async (response) => {
                 return (await response.Content.ReadAsStringAsync()).Contains("网络已断开");
-            });
+            }, HttpMethod.Post);
 
             if (success) {
                 NotLogged = true;
@@ -112,20 +104,19 @@ namespace NeuOldDriver.ViewModels {
         }
 
         public async Task<bool> UpdateInfo() {
+            // mysterious paramter required by API
             var rand = new Random(DateTime.Now.Millisecond).NextDouble();
             int k = Convert.ToInt32(Math.Floor(rand * (100000 + 1)));
 
-            var content = (await WebUtils.NetworkRequest((request) => {
-                request.Method = HttpMethod.Post;
-                request.RequestUri = new Uri(String.Format("{0}?k={1}", Constants.IPGW_AUTH, k));
+            var content = (await WebUtils.NetworkRequest(String.Format("{0}?k={1}", Constants.IPGW_AUTH, k),
+                            String.Format("action=get_online_info&key={0}", k), (request) => {
                 request.Headers.Referer = new Uri(Constants.IPGW_LOGIN);
-                request.Content = WebUtils.UTF8StringContent(String.Format("action=get_online_info&key={0}", k));
                 request.Headers.Add("Accept", "*/*");
             }, async (response) => {
                 return await response.Content.ReadAsStringAsync();
-            }))?.Split(',');
+            }, HttpMethod.Post))?.Split(',');
 
-            if (content == null)
+            if (content == null || content.Length == 0)
                 return false;
 
             Used = content[0];

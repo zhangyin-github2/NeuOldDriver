@@ -80,8 +80,9 @@ namespace NeuOldDriver.Utils {
         /// <param name="method">request's method, GET, POST, etc.</param>
         /// <param name="timeout">timeout of network request</param>
         /// <returns>returned value of response handler</returns>
-        public static async Task<Ret> NetworkRequest<Ret>(string url, string content, Func<HttpResponseMessage, Task<Ret>> responseHandler, HttpMethod method, int timeout = TIMEOUT) {
+        public static async Task<Ret> NetworkRequest<Ret>(string url, string content, Action<HttpRequestMessage> requestModifier, Func<HttpResponseMessage, Task<Ret>> responseHandler, HttpMethod method, int timeout = TIMEOUT) {
             using (var request = new HttpRequestMessage(method, new Uri(url))) {
+                requestModifier(request);
                 request.Content = UTF8StringContent(content);
                 return await NetworkRequest(request, responseHandler, timeout);
             }

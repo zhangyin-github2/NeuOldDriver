@@ -1,5 +1,4 @@
 ﻿using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
 
 using NeuOldDriver.Models;
 
@@ -18,9 +17,6 @@ namespace NeuOldDriver.Pages {
         private void PageNavigate(object sender, ItemClickEventArgs e) {
             var frame = (App.Current as App).MainFrame;
             var page = (e.ClickedItem as PageButtonData).Page;
-
-            // disable selection, we do not want selected effect
-            (sender as Selector).SelectedIndex = -1;
 
             frame.Navigate(page);
         }

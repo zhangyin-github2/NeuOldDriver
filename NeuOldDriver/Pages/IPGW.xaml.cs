@@ -1,4 +1,5 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 namespace NeuOldDriver.Pages {
 
@@ -8,12 +9,15 @@ namespace NeuOldDriver.Pages {
             this.InitializeComponent();
 
             loginControl.Finished += async (sender, e) => {
-                if (await vm.Login(e))
+                if (await vm.Login(e)) {
                     await vm.UpdateInfo();
+                    backdrop.Visibility = Visibility.Collapsed;
+                }
             };
 
             logoutButton.Click += async (sender, e) => {
-                await vm.Logout();
+                if (await vm.Logout())
+                    backdrop.Visibility = Visibility.Visible;
             };
         }
     }

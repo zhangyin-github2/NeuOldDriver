@@ -96,6 +96,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\BackDrop.cs" />
     <Compile Include="Controls\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
@@ -135,6 +136,7 @@
     <Compile Include="Source\Global\Constants.cs" />
     <Compile Include="Source\Linq\LinqExtensions.cs" />
     <Compile Include="Source\Utils\CommonUtils.cs" />
+    <Compile Include="Source\Utils\UWPUtils.cs" />
     <Compile Include="Source\Utils\WebUtils.cs" />
     <Compile Include="ViewModels\IPGWViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
@@ -147,7 +149,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\2c6d14f4fc96f18630460ebe5b94fb46.jpg" />
-    <Content Include="Properties\Default.rd.xml" />
+    <Content Include="Properties\Default.rd.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
     <Content Include="Assets\Square150x150Logo.scale-200.png" />
