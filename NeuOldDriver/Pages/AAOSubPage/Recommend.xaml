@@ -7,22 +7,21 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
-            <RelativePanel>
-                <Button RelativePanel.AlignRightWithPanel="True" FontSize="18" Name="SearchButton" Content="搜索" Margin="0,15,5,0" />
-                <TextBox Name="SearchTextBox"   RelativePanel.LeftOf="SearchButton" Width="100" Height="6" Margin="0,18,10,0"/>
-                <TextBlock Text="查询:" FontSize="18" RelativePanel.LeftOf="SearchTextBox" RelativePanel.AlignVerticalCenterWithPanel="True" Margin="0,0,5,0"/>
-                <TextBlock Text="选课推荐" FontSize="48" FontWeight="Bold" Margin="5,0,0,0"/>
-            </RelativePanel>
-        </Grid>
-        <Grid Grid.Row="1">
+    <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <RelativePanel>
+            <Button x:Name="SearchButton" FontSize="18" Content="搜索" Margin="0,15,5,0"
+                    RelativePanel.AlignRightWithPanel="True">
+            </Button>
+            <TextBox x:Name="SearchTextBox" Width="100" Height="6" Margin="0,18,10,0"
+                     RelativePanel.LeftOf="SearchButton">
+            </TextBox>
+            <TextBlock Text="查询:" FontSize="18" Margin="0,0,5,0"
+                       RelativePanel.LeftOf="SearchTextBox" RelativePanel.AlignVerticalCenterWithPanel="True">
+            </TextBlock>
+            <TextBlock Text="选课推荐" FontSize="48" FontWeight="Bold" Margin="5,0,0,0"></TextBlock>
+        </RelativePanel>
 
+        <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="90"/>
                 <ColumnDefinition Width="240"/>
@@ -33,27 +32,23 @@
                 <ColumnDefinition Width="90"/>
                 <ColumnDefinition Width="240"/>
             </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-
-            </Grid.RowDefinitions>
-
-
-            <TextBlock Grid.Row="0" Grid.Column="0" Text="课程分类" FontSize="19" VerticalAlignment="Center" Margin="10,0,0,0"/>
-            <StackPanel Grid.Column="1" Grid.Row="0" Margin="20,10,0,10" Orientation="Horizontal">
+            
+            <TextBlock Grid.Column="0" Text="课程分类" FontSize="19" VerticalAlignment="Center" Margin="10,0,0,0"/>
+            <StackPanel Grid.Column="1" Margin="20,10,0,10" Orientation="Horizontal">
                 <ComboBox SelectionChanged="ComboBox_SelectionChanged">
                     <ComboBoxItem>人文类选修</ComboBoxItem>
                     <ComboBoxItem>专题选修</ComboBoxItem>
                     <ComboBoxItem>新知识</ComboBoxItem>
                     <ComboBoxItem>体育课</ComboBoxItem>
                     <ComboBoxItem IsSelected="True">-请选择课程所属分类-</ComboBoxItem>
-
                 </ComboBox>
                 <TextBlock Name="ComboBoxResultTextBlock"/>
             </StackPanel>
-            <TextBlock Grid.Row="0" Grid.Column="2" Text="课程学期" FontSize="19" VerticalAlignment="Center" Margin="10,0,0,0"/>
-            <StackPanel Grid.Row="0" Grid.Column="3" Margin="20,10,0,10" Orientation="Horizontal">
+            
+            <TextBlock  Grid.Column="2" Text="课程学期" FontSize="19" VerticalAlignment="Center" Margin="10,0,0,0"/>
+            <StackPanel Grid.Column="3" Margin="20,10,0,10" Orientation="Horizontal">
                 <ComboBox SelectionChanged="ComboBox_SelectionChanged">
+                    <ComboBoxItem IsSelected="True">-请选择课程所属学期-</ComboBoxItem>
                     <ComboBoxItem>一年级第一学期</ComboBoxItem>
                     <ComboBoxItem>一年级第二学期</ComboBoxItem>
                     <ComboBoxItem>二年级第一学期</ComboBoxItem>
@@ -61,35 +56,33 @@
                     <ComboBoxItem>三年级第一学期</ComboBoxItem>
                     <ComboBoxItem>三年级第二学期</ComboBoxItem>
                     <ComboBoxItem>四年级第一学期</ComboBoxItem>
-                    <ComboBoxItem IsSelected="True">-请选择课程所属学期-</ComboBoxItem>
                 </ComboBox>
                 <TextBlock Name="ComboBoxResultTextBlock2"/>
             </StackPanel>
             <TextBlock Grid.Row="0" Grid.Column="4" Text="课程学期" FontSize="19" VerticalAlignment="Center" Margin="10,0,0,0"/>
             <StackPanel Grid.Row="0" Grid.Column="5" Margin="20,10,0,10" Orientation="Horizontal">
                 <ComboBox SelectionChanged="ComboBox_SelectionChanged">
+                    <ComboBoxItem IsSelected="True">-请选择课程排序方式-</ComboBoxItem>
                     <ComboBoxItem>课程评分从高到低</ComboBoxItem>
                     <ComboBoxItem>课程评分从低到高</ComboBoxItem>
-
-                    <ComboBoxItem IsSelected="True">-请选择课程排序方式-</ComboBoxItem>
                 </ComboBox>
                 <TextBlock Name="ComboBoxResultTextBlock3"/>
             </StackPanel>
             <TextBlock Grid.Row="0" Grid.Column="6" Text="所属专业" FontSize="19" VerticalAlignment="Center" Margin="10,0,0,0"/>
             <StackPanel Grid.Column="7" Grid.Row="0" Margin="20,10,0,10" Orientation="Horizontal">
                 <ComboBox SelectionChanged="ComboBox_SelectionChanged">
+                    <ComboBoxItem IsSelected="True">-请选择课程所属专业-</ComboBoxItem>
                     <ComboBoxItem>计算机科学与技术</ComboBoxItem>
                     <ComboBoxItem>电子信息工程</ComboBoxItem>
                     <ComboBoxItem>软件工程</ComboBoxItem>
                     <ComboBoxItem>自动化</ComboBoxItem>
                     <ComboBoxItem>物联网</ComboBoxItem>
                     <ComboBoxItem>机械工程</ComboBoxItem>
-                    <ComboBoxItem IsSelected="True">-请选择课程所属专业-</ComboBoxItem>
-
                 </ComboBox>
                 <TextBlock Name="ComboBoxResultTextBlock4"/>
             </StackPanel>
         </Grid>
+
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="400"/>
@@ -119,10 +112,7 @@
 
 
         </Grid>
-
-
-
-    </Grid>
+    </StackPanel>
 
 
 </Page>

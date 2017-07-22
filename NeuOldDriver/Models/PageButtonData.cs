@@ -32,12 +32,12 @@ namespace NeuOldDriver.Models {
         }
 
         public static readonly DependencyProperty PageProperty =
-            DependencyProperty.RegisterAttached("Page", typeof(Page), typeof(PageButtonData), null);
+            DependencyProperty.RegisterAttached(nameof(Page), typeof(Page), typeof(PageButtonData), null);
 
         public static readonly DependencyProperty GlyphProperty =
-            DependencyProperty.RegisterAttached("Glyph", typeof(string), typeof(PageButtonData), null);
+            DependencyProperty.RegisterAttached(nameof(Glyph), typeof(string), typeof(PageButtonData), null);
 
         public static readonly DependencyProperty LabelProperty =
-            DependencyProperty.RegisterAttached("Label", typeof(string), typeof(PageButtonData), null);
+            DependencyProperty.RegisterAttached(nameof(Page), typeof(string), typeof(PageButtonData), null);
     };
 }

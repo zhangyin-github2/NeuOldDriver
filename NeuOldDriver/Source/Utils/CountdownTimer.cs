@@ -43,7 +43,7 @@ namespace NeuOldDriver.Utils {
         /// </summary>
         /// <param name="seconds">countdown from seconds</param>
         /// <param name="interval">count interval (in seconds)</param>
-        public CountdownTimer(uint seconds, uint interval = 1) {
+        public CountdownTimer(uint seconds, int interval = 1) {
             m_seconds = seconds;
             m_countdown = seconds;
             m_state = TimerState.Stopped;
@@ -52,7 +52,6 @@ namespace NeuOldDriver.Utils {
                 Interval = TimeSpan.FromSeconds(interval)
             };
             m_timer.Tick += (sender, e) => {
-                System.Diagnostics.Debug.WriteLine(m_seconds);
                 if (--m_seconds == 0) {
                     m_timer.Stop();
                     m_state = TimerState.Stopped;

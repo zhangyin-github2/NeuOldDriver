@@ -6,7 +6,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace NeuOldDriver.Utils {
 
-    public static class UWPUtils {
+    public static class Dialogs {
 
         public static async Task Popup(string title, string content) {
             var grid = new Grid();

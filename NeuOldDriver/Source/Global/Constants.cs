@@ -11,5 +11,7 @@
         public const string IPGW_LOGIN = IPGW_BASE + "/srun_portal_pc.php?ac_id=1&";
         public const string IPGW_AUTH = IPGW_BASE + "/include/auth_action.php";
 
+
+        public const string SETTINGS = "config.json";
     }
 }

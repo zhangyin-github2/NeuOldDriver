@@ -100,9 +100,12 @@
     <Compile Include="Controls\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\BoolToVisibility.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\AAOModel.cs" />
+    <Compile Include="Models\IPGWModel.cs" />
     <Compile Include="Models\LoginData.cs" />
     <Compile Include="Models\PageButtonData.cs" />
     <Compile Include="Pages\AAO.xaml.cs">
@@ -133,12 +136,17 @@
       <DependentUpon>Library.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Source\API\AAO.cs" />
+    <Compile Include="Source\API\IPGW.cs" />
     <Compile Include="Source\Global\Constants.cs" />
+    <Compile Include="Source\Global\Globals.cs" />
     <Compile Include="Source\Linq\LinqExtensions.cs" />
     <Compile Include="Source\Utils\CommonUtils.cs" />
     <Compile Include="Source\Utils\CountdownTimer.cs" />
-    <Compile Include="Source\Utils\UWPUtils.cs" />
+    <Compile Include="Source\Utils\Dialogs.cs" />
+    <Compile Include="Source\Utils\Settings.cs" />
     <Compile Include="Source\Utils\WebUtils.cs" />
+    <Compile Include="ViewModels\AAOViewModel.cs" />
     <Compile Include="ViewModels\IPGWViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
   </ItemGroup>
