@@ -537,6 +537,7 @@ namespace NeuOldDriver.Pages.AAOSubPage
                     HtmlDocument htmlDocument = new HtmlDocument();
                     htmlDocument.LoadHtml(strWebContent);//加载HTML字符串，如果是文件可以用htmlDocument.Load方法加载
 
+                    //切割路径字符串，加入循环变量，实现课表遍历
                     string str1 = "html/body/table/tr[2]/td/table/tr/td/table/tr/td/div/table/tr[";
                     string str2 = "]/td[";
                     string str3 = "]";
@@ -555,14 +556,241 @@ namespace NeuOldDriver.Pages.AAOSubPage
                         //如果符合条件，就加载到对象列表里面
                         if (line.Length == 1)
                             datas.Add(line[0]);
+
+                        
+                        if (line.Length == 2)
+                            datas.Add(line[0] + line[1]);
+
+                        if (line.Length == 3)
+                            datas.Add(line[0] + line[1] + line[2]);
+
+                        if (line.Length == 4)
+                            datas.Add(line[0] + line[1] + line[2] + line[3]);
+
+                        if (line.Length == 5)
+                            datas.Add(line[0] + line[1] + line[2] + line[3] + line[4]);
+                        
                     }
 
-                    string strTemp1 = string.Join("\n", datas.ToArray());
-                    textBlocks[j - 4][i - 2].Text = strTemp1;
+                    string strText = string.Join("\n", datas.ToArray());
+                    textBlocks[j - 4][i - 2].Text = strText;
+
+                    /*string strText = null;
+                    if (datas[2] != null)
+                        strText = datas[2];
+                      textBlocks[j - 4][i - 2].Text = strText;*/
 
                 }
             }
 
+        }
+    }
+
+    public class FSMD
+    {
+
+        public int state = 0;
+        public int stop = 0;
+        public int[] weekMark = new int[20];
+        int weekNum = 0;
+        int loopA = 0;
+        int loopMark = 0;
+
+        public void FSMDistpatch(string str, int charNo)
+        {
+            switch (state)
+            {
+                case 0:
+                    //状态转换
+                    if (char.IsNumber(str, charNo))
+                        state = 1;
+                    //状态转换后功能语句
+                    GetFirstNum(str, charNo);
+                    break;
+
+                case 1:
+                    //状态转换
+                    if (char.IsNumber(str, charNo))
+                        state = 2;
+                    else if (str[charNo] == '-')
+                        state = 3;
+                    else if (str[charNo] == '.')
+                    {
+                        stop = 0;
+                        state = 6;
+                    }
+                    else if (str[charNo] == '周')
+                    {
+                        stop = 1;
+                        state = 6;
+                    }
+
+                    //状态转换后功能语句
+                    switch (state)
+                    {
+                        case 2:
+                            GetSecondNum(str, charNo);
+                            break;
+
+                        case 3:
+                            GetHyphen(str, charNo);
+                            break;
+
+                        case 6:
+                            WriteWeekmark(str, charNo);
+                            break;
+
+                        default:
+                            break;
+
+                    }
+
+                    break;
+
+                case 2:
+                    //状态转换
+                    if (str[charNo] == '-')
+                        state = 3;
+                    else if (str[charNo] == '.')
+                    {
+                        stop = 0;
+                        state = 6;
+                    }
+                    else if (str[charNo] == '周')
+                    {
+                        stop = 1;
+                        state = 6;
+                    }
+
+                    //状态转换后功能语句
+                    switch (state)
+                    {
+                        case 3:
+                            GetHyphen(str, charNo);
+                            break;
+
+                        case 6:
+                            WriteWeekmark(str, charNo);
+                            break;
+
+                        default:
+                            break;
+                    }
+
+                    break;
+
+                case 3:
+                    //状态转换
+                    if (char.IsNumber(str, charNo))
+                        state = 4;
+
+                    //状态转换后功能语句
+                    switch (state)
+                    {
+                        case 4:
+                            GetFirstNum(str, charNo);
+                            break;
+
+                        default:
+                            break;
+                    }
+
+                    break;
+
+                case 4:
+                    //状态转换
+                    if (char.IsNumber(str, charNo))
+                        state = 5;
+                    else if (str[charNo] == '.')
+                    {
+                        stop = 0;
+                        state = 6;
+                    }
+                    else if (str[charNo] == '周')
+                    {
+                        stop = 1;
+                        state = 6;
+                    }
+                    //状态转换后功能语句
+                    switch (state)
+                    {
+                        case 5:
+                            GetSecondNum(str, charNo);
+                            break;
+
+                        case 6:
+                            WriteWeekmark(str, charNo);
+                            break;
+
+                        default:
+                            break;
+                    }
+
+                    break;
+
+                case 5:
+                    //状态转换
+                    if (str[charNo] == '.')
+                    {
+                        stop = 0;
+                        state = 6;
+                    }
+                    else if (str[charNo] == '周')
+                    {
+                        stop = 1;
+                        state = 6;
+                    }
+                    //状态转换后功能语句
+                    WriteWeekmark(str, charNo);
+                    break;
+
+                case 6:
+                    //状态转换
+                    if (char.IsNumber(str, charNo))
+                        state = 1;
+                    //状态转换后功能语句
+                    GetFirstNum(str, charNo);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        void GetFirstNum(string str, int charNo)
+        {
+            weekNum = int.Parse(str[charNo].ToString());
+        }
+
+        void GetSecondNum(string str, int charNo)
+        {
+            weekNum = weekNum * 10 + int.Parse(str[charNo].ToString());
+        }
+
+        void GetHyphen(string str, int charNo)
+        {
+            loopA = weekNum;
+            weekNum = 0;
+        }
+
+        void WriteWeekmark(string str, int charNo)
+        {
+            int loopNum = 0;
+            if (loopA != 0)
+            {
+                for (loopNum = loopA; loopNum <= weekNum; loopNum++)
+                {
+                    weekMark[loopNum - 1] = 1;
+                }
+                loopA = 0;
+                weekNum = 0;
+            }
+            else
+            {
+                weekMark[weekNum - 1] = 1;
+                loopA = 0;
+                weekNum = 0;
+            }
         }
     }
 }
