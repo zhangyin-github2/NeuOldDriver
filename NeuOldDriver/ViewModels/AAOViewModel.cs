@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 using NeuOldDriver.API;
 using NeuOldDriver.Models;
@@ -32,10 +33,13 @@ namespace NeuOldDriver.ViewModels {
             Source = await AAO.CaptchaImage();
         }
 
-        public async Task<bool> Login(string username, string password, int captcha) {
+        public async Task<string> Login(string username, string password, string captcha) {
             model.username = username;
             model.password = password;
-            return await AAO.Login(username, password, captcha);
+            var reason = await AAO.Login(username, password, captcha);
+            if (String.IsNullOrEmpty(reason))
+                NotLogged = false;
+            return reason;
         }
 
         public async Task<bool> Logout(string username, string password) {

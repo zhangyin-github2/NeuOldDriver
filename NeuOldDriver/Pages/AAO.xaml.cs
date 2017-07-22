@@ -1,5 +1,9 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using System;
+using System.Threading.Tasks;
 
+using Windows.UI.Xaml.Controls;
+
+using NeuOldDriver.Utils;
 using NeuOldDriver.Models;
 
 // “空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234238 上有介绍
@@ -12,6 +16,22 @@ namespace NeuOldDriver.Pages {
 
         public AAO() {
             this.InitializeComponent();
+
+            this.Loaded += async (sender, e) => {
+                login.ImageSource = await API.AAO.CaptchaImage();
+            };
+
+            login.Refresh += async (sender, e) => {
+                return await API.AAO.CaptchaImage();
+            };
+
+            login.Submit += async (sender, e) => {
+                var reason = await vm.Login(login.UserName, login.Password, login.Captcha);
+                if (!String.IsNullOrEmpty(reason))
+                    await Dialogs.Popup("错误", reason);
+            };
+
+            
         }
 
         private void PageNavigate(object sender, ItemClickEventArgs e) {

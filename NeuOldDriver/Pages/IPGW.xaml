@@ -34,9 +34,8 @@
         <vm:IPGWViewModel x:Name="vm"></vm:IPGWViewModel>
     </Page.DataContext>
 
-    <SplitView DisplayMode="CompactInline" OpenPaneLength="300" CompactPaneLength="0" PanePlacement="Right"
-               IsPaneOpen="{x:Bind Path=vm.NotLogged, Mode=OneWay}"
-               Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <SplitView Style="{StaticResource LoginSplitView}"
+               IsPaneOpen="{x:Bind Path=vm.NotLogged, Mode=OneWay}">
         <SplitView.Pane>
             <controls:Login x:Name="login" Background="Gray" UsedFor="IPGW"></controls:Login>
         </SplitView.Pane>

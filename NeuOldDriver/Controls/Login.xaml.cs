@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Linq;
+using System.ComponentModel;
+using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -9,7 +12,10 @@ using NeuOldDriver.Global;
 
 namespace NeuOldDriver.Controls {
 
-    public sealed partial class Login : UserControl {
+    public sealed partial class Login : UserControl, INotifyPropertyChanged {
+
+        public delegate Task<string> RefreshHandler(object sender, EventArgs e);
+
         /// <summary>
         /// Fired when click on "确认" button
         /// </summary>
@@ -18,7 +24,9 @@ namespace NeuOldDriver.Controls {
         /// <summary>
         /// Fired when click on captcha image
         /// </summary>
-        public event EventHandler Refresh;
+        public event RefreshHandler Refresh;
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
         /// Username from user's input
@@ -52,6 +60,7 @@ namespace NeuOldDriver.Controls {
 
         public Login() {
             this.InitializeComponent();
+
             this.Loaded += (sender, e) => {
                 string username, password;
                 Globals.Settings.ActiveUser(UsedFor, out username, out password);
@@ -65,8 +74,8 @@ namespace NeuOldDriver.Controls {
                 Submit?.Invoke(this, new EventArgs());
             };
 
-            captchaContainer.Click += (sender, e) => {
-                Refresh?.Invoke(this, new EventArgs());
+            captchaContainer.Click += async (sender, e) => {
+                ImageSource = await Refresh?.Invoke(this, new EventArgs());
             };
 
             username.TextChanged += (sender, e) => {
@@ -109,6 +118,7 @@ namespace NeuOldDriver.Controls {
             }
             set {
                 SetValue(ImageSourceProperty, value);
+                OnPropertyChanged(nameof(ImageSource));
             }
         }
 
@@ -129,5 +139,9 @@ namespace NeuOldDriver.Controls {
 
         public static readonly DependencyProperty UsedForProperty =
             DependencyProperty.RegisterAttached(nameof(UsedFor), typeof(string), typeof(Login), null);
+
+        private void OnPropertyChanged([CallerMemberName] string propname = "") {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propname));
+        }
     }
 }

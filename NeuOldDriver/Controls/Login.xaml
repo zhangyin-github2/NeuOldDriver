@@ -41,13 +41,16 @@
             <PasswordBox Grid.Column="3" Grid.Row="2" x:Name="password"></PasswordBox>
         </Grid>
 
-        <StackPanel Orientation="Horizontal" 
-                    Visibility="{x:Bind CaptchaRequired, Converter={StaticResource btv}}">
-            <Button x:Name="captchaContainer" Background="Transparent">
-                <Image Width="100" Height="40"></Image>
+        <Grid Margin="0,25,0,0" Visibility="{x:Bind CaptchaRequired, Converter={StaticResource btv}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" x:Name="captchaContainer" Background="Transparent" Margin="5,0,0,0">
+                <Image Width="100" Height="40" Source="{x:Bind ImageSource, Mode=OneWay}"></Image>
             </Button>
-            <TextBox x:Name="captchaText" Width="150" Margin="10"></TextBox>
-        </StackPanel>
+            <TextBox Grid.Column="1" x:Name="captchaText" Margin="10"></TextBox>
+        </Grid>
 
         <StackPanel Orientation="Vertical" Margin="0,25">
             <CheckBox Margin="50,0,0,0" Content="记住密码" x:Name="remember"></CheckBox>
