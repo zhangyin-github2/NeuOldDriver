@@ -18,6 +18,23 @@ namespace NeuOldDriver.Utils {
         }
 
         /// <summary>
+        /// Create an empty setting file
+        /// </summary>
+        /// <returns>basic empty settings structure in JsonObject format</returns>
+        private static JsonObject EmptySetting() {
+            var res = new JsonObject();
+            var aaoData = new JsonObject();
+            aaoData.SetNamedValue("active", JsonValue.CreateStringValue(""));
+            aaoData.SetNamedValue("users", new JsonObject());
+            res.SetNamedValue("AAO", aaoData);
+            var ipgwData = new JsonObject();
+            ipgwData.SetNamedValue("active", JsonValue.CreateStringValue(""));
+            ipgwData.SetNamedValue("users", new JsonObject());
+            res.SetNamedValue("IPGW", ipgwData);
+            return res;
+        }
+
+        /// <summary>
         /// Initialize <c>Settings</c> object from a file at given path
         /// </summary>
         /// <param name="name">name of settings file</param>
@@ -25,25 +42,19 @@ namespace NeuOldDriver.Utils {
         public static async Task<Settings> Read(string name = Constants.SETTINGS) {
             var file = await ApplicationData.Current.LocalFolder.CreateFileAsync(name, CreationCollisionOption.OpenIfExists);
             var content = await FileIO.ReadTextAsync(file);
-            System.Diagnostics.Debug.WriteLine(file.Path);
             JsonObject res;
-            if (!JsonObject.TryParse(content, out res)) {
-                res = new JsonObject();
-                var aaoData = new JsonObject();
-                aaoData.SetNamedValue("active", JsonValue.CreateStringValue(""));
-                aaoData.SetNamedValue("users", new JsonObject());
-                res.SetNamedValue("AAO", aaoData);
-                var ipgwData = new JsonObject();
-                ipgwData.SetNamedValue("active", JsonValue.CreateStringValue(""));
-                ipgwData.SetNamedValue("users", new JsonObject());
-                res.SetNamedValue("IPGW", ipgwData);
-            }
+            if (!JsonObject.TryParse(content, out res))
+                res = EmptySetting();
             return new Settings(res);
         }
 
         public async Task Save(string name = Constants.SETTINGS) {
             var file = await ApplicationData.Current.LocalFolder.CreateFileAsync(name, CreationCollisionOption.ReplaceExisting);
             await FileIO.WriteTextAsync(file, root.ToString());
+        }
+
+        public void Clear() {
+            root = EmptySetting();
         }
 
         private JsonObject Accounts(string category) {
@@ -81,8 +92,8 @@ namespace NeuOldDriver.Utils {
             if (Accounts(category).TryGetValue("active", out active)) {
                 username = active.GetString();
                 password = GetPassword(category, username);
-            }
-            username = password = null;
+            } else 
+                username = password = null;
         }
         
         public ICollection<string> Users(string category) {
