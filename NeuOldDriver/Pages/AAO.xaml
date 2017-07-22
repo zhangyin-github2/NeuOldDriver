@@ -5,12 +5,13 @@
     xmlns:local="using:NeuOldDriver.Pages"
     xmlns:pages="using:NeuOldDriver.Pages.AAOSubPage"
     xmlns:models="using:NeuOldDriver.Models"
+    xmlns:vm="using:NeuOldDriver.ViewModels"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
     <Page.Resources>
-        
+
         <x:Double x:Key="LabelHeight">40</x:Double>
         <x:Double x:Key="ButtonHeight">100</x:Double>
 
@@ -59,6 +60,10 @@
         </Style>
     </Page.Resources>
 
+    <Page.DataContext>
+        <vm:AAOViewModel x:Name="vm"></vm:AAOViewModel>
+    </Page.DataContext>
+
     <StackPanel x:Name="container" Orientation="Vertical"
                 HorizontalAlignment="Center" VerticalAlignment="Center"
                 Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -84,4 +89,5 @@
             <models:PageButtonData Glyph="{StaticResource BooksIcon}" Label="选课系统"></models:PageButtonData>
         </ListView>
     </StackPanel>
+    
 </Page>

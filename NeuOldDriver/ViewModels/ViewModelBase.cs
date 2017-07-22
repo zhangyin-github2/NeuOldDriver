@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace NeuOldDriver.ViewModels {
 
@@ -6,9 +8,8 @@ namespace NeuOldDriver.ViewModels {
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected void OnPropertyChanged(string propname = "") {
+        protected void OnPropertyChanged([CallerMemberName] string propname = "") {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propname));
         }
-
     }
 }

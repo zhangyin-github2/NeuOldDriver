@@ -82,8 +82,9 @@ namespace NeuOldDriver.Utils {
         /// <returns>returned value of response handler</returns>
         public static async Task<Ret> NetworkRequest<Ret>(string url, string content, Action<HttpRequestMessage> requestModifier, Func<HttpResponseMessage, Task<Ret>> responseHandler, HttpMethod method, int timeout = TIMEOUT) {
             using (var request = new HttpRequestMessage(method, new Uri(url))) {
-                requestModifier(request);
-                request.Content = UTF8StringContent(content);
+                requestModifier?.Invoke(request);
+                if(method.Equals(HttpMethod.Post))
+                    request.Content = UTF8StringContent(content);
                 return await NetworkRequest(request, responseHandler, timeout);
             }
         }
