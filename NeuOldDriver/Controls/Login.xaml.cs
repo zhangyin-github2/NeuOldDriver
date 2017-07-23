@@ -9,6 +9,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 using NeuOldDriver.Global;
+using NeuOldDriver.Models;
 
 namespace NeuOldDriver.Controls {
 
@@ -19,7 +20,7 @@ namespace NeuOldDriver.Controls {
         /// <summary>
         /// Fired when click on "确认" button
         /// </summary>
-        public event EventHandler Submit;
+        public event EventHandler<LoginData> Submit;
 
         /// <summary>
         /// Fired when click on captcha image
@@ -62,16 +63,25 @@ namespace NeuOldDriver.Controls {
             this.InitializeComponent();
 
             this.Loaded += (sender, e) => {
-                string username, password;
-                Globals.Settings.ActiveUser(UsedFor, out username, out password);
-                names = Globals.Settings.Users(UsedFor);
-                this.username.Text = username ?? "";
+                // get username and password of last logged user
+                var accounts = Globals.Accounts[UsedFor];
+                var username = accounts.Active;
+                var password = accounts[username];
+
+                names = accounts.Users;
+                this.username.Text = username;
                 this.username.ItemsSource = names;
                 this.password.Password = password ?? "";
             };
             
             okButton.Click += (sender, args) => {
-                Submit?.Invoke(this, new EventArgs());
+                var data = new LoginData() {
+                    username = UserName, password = Password, remember = RememberMe
+                };
+                if (CaptchaRequired)
+                    data.captcha = Captcha;
+
+                Submit?.Invoke(this, data);
             };
 
             captchaContainer.Click += async (sender, e) => {
@@ -84,12 +94,13 @@ namespace NeuOldDriver.Controls {
                         return item.StartsWith(sender.Text);
                     });
                     remember.IsChecked = false;
+                    password.Password = "";
                 }
             };
 
             username.SuggestionChosen += (sender, e) => {
-                var item = e.SelectedItem as string;
-                password.Password = Globals.Settings.GetPassword(UsedFor, item);
+                var username = e.SelectedItem as string;
+                password.Password = Globals.Accounts[UsedFor][username];
                 remember.IsChecked = true;
             };
         }
@@ -98,12 +109,8 @@ namespace NeuOldDriver.Controls {
         /// true if login requires captcha verification
         /// </summary>
         public bool CaptchaRequired {
-            get {
-                return (bool)GetValue(CaptchaRequiredProperty);
-            }
-            set {
-                SetValue(CaptchaRequiredProperty, value);
-            }
+            get { return (bool)GetValue(CaptchaRequiredProperty); }
+            set { SetValue(CaptchaRequiredProperty, value); }
         }
 
         public static readonly DependencyProperty CaptchaRequiredProperty =
@@ -113,13 +120,8 @@ namespace NeuOldDriver.Controls {
         /// Source of captcha image
         /// </summary>
         public string ImageSource {
-            get {
-                return (string)GetValue(ImageSourceProperty);
-            }
-            set {
-                SetValue(ImageSourceProperty, value);
-                OnPropertyChanged(nameof(ImageSource));
-            }
+            get { return (string)GetValue(ImageSourceProperty); }
+            set { SetValue(ImageSourceProperty, value); OnPropertyChanged(nameof(ImageSource)); }
         }
 
         public static readonly DependencyProperty ImageSourceProperty =
@@ -129,12 +131,8 @@ namespace NeuOldDriver.Controls {
         /// Identifying this login control is used for which page
         /// </summary>
         public string UsedFor {
-            get {
-                return (string)GetValue(UsedForProperty);
-            }
-            set {
-                SetValue(UsedForProperty, value);
-            }
+            get { return (string)GetValue(UsedForProperty); }
+            set { SetValue(UsedForProperty, value); }
         }
 
         public static readonly DependencyProperty UsedForProperty =

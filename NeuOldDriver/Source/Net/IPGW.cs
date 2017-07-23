@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using System.Collections.Specialized;
+using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 
 using Windows.Web.Http;
 
-using NeuOldDriver.Utils;
 using NeuOldDriver.Global;
 
-namespace NeuOldDriver.API {
+namespace NeuOldDriver.Net {
 
     public static class IPGW {
 
@@ -26,8 +24,8 @@ namespace NeuOldDriver.API {
               .Append("&ac_id=").Append(1)
               .Append("&save_me=").Append(0)
               .Append("&user_ip=").Append("&nas_ip=").Append("&user_mac=").Append("&url=")
-              .Append("&username=").Append(WebUtility.UrlEncode(username))
-              .Append("&password=").Append(WebUtility.UrlEncode(password));
+              .Append("&username=").Append(WebUtils.UrlEncode(username))
+              .Append("&password=").Append(WebUtils.UrlEncode(password));
 
             return await WebUtils.NetworkRequest(Constants.IPGW_AUTH, sb.ToString(), (request) => {
                 request.Headers.Add("Referer", Constants.IPGW_LOGIN);
@@ -50,8 +48,8 @@ namespace NeuOldDriver.API {
             var sb = new StringBuilder();
             sb.Append("action=").Append("logout")
               .Append("&ajax=").Append(1)
-              .Append("&username=").Append(WebUtility.UrlEncode(username))
-              .Append("&password=").Append(WebUtility.UrlEncode(password));
+              .Append("&username=").Append(WebUtils.UrlEncode(username))
+              .Append("&password=").Append(WebUtils.UrlEncode(password));
 
             return await WebUtils.NetworkRequest(Constants.IPGW_AUTH, sb.ToString(), (request) => {
                 request.Headers.Add("Referer", Constants.IPGW_AUTH);
@@ -65,8 +63,8 @@ namespace NeuOldDriver.API {
         /// <summary>
         /// Get account info from server, must be called after a successful <c>Login</c>
         /// </summary>
-        /// <returns>account info in NameValueCollection format</returns>
-        public static async Task<NameValueCollection> AccountInfo() {
+        /// <returns>account info in lookup table format</returns>
+        public static async Task<IDictionary<string, string>> AccountInfo() {
             // mysterious paramter required by API
             var rand = new Random(DateTime.Now.Millisecond).NextDouble();
             int k = Convert.ToInt32(Math.Floor(rand * (100000 + 1)));
@@ -81,7 +79,7 @@ namespace NeuOldDriver.API {
                     if (content == null || content.Length == 0)
                         return null;
 
-                    return new NameValueCollection() {
+                    return new Dictionary<string, string>() {
                         {"Used", content[0] },
                         {"UsedTime", content[1] },
                         {"Balance", content[2] },

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-using NeuOldDriver.API;
+using NeuOldDriver.Net;
 using NeuOldDriver.Models;
 
 namespace NeuOldDriver.ViewModels {
@@ -37,7 +37,7 @@ namespace NeuOldDriver.ViewModels {
             model.username = username;
             model.password = password;
             var reason = await AAO.Login(username, password, captcha);
-            if (String.IsNullOrEmpty(reason))
+            if (reason != null && reason.Length == 0)
                 NotLogged = false;
             return reason;
         }

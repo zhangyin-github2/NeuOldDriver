@@ -12,13 +12,13 @@ namespace NeuOldDriver.Pages {
             this.InitializeComponent();
 
             login.Submit += async (sender, e) => {
-                var window = sender as Login;
-                if (!await vm.Login(window.UserName, window.Password))
+                if (!await vm.Login(e.username, e.password))
                     await Dialogs.Popup("错误", "登录失败!");
                 else {
-                    Globals.Settings.SetActiveUser("IPGW", window.UserName);
-                    if (window.RememberMe) 
-                        Globals.Settings.UpdateAccount("IPGW", window.UserName, window.Password);
+                    var accounts = Globals.Accounts["IPGW"];
+                    accounts.Active = e.username;
+                    if (e.remember || accounts[e.username] != null)
+                        accounts[e.username] = e.password;
                 }
             };
 

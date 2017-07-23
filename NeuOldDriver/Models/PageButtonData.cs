@@ -7,28 +7,16 @@ namespace NeuOldDriver.Models {
 
     public class PageButtonData : DependencyObject {
         public string Glyph {
-            get {
-                return (string)GetValue(GlyphProperty);
-            }
-            set {
-                SetValue(GlyphProperty, value);
-            }
+            get { return (string)GetValue(GlyphProperty);}
+            set { SetValue(GlyphProperty, value); }
         }
         public string Label {
-            get {
-                return (string)GetValue(LabelProperty);
-            }
-            set {
-                SetValue(LabelProperty, value);
-            }
+            get { return (string)GetValue(LabelProperty); }
+            set { SetValue(LabelProperty, value); }
         }
         public Type Page {
-            get {
-                return (Type)GetValue(PageProperty);
-            }
-            set {
-                SetValue(PageProperty, value);
-            }
+            get { return (Type)GetValue(PageProperty); }
+            set { SetValue(PageProperty, value); }
         }
 
         public static readonly DependencyProperty PageProperty =

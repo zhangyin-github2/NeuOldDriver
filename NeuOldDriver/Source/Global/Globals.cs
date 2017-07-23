@@ -1,19 +1,19 @@
 ﻿using System.Threading.Tasks;
 
-using NeuOldDriver.Utils;
+using NeuOldDriver.Storage;
 
 namespace NeuOldDriver.Global {
 
     public static class Globals {
 
-        public static Settings Settings { get; private set; }
+        public static Accounts Accounts { get; private set; }
 
         public static async Task Initialize() {
-            Settings = await Settings.Read();
+            Accounts = await Storage.Accounts.Read();
         }
 
         public static async Task Dispose() {
-            await Settings.Save();
+            await Accounts.Save();
         }
 
     }

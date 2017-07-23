@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -8,13 +9,17 @@ using Windows.Web.Http.Filters;
 
 using NeuOldDriver.Global;
 
-namespace NeuOldDriver.Utils {
+namespace NeuOldDriver.Net {
 
     public static class WebUtils {
 
         private const int TIMEOUT = 5;
 
         public static HttpClient Client { get; } = new HttpClient();
+
+        public static string UrlEncode(string url) {
+            return WebUtility.UrlEncode(url);
+        }
 
         public static HttpStringContent UTF8StringContent(string content) {
             return new HttpStringContent(content,
@@ -43,14 +48,19 @@ namespace NeuOldDriver.Utils {
         private static async Task<Ret> NetworkRequest<Ret>(HttpRequestMessage request, Func<HttpResponseMessage, Task<Ret>> responseHandler, int timeout) {
             using (var cts = new CancellationTokenSource()) {
                 cts.CancelAfter(TimeSpan.FromSeconds(timeout));
-                using (var response = await Client.SendRequestAsync(request).AsTask(cts.Token)) {
-                    try {
-                        if(response.IsSuccessStatusCode)
+                try {
+                    using (var response = await Client.SendRequestAsync(request).AsTask(cts.Token)) {
+                        if (response.IsSuccessStatusCode)
                             return await responseHandler(response);
                         return default(Ret);
-                    } catch(TaskCanceledException) {
+                    }
+                } catch (TaskCanceledException) {
+                    return default(Ret);
+                } catch (Exception e) {
+                    // address or host not resolvable
+                    if (e.HResult == unchecked((int)(0x80072ee7)))
                         return default(Ret);
-                    } 
+                    throw;
                 }
             }
         }
