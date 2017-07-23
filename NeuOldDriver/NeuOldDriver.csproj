@@ -143,6 +143,7 @@
     <Compile Include="Source\Global\Globals.cs" />
     <Compile Include="Source\Json\JsonExtensions.cs" />
     <Compile Include="Source\Linq\LinqExtensions.cs" />
+    <Compile Include="Source\Parser\HTMLParser.cs" />
     <Compile Include="Source\Storage\Accounts.cs" />
     <Compile Include="Source\Utils\CommonUtils.cs" />
     <Compile Include="Source\Utils\CountdownTimer.cs" />
@@ -228,6 +229,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

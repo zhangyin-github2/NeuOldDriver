@@ -13,7 +13,8 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using HtmlAgilityPack;
-using NeuOldDriver.API;
+using NeuOldDriver.Net;
+using NeuOldDriver.Source.Parser;
 
 // “空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234238 上有介绍
 
@@ -40,12 +41,7 @@ namespace NeuOldDriver.Pages.AAOSubPage
             this.InitializeComponent();
         }
 
-        /// <summary>
-        /// 表格数组化，在页面加载完之后进行
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             for (int j = 0; j < 20; j++)
             {
@@ -120,61 +116,27 @@ namespace NeuOldDriver.Pages.AAOSubPage
             }
             ParseClassScheduleHTML();
 
-            string html = await NeuOldDriver.API.AAO.RequestInfomation("学生课程表");
-            
         }
 
 
-        /// <summary>
-        /// 
-        /// </summary>
+
         private async void ParseClassScheduleHTML()
         {
-            string html = await NeuOldDriver.API.AAO.RequestInfomation("学生课程表");  //把学生课程表页面的HTML返回给成string
+            //课程信息
+            string html = await NeuOldDriver.Net.AAO.RequestInfomation("学生课程表");  //把学生课程表页面的HTML返回给成string
             for (int j = 4; j < 10; j++)  //行
             {
                 for (int i = 2; i < 9; i++)  //列
                 {
+                    //循环改变Xpath表达式路径
+                    string xpath1 = "html/body/table/tr[2]/td/table/tr/td/table/tr/td/div/table/tr[";
+                    string xpath2 = "]/td[";
+                    string xpath3 = "]";
+                    string xpathClassSchedule = xpath1 + j + xpath2 + i + xpath3;
 
-                    //使用预设编码读入HTML
-                    HtmlDocument htmlDocument = new HtmlDocument();
-                    htmlDocument.LoadHtml(html);//加载HTML字符串，如果是文件可以用htmlDocument.Load方法加载
+                    List<string> datas = HTMLParser.ParseHTML(html, xpathClassSchedule);  //返回当前路径下标签里的文本
 
-                    //切割路径字符串，加入循环变量，实现课表遍历
-                    string str1 = "html/body/table/tr[2]/td/table/tr/td/table/tr/td/div/table/tr[";
-                    string str2 = "]/td[";
-                    string str3 = "]";
-                    string str = str1 + j + str2 + i + str3;
-
-                    HtmlNode htmlNode = htmlDocument.DocumentNode.SelectSingleNode(str);
-                    //html/body/table/tr[2]/td/table/tr/td/table/tr/td/div/table/tr[4]/td[2]
-                    HtmlNodeCollection collection = htmlNode.ChildNodes;//跟Xpath一样，轻松的定位到相应节点下
-
-                    List<string> datas = new List<string>();//定义1个列表用于保存结果
-                    foreach (HtmlNode node in collection)
-                    {
-                        //去除\r\n以及空格，获取到相应td里面的数据
-                        string[] line = node.InnerText.Split(new char[] { '\r', '\n', ' ' }, StringSplitOptions.RemoveEmptyEntries);
-
-                        //如果符合条件，就加载到对象列表里面
-                        if (line.Length == 1)
-                            datas.Add(line[0]);
-
-
-                        if (line.Length == 2)
-                            datas.Add(line[0] + line[1]);
-
-                        if (line.Length == 3)
-                            datas.Add(line[0] + line[1] + line[2]);
-
-                        if (line.Length == 4)
-                            datas.Add(line[0] + line[1] + line[2] + line[3]);
-
-                        if (line.Length == 5)
-                            datas.Add(line[0] + line[1] + line[2] + line[3] + line[4]);
-
-                    }
-
+                    //自动机识别课程周数，把课程信息按周数，星期几，第几节，存放在一个三维string数组中
                     string strText = null;
                     string strFSMD = null;
                     int secondClassMark = 0;
@@ -217,19 +179,21 @@ namespace NeuOldDriver.Pages.AAOSubPage
 
                     }
 
-                    /*string strText = string.Join("\n", datas.ToArray());
-                    if(strText != null)
-                        textBlocks[j - 4][i - 2].Text = strText;
-                        */
-
-                    /*string strText = null;
-                    if (datas[2] != null)
-                        strText = datas[2];
-                      textBlocks[j - 4][i - 2].Text = strText;  //j为行，i为列
-                      */
-
                 }
             }
+
+
+            //第几学期
+            string xpathSemester = "html/body/table/tr[2]/td/table/tr/td/table/tr/td/div/table/tr[1]/td[1]";
+            List<string> SemesterText = HTMLParser.ParseHTML(html, xpathSemester);
+            Semester.Text = string.Join(" ", SemesterText.ToArray());
+
+            //院系
+            string xpathStudentInformation = "html/body/table/tr[2]/td/table/tr/td/table/tr/td/div/table/tr[2]/td[1]";
+            List<string> StudentInformationText = HTMLParser.ParseHTML(html, xpathStudentInformation);
+            string str = string.Join(" ", StudentInformationText.ToArray());
+            str = str.Replace("&nbsp;", " ");
+            StudentInformation.Text = str;
 
         }
 
