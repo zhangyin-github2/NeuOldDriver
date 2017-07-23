@@ -43,10 +43,23 @@ namespace NeuOldDriverTest {
             var aao = accounts["AAO"];
 
             aao["20141874"] = "7";
-            aao.Active = "20141874";
-            
             Assert.AreEqual("20141874", aao.Active);
             Assert.AreEqual("7", aao[aao.Active]);
+
+            aao["1234569"] = "78";
+            Assert.AreEqual("1234569", aao.Active);
+            Assert.AreEqual("78", aao[aao.Active]);
+        }
+
+        [TestMethod]
+        public void RemoveTest() {
+            var ipgw = accounts["IPGW"];
+
+            ipgw["20141874"] = "123456";
+            ipgw -= "20141874";
+
+            Assert.AreEqual("", ipgw.Active);
+            Assert.IsNull(ipgw["20141874"]);
         }
 
         [TestMethod]

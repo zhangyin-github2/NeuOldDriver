@@ -34,13 +34,31 @@ namespace NeuOldDriver.Storage {
         }
 
         /// <summary>
-        /// Get password, using indexer format
+        /// Get or set password, using indexer format
+        /// <para>set active account if we are setting a password</para>
         /// </summary>
         /// <param name="username">username</param>
         /// <returns>password, null if not exist</returns>
         public string this[string username] {
             get { return users.GetString(username); }
-            set { users.SetString(username, value); }
+            set {
+                users.SetString(username, value);
+                active = username;
+            }
+        }
+
+        /// <summary>
+        /// Remove a user, do nothing if the user not exist
+        /// </summary>
+        /// <param name="vault"></param>
+        /// <param name="username"></param>
+        /// <returns></returns>
+        public static PasswordVault operator-(PasswordVault vault, string username) {
+            if (vault.users.Remove(username)) {
+                if (vault.active == username)
+                    vault.active = "";
+            }
+            return vault;
         }
 
         public static explicit operator JsonObject(PasswordVault vault) {

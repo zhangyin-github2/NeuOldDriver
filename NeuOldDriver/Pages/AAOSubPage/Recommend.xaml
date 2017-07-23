@@ -80,7 +80,7 @@
             <ListView Grid.Row="1" x:Name="classesBox" ItemsSource="{x:Bind vm.Items, Mode=OneWay}"
                       SelectionMode="Multiple" SelectionChanged="ClassSelectionChanged">
                 <ListView.ItemTemplate>
-                    <DataTemplate x:DataType="models:ClassData">
+                    <DataTemplate x:DataType="models:CourseData">
                         <TextBlock Text="{x:Bind Text}"></TextBlock>
                     </DataTemplate>
                 </ListView.ItemTemplate>

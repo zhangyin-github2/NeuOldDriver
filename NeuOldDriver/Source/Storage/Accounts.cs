@@ -11,8 +11,8 @@ namespace NeuOldDriver.Storage {
 
     public class Accounts {
 
-        public PasswordVault IPGW { get; set; }
-        public PasswordVault AAO { get; set; }
+        public PasswordVault IPGW { get; private set; }
+        public PasswordVault AAO { get; private set; }
 
         public Accounts() {
             IPGW = new PasswordVault();
