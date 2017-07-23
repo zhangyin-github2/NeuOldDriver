@@ -14,10 +14,8 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0">
-            <ComboBox>
-                <ComboBoxItem>
-
-                </ComboBoxItem>
+            <ComboBox x:Name="comboBox1" SelectionChanged="ComboBox_SelectionChanged">
+                
             </ComboBox>
         </StackPanel>
 
