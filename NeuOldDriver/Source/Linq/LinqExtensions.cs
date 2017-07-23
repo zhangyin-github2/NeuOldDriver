@@ -34,15 +34,16 @@ namespace NeuOldDriver.Linq {
         public static bool Same<T>(this IEnumerable<T> list, IEnumerable<T> other) {
             if (Object.ReferenceEquals(list, other))
                 return true;
-            var listEnum = list.GetEnumerator();
-            var otherEnum = other.GetEnumerator();
-            while (listEnum.MoveNext()) {
-                if (!otherEnum.MoveNext())
-                    return false;
-                if (!listEnum.Current.Equals(otherEnum.Current))
-                    return false;
+            using (var listEnum = list.GetEnumerator())
+            using (var otherEnum = other.GetEnumerator()) {
+                while (listEnum.MoveNext()) {
+                    if (!otherEnum.MoveNext())
+                        return false;
+                    if (!listEnum.Current.Equals(otherEnum.Current))
+                        return false;
+                }
+                return true;
             }
-            return true;
         }
     }
 }

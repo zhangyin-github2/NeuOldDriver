@@ -9,7 +9,7 @@ using Windows.Web.Http.Filters;
 
 using NeuOldDriver.Global;
 
-namespace NeuOldDriver.Utils {
+namespace NeuOldDriver.Net {
 
     public static class WebUtils {
 

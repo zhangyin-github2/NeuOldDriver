@@ -15,9 +15,10 @@ namespace NeuOldDriver.Pages {
                 if (!await vm.Login(e.username, e.password))
                     await Dialogs.Popup("错误", "登录失败!");
                 else {
-                    Globals.Settings.SetActiveUser("IPGW", e.username);
-                    if (e.remember || Globals.Settings.HasUser("IPGW", e.username)) 
-                        Globals.Settings.UpdateAccount("IPGW", e.username, e.password);
+                    var accounts = Globals.Accounts["IPGW"];
+                    accounts.Active = e.username;
+                    if (e.remember || accounts[e.username] != null)
+                        accounts[e.username] = e.password;
                 }
             };
 

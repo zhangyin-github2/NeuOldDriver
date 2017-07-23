@@ -6,12 +6,11 @@ using System.Collections.Generic;
 
 using Windows.Web.Http;
 
-using NeuOldDriver.Utils;
 using NeuOldDriver.Global;
 
 using HtmlAgilityPack;
 
-namespace NeuOldDriver.API {
+namespace NeuOldDriver.Net {
 
     public static class AAO {
 

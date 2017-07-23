@@ -40,7 +40,7 @@ namespace NeuOldDriver.Pages.AAOSubPage {
 
         private void ClassSelectionChanged(object sender, SelectionChangedEventArgs e) {
             selectedClasses.Text = String.Join(",", classesBox.SelectedItems
-                                                .Select(item => (item as ClassData).Text));
+                                                .Select(item => (item as CourseData).Text));
         }
 
         private void SortClasses(object sender, RoutedEventArgs e) {

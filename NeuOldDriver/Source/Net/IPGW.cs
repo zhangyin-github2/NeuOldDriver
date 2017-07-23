@@ -6,10 +6,9 @@ using System.Runtime.InteropServices.WindowsRuntime;
 
 using Windows.Web.Http;
 
-using NeuOldDriver.Utils;
 using NeuOldDriver.Global;
 
-namespace NeuOldDriver.API {
+namespace NeuOldDriver.Net {
 
     public static class IPGW {
 

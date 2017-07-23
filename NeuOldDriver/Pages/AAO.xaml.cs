@@ -5,7 +5,6 @@ using Windows.UI.Xaml.Controls;
 using NeuOldDriver.Utils;
 using NeuOldDriver.Global;
 using NeuOldDriver.Models;
-using NeuOldDriver.Controls;
 
 // “空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234238 上有介绍
 
@@ -19,11 +18,11 @@ namespace NeuOldDriver.Pages {
             this.InitializeComponent();
 
             this.Loaded += async (sender, e) => {
-                login.ImageSource = await API.AAO.CaptchaImage();
+                login.ImageSource = await Net.AAO.CaptchaImage();
             };
 
             login.Refresh += async (sender, e) => {
-                return await API.AAO.CaptchaImage();
+                return await Net.AAO.CaptchaImage();
             };
 
             login.Submit += async (sender, e) => {
@@ -31,9 +30,11 @@ namespace NeuOldDriver.Pages {
                 if (!String.IsNullOrEmpty(reason))
                     await Dialogs.Popup("错误", reason);
                 else {
-                    Globals.Settings.SetActiveUser("AAO", e.username);
-                    if (e.remember || Globals.Settings.HasUser("AAO", e.username))
-                        Globals.Settings.UpdateAccount("AAO", e.username, e.password);
+                    var accounts = Globals.Accounts["AAO"];
+                    accounts.Active = e.username;
+
+                    if (e.remember || accounts[e.username] != null)
+                        accounts[e.username] = e.password;
                 }
             };
             

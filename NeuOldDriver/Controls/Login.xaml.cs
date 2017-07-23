@@ -63,10 +63,13 @@ namespace NeuOldDriver.Controls {
             this.InitializeComponent();
 
             this.Loaded += (sender, e) => {
-                string username, password;
-                Globals.Settings.ActiveUser(UsedFor, out username, out password);
-                names = Globals.Settings.Users(UsedFor);
-                this.username.Text = username ?? "";
+                // get username and password of last logged user
+                var accounts = Globals.Accounts[UsedFor];
+                var username = accounts.Active;
+                var password = accounts[username];
+
+                names = accounts.Users;
+                this.username.Text = username;
                 this.username.ItemsSource = names;
                 this.password.Password = password ?? "";
             };
@@ -96,8 +99,8 @@ namespace NeuOldDriver.Controls {
             };
 
             username.SuggestionChosen += (sender, e) => {
-                var item = e.SelectedItem as string;
-                password.Password = Globals.Settings.GetPassword(UsedFor, item);
+                var username = e.SelectedItem as string;
+                password.Password = Globals.Accounts[UsedFor][username];
                 remember.IsChecked = true;
             };
         }
