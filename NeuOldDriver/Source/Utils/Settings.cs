@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Windows.Data.Json;
 using Windows.Storage;
 
+using NeuOldDriver.Json;
 using NeuOldDriver.Global;
 
 namespace NeuOldDriver.Utils {
@@ -22,16 +23,9 @@ namespace NeuOldDriver.Utils {
         /// </summary>
         /// <returns>basic empty settings structure in JsonObject format</returns>
         private static JsonObject EmptySetting() {
-            var res = new JsonObject();
-            var aaoData = new JsonObject();
-            aaoData.SetNamedValue("active", JsonValue.CreateStringValue(""));
-            aaoData.SetNamedValue("users", new JsonObject());
-            res.SetNamedValue("AAO", aaoData);
-            var ipgwData = new JsonObject();
-            ipgwData.SetNamedValue("active", JsonValue.CreateStringValue(""));
-            ipgwData.SetNamedValue("users", new JsonObject());
-            res.SetNamedValue("IPGW", ipgwData);
-            return res;
+            return (new JsonObject())
+                .SetObject("AAO", (new JsonObject()).SetString("active", "").SetObject("users", new JsonObject()))
+                .SetObject("IPGW", (new JsonObject()).SetString("active", "").SetObject("users", new JsonObject()));
         }
 
         /// <summary>
@@ -58,49 +52,37 @@ namespace NeuOldDriver.Utils {
         }
 
         private JsonObject Accounts(string category) {
-            IJsonValue accounts;
-            if (root.TryGetValue(category, out accounts))
-                return accounts.GetObject();
-            return null;
+            return root.GetValue(category).GetObject();
         }
 
-        public bool UpdateAccount(string category, string username, string password) {
-            IJsonValue users;
-            if (Accounts(category).TryGetValue("users", out users)) {
-                users.GetObject().SetNamedValue(username, JsonValue.CreateStringValue(password));
-                return true;
-            }
-            return false;
+        public void UpdateAccount(string category, string username, string password) {
+            Accounts(category).GetObject("users").SetString(username, password);
         }
         
         public string GetPassword(string category, string username) {
-            IJsonValue users;
-            if (Accounts(category).TryGetValue("users", out users)) {
-                IJsonValue result;
-                if (users.GetObject().TryGetValue(username, out result))
-                    return result.GetString();
-            }
-            return null;
+            return Accounts(category).GetObject("users").GetValue(username)?.GetString();
         }
 
         public void SetActiveUser(string category, string username) {
-            Accounts(category).SetNamedValue("active", JsonValue.CreateStringValue(username));
+            Accounts(category).SetString("active", username);
         }
 
         public void ActiveUser(string category, out string username, out string password) {
-            IJsonValue active;
-            if (Accounts(category).TryGetValue("active", out active)) {
-                username = active.GetString();
-                password = GetPassword(category, username);
+            var accounts = Accounts(category);
+            var active = accounts.GetString("active");
+            if(active != null) {
+                username = active;
+                password = accounts.GetObject("users").GetString(active);
             } else 
                 username = password = null;
         }
         
         public ICollection<string> Users(string category) {
-            IJsonValue users;
-            if(Accounts(category).TryGetValue("users", out users))
-                return users.GetObject().Keys;
-            return null;
+            return Accounts(category).GetObject("users").Keys;
+        }
+
+        public bool HasUser(string category, string username) {
+            return Users(category).Contains(username);
         }
     };
 }

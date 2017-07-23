@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -43,6 +42,8 @@ namespace NeuOldDriver.API {
             var content = await WebUtils.NetworkRequest(Constants.AAO_API_BASE, "", null, async (response) => {
                 return await response.Content.ReadAsStringAsync();
             }, HttpMethod.Get);
+            if (content == null)
+                return " ";
             var document = new HtmlDocument();
             document.LoadHtml(content);
             // this node is the target element, should be a <img>
@@ -60,8 +61,8 @@ namespace NeuOldDriver.API {
         public static async Task<string> Login(string username, string password, string captcha) {
             var url = Constants.AAO_API_BASE + "/ACTIONLOGON.APPPROCESS?mode=";
             var sb = new StringBuilder();
-            sb.Append("WebUserNO=").Append(WebUtility.UrlEncode(username))
-              .Append("&Password=").Append(WebUtility.UrlEncode(password))
+            sb.Append("WebUserNO=").Append(WebUtils.UrlEncode(username))
+              .Append("&Password=").Append(WebUtils.UrlEncode(password))
               .Append("&Agnomen=").Append(captcha)
               .Append("&submit7=%B5%C7%C2%BC");
 

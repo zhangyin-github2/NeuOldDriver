@@ -1,10 +1,11 @@
 ﻿using System;
-using System.Threading.Tasks;
 
 using Windows.UI.Xaml.Controls;
 
 using NeuOldDriver.Utils;
+using NeuOldDriver.Global;
 using NeuOldDriver.Models;
+using NeuOldDriver.Controls;
 
 // “空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234238 上有介绍
 
@@ -26,11 +27,15 @@ namespace NeuOldDriver.Pages {
             };
 
             login.Submit += async (sender, e) => {
-                var reason = await vm.Login(login.UserName, login.Password, login.Captcha);
+                var reason = await vm.Login(e.username, e.password, e.captcha);
                 if (!String.IsNullOrEmpty(reason))
                     await Dialogs.Popup("错误", reason);
+                else {
+                    Globals.Settings.SetActiveUser("AAO", e.username);
+                    if (e.remember || Globals.Settings.HasUser("AAO", e.username))
+                        Globals.Settings.UpdateAccount("AAO", e.username, e.password);
+                }
             };
-
             
         }
 

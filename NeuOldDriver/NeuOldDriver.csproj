@@ -105,6 +105,7 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\AAOModel.cs" />
+    <Compile Include="Models\ClassData.cs" />
     <Compile Include="Models\IPGWModel.cs" />
     <Compile Include="Models\LoginData.cs" />
     <Compile Include="Models\PageButtonData.cs" />
@@ -140,6 +141,7 @@
     <Compile Include="Source\API\IPGW.cs" />
     <Compile Include="Source\Global\Constants.cs" />
     <Compile Include="Source\Global\Globals.cs" />
+    <Compile Include="Source\Json\JsonExtensions.cs" />
     <Compile Include="Source\Linq\LinqExtensions.cs" />
     <Compile Include="Source\Utils\CommonUtils.cs" />
     <Compile Include="Source\Utils\CountdownTimer.cs" />
@@ -148,6 +150,7 @@
     <Compile Include="Source\Utils\WebUtils.cs" />
     <Compile Include="ViewModels\AAOViewModel.cs" />
     <Compile Include="ViewModels\IPGWViewModel.cs" />
+    <Compile Include="ViewModels\RecommendViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
   </ItemGroup>
   <ItemGroup>

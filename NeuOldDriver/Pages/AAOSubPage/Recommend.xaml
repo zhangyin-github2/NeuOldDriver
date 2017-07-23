@@ -3,11 +3,28 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:NeuOldDriver.Pages.AAOSubPage"
+    xmlns:models="using:NeuOldDriver.Models"
+    xmlns:vm="using:NeuOldDriver.ViewModels"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Resources>
+        <Style x:Key="LabelStyle" TargetType="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="FontSize" Value="19"></Setter>
+            <Setter Property="Margin" Value="10,0,0,0"></Setter>
+        </Style>
+        <Style x:Key="DropdownStyle" TargetType="ComboBox">
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+        </Style>
+    </Page.Resources>
+
+    <Page.DataContext>
+        <vm:RecommendViewModel x:Name="vm"></vm:RecommendViewModel>
+    </Page.DataContext>
+    
+    <StackPanel Orientation="Vertical" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <RelativePanel>
             <Button x:Name="SearchButton" FontSize="18" Content="搜索" Margin="0,15,5,0"
                     RelativePanel.AlignRightWithPanel="True">
@@ -23,96 +40,54 @@
 
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="90"/>
-                <ColumnDefinition Width="240"/>
-                <ColumnDefinition Width="90"/>
-                <ColumnDefinition Width="240"/>
-                <ColumnDefinition Width="90"/>
-                <ColumnDefinition Width="240"/>
-                <ColumnDefinition Width="90"/>
-                <ColumnDefinition Width="240"/>
+                <ColumnDefinition Width="90"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="90"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="90"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            
-            <TextBlock Grid.Column="0" Text="课程分类" FontSize="19" VerticalAlignment="Center" Margin="10,0,0,0"/>
-            <StackPanel Grid.Column="1" Margin="20,10,0,10" Orientation="Horizontal">
-                <ComboBox SelectionChanged="ComboBox_SelectionChanged">
-                    <ComboBoxItem>人文类选修</ComboBoxItem>
-                    <ComboBoxItem>专题选修</ComboBoxItem>
-                    <ComboBoxItem>新知识</ComboBoxItem>
-                    <ComboBoxItem>体育课</ComboBoxItem>
-                    <ComboBoxItem IsSelected="True">-请选择课程所属分类-</ComboBoxItem>
-                </ComboBox>
-                <TextBlock Name="ComboBoxResultTextBlock"/>
-            </StackPanel>
-            
-            <TextBlock  Grid.Column="2" Text="课程学期" FontSize="19" VerticalAlignment="Center" Margin="10,0,0,0"/>
-            <StackPanel Grid.Column="3" Margin="20,10,0,10" Orientation="Horizontal">
-                <ComboBox SelectionChanged="ComboBox_SelectionChanged">
-                    <ComboBoxItem IsSelected="True">-请选择课程所属学期-</ComboBoxItem>
-                    <ComboBoxItem>一年级第一学期</ComboBoxItem>
-                    <ComboBoxItem>一年级第二学期</ComboBoxItem>
-                    <ComboBoxItem>二年级第一学期</ComboBoxItem>
-                    <ComboBoxItem>二年级第二学期</ComboBoxItem>
-                    <ComboBoxItem>三年级第一学期</ComboBoxItem>
-                    <ComboBoxItem>三年级第二学期</ComboBoxItem>
-                    <ComboBoxItem>四年级第一学期</ComboBoxItem>
-                </ComboBox>
-                <TextBlock Name="ComboBoxResultTextBlock2"/>
-            </StackPanel>
-            <TextBlock Grid.Row="0" Grid.Column="4" Text="课程学期" FontSize="19" VerticalAlignment="Center" Margin="10,0,0,0"/>
-            <StackPanel Grid.Row="0" Grid.Column="5" Margin="20,10,0,10" Orientation="Horizontal">
-                <ComboBox SelectionChanged="ComboBox_SelectionChanged">
-                    <ComboBoxItem IsSelected="True">-请选择课程排序方式-</ComboBoxItem>
-                    <ComboBoxItem>课程评分从高到低</ComboBoxItem>
-                    <ComboBoxItem>课程评分从低到高</ComboBoxItem>
-                </ComboBox>
-                <TextBlock Name="ComboBoxResultTextBlock3"/>
-            </StackPanel>
-            <TextBlock Grid.Row="0" Grid.Column="6" Text="所属专业" FontSize="19" VerticalAlignment="Center" Margin="10,0,0,0"/>
-            <StackPanel Grid.Column="7" Grid.Row="0" Margin="20,10,0,10" Orientation="Horizontal">
-                <ComboBox SelectionChanged="ComboBox_SelectionChanged">
-                    <ComboBoxItem IsSelected="True">-请选择课程所属专业-</ComboBoxItem>
-                    <ComboBoxItem>计算机科学与技术</ComboBoxItem>
-                    <ComboBoxItem>电子信息工程</ComboBoxItem>
-                    <ComboBoxItem>软件工程</ComboBoxItem>
-                    <ComboBoxItem>自动化</ComboBoxItem>
-                    <ComboBoxItem>物联网</ComboBoxItem>
-                    <ComboBoxItem>机械工程</ComboBoxItem>
-                </ComboBox>
-                <TextBlock Name="ComboBoxResultTextBlock4"/>
-            </StackPanel>
+
+            <TextBlock Grid.Column="0" Text="课程分类" Style="{StaticResource LabelStyle}"></TextBlock>
+            <ComboBox x:Name="categoryCombo" Grid.Column="1" Tag="Category"
+                      Style="{StaticResource DropdownStyle}" ItemsSource="{x:Bind vm.Category}">
+            </ComboBox>
+
+            <TextBlock Grid.Column="2" Text="课程学期" Style="{StaticResource LabelStyle}"></TextBlock>
+            <ComboBox x:Name="termCombo" Grid.Column="3" Tag="Term"
+                      Style="{StaticResource DropdownStyle}" ItemsSource="{x:Bind vm.Term}">
+            </ComboBox>
+
+            <TextBlock Grid.Column="4" Text="所属专业" Style="{StaticResource LabelStyle}"></TextBlock>
+            <ComboBox x:Name="majorCombo" Grid.Column="5" Tag="Major"
+                      Style="{StaticResource DropdownStyle}" ItemsSource="{x:Bind vm.Major}">
+            </ComboBox>
+
+            <CheckBox Grid.Column="6" IsThreeState="False" Content="按评分降序排列" Checked="SortClasses"></CheckBox>
         </Grid>
 
-        <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="400"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+        <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
             <TextBlock Grid.Row="0" Text="按您所选分类，推荐课程如下：" FontStyle="Italic" FontSize="24" VerticalAlignment="Center" Margin="10,0,0,0"/>
-            <StackPanel Grid.Row="1" Grid.Column="0" Margin="20,10,0,10" Orientation="Horizontal">
-                <ListBox  Name="MyListBox" SelectionMode="Multiple"  SelectionChanged="MyListBox_SelectionChanged">
-                    <ListBoxItem>计算机体系专题</ListBoxItem>
-                    <ListBoxItem>普适计算导论</ListBoxItem>
-                    <ListBoxItem>数据库管理系统实现技术</ListBoxItem>
-                    <ListBoxItem>数字信号处理</ListBoxItem>
-                    <ListBoxItem>Linux操作体统分析</ListBoxItem>
-                    <ListBoxItem>软件技术专题</ListBoxItem>
-                    <ListBoxItem>嵌入式实时系统</ListBoxItem>
-                    <ListBoxItem>计算机网络技术</ListBoxItem>
-                    <ListBoxItem>互联网计算概论</ListBoxItem>
-
-                </ListBox>
-                <TextBlock Name="ListBoxResultTextBlock"/>
-
-            </StackPanel>
-
-
+            <ListView Grid.Row="1" x:Name="classesBox" ItemsSource="{x:Bind vm.Items, Mode=OneWay}"
+                      SelectionMode="Multiple" SelectionChanged="ClassSelectionChanged">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="models:ClassData">
+                        <TextBlock Text="{x:Bind Text}"></TextBlock>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <TextBlock Grid.Column="1" x:Name="selectedClasses"></TextBlock>
         </Grid>
+        
     </StackPanel>
-
 
 </Page>
