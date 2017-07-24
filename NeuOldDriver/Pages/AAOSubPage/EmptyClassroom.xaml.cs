@@ -23,5 +23,10 @@ namespace NeuOldDriver.Pages.AAOSubPage {
         public EmptyClassroom() {
             this.InitializeComponent();
         }
+
+        private void TextBlock_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
