@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using NeuOldDriver.Source.Parser;
+using NeuOldDriver.Net;
 
 // “空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234238 上有介绍
 
@@ -184,7 +185,7 @@ namespace NeuOldDriver.Pages.AAOSubPage
 
         private async void ParseGradeCheckHTML()
         {
-            string html = await NeuOldDriver.Net.AAO.RequestInfomation("学生成绩查询");  //把学生成绩查询页面的HTML返回给成string
+            string html = await AAOAPI.RequestInfomation("学生成绩查询");  //把学生成绩查询页面的HTML返回给成string
 
             //学生信息
             string xpathStudentInformation = "html/body/table/tr[2]/td/form/table/tr/td/table/tr/td";
