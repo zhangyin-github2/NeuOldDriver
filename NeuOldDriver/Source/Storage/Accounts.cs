@@ -25,7 +25,7 @@ namespace NeuOldDriver.Storage {
         }
 
         /// <summary>
-        /// Initialize <c>Settings</c> object from a file at given path
+        /// Initialize <c>Accounts</c> object from a file at given path
         /// </summary>
         /// <param name="name">name of settings file</param>
         /// <returns>initialized object</returns>

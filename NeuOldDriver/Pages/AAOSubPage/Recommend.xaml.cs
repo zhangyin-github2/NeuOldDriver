@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Linq;
-using System.Collections.Generic;
 
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
 
-using NeuOldDriver.Linq;
 using NeuOldDriver.Models;
 
 // “空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234238 上有介绍
