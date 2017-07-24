@@ -40,9 +40,14 @@ namespace NeuOldDriver.Pages {
             
         }
 
-        private void PageNavigate(object sender, ItemClickEventArgs e) {
+        private async void PageNavigate(object sender, ItemClickEventArgs e) {
             var frame = (App.Current as App).MainFrame;
             var page = (e.ClickedItem as PageButtonData).Page;
+
+            if(page == null) {
+                await Dialogs.Popup("提示", "该页面尚未实现，请耐心等待下一个版本！");
+                return;
+            }
 
             frame.Navigate(page);
         }

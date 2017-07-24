@@ -124,6 +124,9 @@
     <Compile Include="Pages\AAOSubPage\Recommend.xaml.cs">
       <DependentUpon>Recommend.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\AAOSubPage\TeacherRating.xaml.cs">
+      <DependentUpon>TeacherRating.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Discussion.xaml.cs">
       <DependentUpon>Discussion.xaml</DependentUpon>
     </Compile>
@@ -205,6 +208,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\AAOSubPage\Recommend.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AAOSubPage\TeacherRating.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
