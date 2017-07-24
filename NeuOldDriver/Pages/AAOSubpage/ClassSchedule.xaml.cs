@@ -28,14 +28,6 @@ namespace NeuOldDriver.Pages.AAOSubPage
         TextBlock[][] textBlocks = new TextBlock[6][];
         string[][][] stringss = new string[20][][];
 
-        /// <summary>
-        /// 定义的实体类用于接收数据
-        /// </summary>
-        public class Data
-        {
-            public string 内容 { get; set; }
-        }
-
         public ClassSchedule()
         {
             this.InitializeComponent();
@@ -122,8 +114,21 @@ namespace NeuOldDriver.Pages.AAOSubPage
 
         private async void ParseClassScheduleHTML()
         {
-            //课程信息
             string html = await NeuOldDriver.Net.AAO.RequestInfomation("学生课程表");  //把学生课程表页面的HTML返回给成string
+
+            //第几学期
+            string xpathSemester = "html/body/table/tr[2]/td/table/tr/td/table/tr/td/div/table/tr[1]/td[1]";
+            List<string> SemesterText = HTMLParser.ParseHTML(html, xpathSemester);
+            Semester.Text = string.Join(" ", SemesterText.ToArray());
+
+            //院系
+            string xpathStudentInformation = "html/body/table/tr[2]/td/table/tr/td/table/tr/td/div/table/tr[2]/td[1]";
+            List<string> StudentInformationText = HTMLParser.ParseHTML(html, xpathStudentInformation);
+            string str = string.Join(" ", StudentInformationText.ToArray());
+            str = str.Replace("&nbsp;", " ");
+            StudentInformation.Text = str;
+
+            //课程信息
             for (int j = 4; j < 10; j++)  //行
             {
                 for (int i = 2; i < 9; i++)  //列
@@ -182,18 +187,6 @@ namespace NeuOldDriver.Pages.AAOSubPage
                 }
             }
 
-
-            //第几学期
-            string xpathSemester = "html/body/table/tr[2]/td/table/tr/td/table/tr/td/div/table/tr[1]/td[1]";
-            List<string> SemesterText = HTMLParser.ParseHTML(html, xpathSemester);
-            Semester.Text = string.Join(" ", SemesterText.ToArray());
-
-            //院系
-            string xpathStudentInformation = "html/body/table/tr[2]/td/table/tr/td/table/tr/td/div/table/tr[2]/td[1]";
-            List<string> StudentInformationText = HTMLParser.ParseHTML(html, xpathStudentInformation);
-            string str = string.Join(" ", StudentInformationText.ToArray());
-            str = str.Replace("&nbsp;", " ");
-            StudentInformation.Text = str;
 
         }
 
