@@ -47,7 +47,7 @@ namespace NeuOldDriver.ViewModels {
             model.username = username;
             model.password = password;
 
-            bool success = await IPGW.Login(username, password);
+            bool success = await IPGWAPI.Login(username, password);
             if (success) {
                 NotLogged = false;
                 await UpdateInfo();
@@ -56,7 +56,7 @@ namespace NeuOldDriver.ViewModels {
         }
 
         public async Task<bool> Logout() {
-            var success = (await IPGW.Logout(model.username, model.password))
+            var success = (await IPGWAPI.Logout(model.username, model.password))
                             ?.Contains("网络已断开") ?? false;
 
             if (success) 
@@ -66,7 +66,7 @@ namespace NeuOldDriver.ViewModels {
         }
 
         public async Task<bool> UpdateInfo() {
-            var result = await IPGW.AccountInfo();
+            var result = await IPGWAPI.AccountInfo();
 
             if(result != null) {
                 Used = result["Used"];

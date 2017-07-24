@@ -30,20 +30,20 @@ namespace NeuOldDriver.ViewModels {
         }
 
         private async Task RefreshCaptcha() {
-            Source = await AAO.CaptchaImage();
+            Source = await AAOAPI.CaptchaImage();
         }
 
         public async Task<string> Login(string username, string password, string captcha) {
             model.username = username;
             model.password = password;
-            var reason = await AAO.Login(username, password, captcha);
+            var reason = await AAOAPI.Login(username, password, captcha);
             if (reason != null && reason.Length == 0)
                 NotLogged = false;
             return reason;
         }
 
         public async Task<bool> Logout(string username, string password) {
-            return await AAO.Logout(username, password);
+            return await AAOAPI.Logout(username, password);
         }
     }
 }

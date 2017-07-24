@@ -35,7 +35,7 @@ namespace NeuOldDriver.Storage {
 
         /// <summary>
         /// Get or set password, using indexer format
-        /// <para>set active account if we are setting a password</para>
+        /// <para>will also set active account if we are setting a password</para>
         /// </summary>
         /// <param name="username">username</param>
         /// <returns>password, null if not exist</returns>

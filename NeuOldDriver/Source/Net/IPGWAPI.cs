@@ -10,7 +10,7 @@ using NeuOldDriver.Global;
 
 namespace NeuOldDriver.Net {
 
-    public static class IPGW {
+    public static class IPGWAPI {
 
         /// <summary>
         /// Try to login into ipgw.neu.edu.cn
