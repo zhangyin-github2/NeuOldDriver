@@ -188,38 +188,49 @@ namespace NeuOldDriver.Pages.AAOSubPage
             string html = await AAOAPI.RequestInfomation("学生成绩查询");  //把学生成绩查询页面的HTML返回给成string
 
             //学生信息
-            string xpathStudentInformation = "html/body/table/tr[2]/td/form/table/tr/td/table/tr/td";
+            string xpathStudentInformation = "html/body/table/tr[2]/td/table/tr/td/table/tr/td";
             List<string> StudentInformationText = HTMLParser.ParseHTML(html, xpathStudentInformation);
-            string str = string.Join(" ", StudentInformationText.ToArray());
-            str = str.Replace("&nbsp;", " ");
-            StudentInformation.Text = str;
+            string StudentInformationStr = string.Join(" ", StudentInformationText.ToArray());
+            StudentInformationStr = StudentInformationStr.Replace("&nbsp;", " ");
+            StudentInformation.Text = StudentInformationStr;
 
             //课程成绩
             //先查询课程数量
-            string xpathClassNum = "html/body/table/tr[2]/td/form/table/tr/td/table/tr/td";
+            string xpathClassNum = "html/body/table/tr[2]/td/table/tr[2]/td/div/table/tr[last()]/td";
             List<string> ClassNumText = HTMLParser.ParseHTML(html, xpathClassNum);
             int ClassNum = 0;
+            int Num = 0;
             for(int p = 0; p < ClassNumText[0].Length; p++)
             {
-                if(char.IsNumber(str, p))
-                    ClassNum = ClassNum * 10 + int.Parse(ClassNumText[0][p].ToString());
+                if(char.IsNumber(ClassNumText[0], p))
+                {
+                    Num = int.Parse(ClassNumText[0][p].ToString());
+                    ClassNum = ClassNum * 10 + Num;
+                }
+                   // ClassNum = ClassNum * 10 + int.Parse(ClassNumText[0][p].ToString());
             }
 
             //再按课程数量确定Xpath表达式路径循环
             int[] selectNum = { 3, 6, 8, 9, 10, 11 };
-            for (int i = 1; i < ClassNum + 1; i++)
+            for (int row = 2; row < ClassNum + 2; row++)
             {
-                for(int j = 0; j < selectNum.Length; j++)
+                for(int column = 0; column < selectNum.Length; column++)
                 {
                     //循环改变Xpath表达式路径
                     //html/body/table/tr[2]/td/form/table/tr[2]/td/div/table/tr[2]/td[3][6][8][9][10][11]
-                    string xpath1 = "html/body/table/tr[2]/td/form/table/tr[2]/td/div/table/tr[";
+                    string xpath1 = "html/body/table/tr[2]/td/table/tr[2]/td/div/table/tr[";
                     string xpath2 = "]/td[";
                     string xpath3 = "]";
-                    string xpathGradeCheck = xpath1 + i + xpath2 + selectNum[j] + xpath3;
+                    string xpathGradeCheck = xpath1 + row + xpath2 + selectNum[column] + xpath3;
 
                     List<string> GradeCheckText = HTMLParser.ParseHTML(html, xpathGradeCheck);  //返回当前路径下标签里的文本
-                    textBlocks[i-1][j].Text = string.Join(" ", GradeCheckText.ToArray());
+                    string GradeCheckStr = string.Join(" ", GradeCheckText.ToArray());
+                    GradeCheckStr = GradeCheckStr.Replace("&nbsp;", " ");
+                    if(column == 0)
+                    {
+                        textBlocks[row - 2][column].Text = "     " +  GradeCheckStr;
+                    }
+                    else textBlocks[row - 2][column].Text = GradeCheckStr;
 
                 }
             }
