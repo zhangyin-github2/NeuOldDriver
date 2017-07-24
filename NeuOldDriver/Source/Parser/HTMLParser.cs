@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using HtmlAgilityPack;
 
-namespace NeuOldDriver.Source.Parser
-{
+namespace NeuOldDriver.Source.Parser {
     class HTMLParser
     {
         public static List<string> ParseHTML(string html, string xpath)

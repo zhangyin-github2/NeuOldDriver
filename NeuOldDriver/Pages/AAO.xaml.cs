@@ -18,11 +18,11 @@ namespace NeuOldDriver.Pages {
             this.InitializeComponent();
 
             this.Loaded += async (sender, e) => {
-                login.ImageSource = await Net.AAO.CaptchaImage();
+                login.ImageSource = await Net.AAOAPI.CaptchaImage();
             };
 
             login.Refresh += async (sender, e) => {
-                return await Net.AAO.CaptchaImage();
+                return await Net.AAOAPI.CaptchaImage();
             };
 
             login.Submit += async (sender, e) => {
