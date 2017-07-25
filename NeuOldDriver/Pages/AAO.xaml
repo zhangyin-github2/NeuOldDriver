@@ -103,6 +103,7 @@
                     <ListView Style="{StaticResource ButtonContainer}" ItemClick="PageNavigate"
                               IsEnabled="{x:Bind vm.Logged, Mode=OneWay}">
                         <models:PageButtonData Glyph="{StaticResource BooksIcon}" Label="选课推荐" Page="pages:Recommend"></models:PageButtonData>
+                        <models:PageButtonData Glyph="{StaticResource OtherUserIcon}" Label="教师评价"></models:PageButtonData>
                         <models:PageButtonData Glyph="{StaticResource BooksIcon}" Label="选课系统"></models:PageButtonData>
                     </ListView>
                 </StackPanel>
