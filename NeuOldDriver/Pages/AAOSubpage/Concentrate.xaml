@@ -25,7 +25,7 @@
                 <TextBlock x:Name="txt" Foreground="White"  FontWeight="Light" FontSize="120" Text=""
                            HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.6" FontFamily="Segoe UI Light"></TextBlock>
             </Grid>
-            <Button Content="开始专注" Height="48" Width="127" Margin="300,20,0,0" x:Name="concentrateButton"
+            <Button Content="开始专注"  Foreground="White"  Height="48" Width="127" Margin="300,20,0,0" x:Name="concentrateButton"
                     HorizontalAlignment="Center" VerticalAlignment="Bottom" 
                     Click="StateTransit" FontFamily="Comic Sans MS" FontSize="24" Opacity="0.7" />
         </StackPanel>
