@@ -37,6 +37,7 @@
         <TextBlock HorizontalAlignment="Left" Margin="1178,330,0,0" TextWrapping="Wrap" FontSize="26" Text="楼层" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="1023,330,0,0" TextWrapping="Wrap" FontSize="26" Text="考试人数" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="864,330,0,0" TextWrapping="Wrap" FontSize="26" Text="容纳人数" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="32,388,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="36" Width="88" SelectionChanged="TextBlock_SelectionChanged_1"/>
 
 
 
