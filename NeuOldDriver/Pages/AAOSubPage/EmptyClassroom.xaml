@@ -7,7 +7,41 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+ <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="ms-appx:///Assets/cl.jpg"></ImageBrush>
+        </Grid.Background>
+        <TextBlock HorizontalAlignment="Left" Margin="28,10,0,0" FontSize="56" TextWrapping="Wrap" Text="空教室查询：" VerticalAlignment="Top" Height="72" Width="374" SelectionChanged="TextBlock_SelectionChanged"/>
+        <TextBlock HorizontalAlignment="Left" Margin="28,113,0,0" TextWrapping="Wrap" Text="学年学期：" FontSize="26" VerticalAlignment="Top" Height="38" Width="134" RenderTransformOrigin="0.548,1.684"/>
+        <TextBlock HorizontalAlignment="Left" Margin="364,112,0,0" TextWrapping="Wrap" Text="星期：" FontSize="26" VerticalAlignment="Top" RenderTransformOrigin="-1.533,-1.5"/>
+        <TextBlock HorizontalAlignment="Left" Margin="658,112,0,0" TextWrapping="Wrap" Text="节次：" FontSize="26" VerticalAlignment="Top" RenderTransformOrigin="-0.097,-1.3"/>
+        <TextBlock HorizontalAlignment="Left" Margin="948,113,0,0" TextWrapping="Wrap" Text="周类型：" FontSize="26" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="948,185,0,0" TextWrapping="Wrap" Text="上课周：" FontSize="26" VerticalAlignment="Top" RenderTransformOrigin="-0.133,0.4"/>
+        <TextBlock HorizontalAlignment="Left" Margin="364,185,0,0" TextWrapping="Wrap" Text="教学楼：" FontSize="26" VerticalAlignment="Top" RenderTransformOrigin="-1.778,0.833"/>
+        <TextBlock HorizontalAlignment="Left" Margin="28,185,0,0" TextWrapping="Wrap" Text="教室类型：" FontSize="26" VerticalAlignment="Top" RenderTransformOrigin="-1.792,0.833"/>
+        <TextBlock HorizontalAlignment="Left" Margin="658,185,0,0" TextWrapping="Wrap" Text="教室：" FontSize="26" VerticalAlignment="Top" RenderTransformOrigin="-0.567,0.3"/>
+        <Button Content="查询" HorizontalAlignment="Left" Margin="1114,256,0,0" Foreground="White" VerticalAlignment="Top" FontSize="26" Width="116" RenderTransformOrigin="0.586,1.319"/>
+        <ComboBox HorizontalAlignment="Left" Margin="162,112,0,0" VerticalAlignment="Top" Width="186" Height="39"/>
+        <ComboBox HorizontalAlignment="Left" Margin="163,185,0,0" VerticalAlignment="Top" Width="186" Height="39"/>
+        <ComboBox HorizontalAlignment="Left" Margin="447,112,0,0" VerticalAlignment="Top" Width="187" Height="39"/>
+        <ComboBox HorizontalAlignment="Left" Margin="468,185,0,0" VerticalAlignment="Top" Width="166" Height="39"/>
+        <ComboBox HorizontalAlignment="Left" Margin="741,113,0,0" VerticalAlignment="Top" Width="185" RenderTransformOrigin="0.017,0.375" Height="39"/>
+        <ComboBox HorizontalAlignment="Left" Margin="741,185,0,0" VerticalAlignment="Top" Width="185" Height="39"/>
+        <ComboBox HorizontalAlignment="Left" Margin="1057,112,0,0" VerticalAlignment="Top" Width="187" Height="39"/>
+        <ComboBox HorizontalAlignment="Left" Margin="1057,185,0,0" VerticalAlignment="Top" Width="187" Height="39"/>
+        <TextBlock HorizontalAlignment="Left" Margin="32,330,0,0" TextWrapping="Wrap" FontSize="26" Text="教室编号" VerticalAlignment="Top" RenderTransformOrigin="0.615,-0.8"/>
+        <TextBlock HorizontalAlignment="Left" Margin="214,330,0,0" TextWrapping="Wrap" FontSize="26" Text="教室名称" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="407,330,0,0" TextWrapping="Wrap" FontSize="26" Text="教室类型" VerticalAlignment="Top" RenderTransformOrigin="-0.839,1.05"/>
+        <TextBlock HorizontalAlignment="Left" Margin="598,330,0,0" TextWrapping="Wrap" FontSize="26" Text="教学楼" VerticalAlignment="Top" SelectionChanged="TextBlock_SelectionChanged" RenderTransformOrigin="1,0.571"/>
+        <TextBlock HorizontalAlignment="Left" Margin="741,330,0,0" TextWrapping="Wrap" FontSize="26" Text="校区" VerticalAlignment="Top" RenderTransformOrigin="0.112,0.571"/>
+        <TextBlock HorizontalAlignment="Left" Margin="1178,330,0,0" TextWrapping="Wrap" FontSize="26" Text="楼层" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="1023,330,0,0" TextWrapping="Wrap" FontSize="26" Text="考试人数" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="864,330,0,0" TextWrapping="Wrap" FontSize="26" Text="容纳人数" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="32,388,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="36" Width="88" SelectionChanged="TextBlock_SelectionChanged_1"/>
+
+
 
     </Grid>
 </Page>
+
+

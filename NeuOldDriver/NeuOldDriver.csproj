@@ -167,6 +167,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\2c6d14f4fc96f18630460ebe5b94fb46.jpg" />
+    <Content Include="Assets\cl.jpg" />
     <Content Include="Properties\Default.rd.xml">
       <SubType>Designer</SubType>
     </Content>
