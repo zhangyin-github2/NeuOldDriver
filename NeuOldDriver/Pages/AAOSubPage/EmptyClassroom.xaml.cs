@@ -58,5 +58,35 @@ namespace NeuOldDriver.Pages.AAOSubPage {
         {
 
         }
+
+        private void ComboBox_SelectionChanged_7(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void ComboBox_SelectionChanged_8(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void ComboBox_SelectionChanged_9(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void ComboBox_SelectionChanged_10(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void ComboBox_SelectionChanged_11(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void ComboBox_SelectionChanged_12(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
