@@ -78,6 +78,7 @@
         </SplitView.Pane>
         <SplitView.Content>
             <Grid Background="Transparent">
+                
                 <StackPanel x:Name="container" Orientation="Vertical"
                             HorizontalAlignment="Center" VerticalAlignment="Center"
                             Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -95,7 +96,7 @@
                     <ListView Style="{StaticResource ButtonContainer}" ItemClick="PageNavigate"
                               IsEnabled="{x:Bind vm.Logged, Mode=OneWay}">
                         <models:PageButtonData Glyph="{StaticResource MenuIcon}" Label="空教室查询" Page="pages:EmptyClassroom"></models:PageButtonData>
-                        <models:PageButtonData Glyph="{StaticResource OtherUserIcon}" Label="教室评分"></models:PageButtonData>
+                        
                         <models:PageButtonData Glyph="{StaticResource UserIcon}" Label="学习自律助手" Page="pages:Concentrate"></models:PageButtonData>
                     </ListView>
 
@@ -103,7 +104,7 @@
                     <ListView Style="{StaticResource ButtonContainer}" ItemClick="PageNavigate"
                               IsEnabled="{x:Bind vm.Logged, Mode=OneWay}">
                         <models:PageButtonData Glyph="{StaticResource BooksIcon}" Label="选课推荐" Page="pages:Recommend"></models:PageButtonData>
-                        <models:PageButtonData Glyph="{StaticResource OtherUserIcon}" Label="教师评价"></models:PageButtonData>
+                        <models:PageButtonData Glyph="{StaticResource OtherUserIcon}" Label="教师评价" Page="pages:TeacherRating"></models:PageButtonData>
                     </ListView>
                 </StackPanel>
                 <controls:BackDrop x:Name="backdrop" BlurAmount="15" TintColor="Gray"
