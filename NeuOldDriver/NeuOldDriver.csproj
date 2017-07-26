@@ -106,6 +106,7 @@
     </Compile>
     <Compile Include="Models\AAOModel.cs" />
     <Compile Include="Models\ClassData.cs" />
+    <Compile Include="Models\Course.cs" />
     <Compile Include="Models\IPGWModel.cs" />
     <Compile Include="Models\LoginData.cs" />
     <Compile Include="Models\PageButtonData.cs" />
@@ -115,11 +116,14 @@
     <Compile Include="Pages\AAOSubPage\Concentrate.xaml.cs">
       <DependentUpon>Concentrate.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\AAOSubPage\ClassSchedule.xaml.cs">
-      <DependentUpon>ClassSchedule.xaml</DependentUpon>
+    <Compile Include="Pages\AAOSubPage\CourseTable.xaml.cs">
+      <DependentUpon>CourseTable.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\AAOSubPage\EmptyClassroom.xaml.cs">
       <DependentUpon>EmptyClassroom.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AAOSubPage\ExamRoom.xaml.cs">
+      <DependentUpon>ExamRoom.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\AAOSubPage\Recommend.xaml.cs">
       <DependentUpon>Recommend.xaml</DependentUpon>
@@ -144,8 +148,8 @@
     <Compile Include="Source\Net\IPGWAPI.cs" />
     <Compile Include="Source\Global\Constants.cs" />
     <Compile Include="Source\Global\Globals.cs" />
-    <Compile Include="Source\Json\JsonExtensions.cs" />
-    <Compile Include="Source\Linq\LinqExtensions.cs" />
+    <Compile Include="Source\Extensions\JsonExtensions.cs" />
+    <Compile Include="Source\Extensions\LinqExtensions.cs" />
     <Compile Include="Source\Parser\HTMLParser.cs" />
     <Compile Include="Source\Storage\Accounts.cs" />
     <Compile Include="Source\Utils\CommonUtils.cs" />
@@ -154,7 +158,7 @@
     <Compile Include="Source\Storage\PasswordVault.cs" />
     <Compile Include="Source\Net\WebUtils.cs" />
     <Compile Include="ViewModels\AAOViewModel.cs" />
-    <Compile Include="ViewModels\ClassScheduleViewModel.cs" />
+    <Compile Include="ViewModels\CourseTableViewModel.cs" />
     <Compile Include="ViewModels\IPGWViewModel.cs" />
     <Compile Include="ViewModels\RecommendViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
@@ -200,11 +204,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\AAOSubPage\ClassSchedule.xaml">
+    <Page Include="Pages\AAOSubPage\CourseTable.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\AAOSubPage\EmptyClassroom.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AAOSubPage\ExamRoom.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

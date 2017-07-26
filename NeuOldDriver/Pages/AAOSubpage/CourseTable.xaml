@@ -1,0 +1,211 @@
+﻿<Page
+    x:Class="NeuOldDriver.Pages.AAOSubPage.CourseTable"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:NeuOldDriver.Pages.AAOSubPage"
+    xmlns:vm="using:NeuOldDriver.ViewModels"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" Loaded="Page_Loaded">
+
+    <Page.Resources>
+        <SolidColorBrush x:Key="BackgroundColor" Color="#1c445c"></SolidColorBrush>
+        <SolidColorBrush x:Key="ForegroundColor" Color="#49edde"></SolidColorBrush>
+        <SolidColorBrush x:Key="Color1" Color="#0078D7"></SolidColorBrush>
+        <SolidColorBrush x:Key="Color2" Color="#70dcdc"></SolidColorBrush>
+        <SolidColorBrush x:Key="Color3" Color="#2f5cb6"></SolidColorBrush>
+        <SolidColorBrush x:Key="Color4" Color="#00B7C3"></SolidColorBrush>
+    </Page.Resources>
+
+    <Page.DataContext>
+        <vm:CourseTableViewModel x:Name="vm"></vm:CourseTableViewModel>
+    </Page.DataContext>
+    
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="9*"/>
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Row="0" Grid.Column="0" Background="{StaticResource BackgroundColor}"/>
+                <Border Grid.Row="0" Grid.Column="1" Background="{StaticResource BackgroundColor}"/>
+
+                <TextBlock Foreground="{StaticResource ForegroundColor}" FontSize="30" Text="{x:Bind vm.Term, Mode=OneWay}"
+                           HorizontalAlignment="Center" VerticalAlignment="Center">
+                </TextBlock>
+
+                <ComboBox Foreground="White" x:Name="comboBox1" Grid.Column="1" HorizontalAlignment="Right" SelectionChanged="ComboBox_SelectionChanged"></ComboBox>
+            </Grid>
+        </StackPanel>
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0" Background="{StaticResource Color1}"/>
+            <TextBlock Foreground="White" FontSize="20" Text="{x:Bind vm.StudentInfo, Mode=OneWay}"
+                       HorizontalAlignment="Center" VerticalAlignment="Center">
+            </TextBlock>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Row="0" Grid.Column="0" Background="{StaticResource Color1}"/>
+                <Border Grid.Row="1" Grid.Column="0" Background="{StaticResource Color1}"/>
+                <Border Grid.Row="2" Grid.Column="0" Background="{StaticResource Color1}"/>
+                <Border Grid.Row="3" Grid.Column="0" Background="{StaticResource Color1}"/>
+                <Border Grid.Row="4" Grid.Column="0" Background="{StaticResource Color1}"/>
+                <Border Grid.Row="5" Grid.Column="0" Background="{StaticResource Color1}"/>
+                <Border Grid.Row="6" Grid.Column="0" Background="{StaticResource Color1}"/>
+
+                <Border Grid.Row="0" Grid.Column="1" Background="{StaticResource Color1}"/>
+                <Border Grid.Row="0" Grid.Column="2" Background="{StaticResource Color1}"/>
+                <Border Grid.Row="0" Grid.Column="3" Background="{StaticResource Color1}"/>
+                <Border Grid.Row="0" Grid.Column="4" Background="{StaticResource Color1}"/>
+                <Border Grid.Row="0" Grid.Column="5" Background="{StaticResource Color1}"/>
+                <Border Grid.Row="0" Grid.Column="6" Background="{StaticResource Color1}"/>
+                <Border Grid.Row="0" Grid.Column="7" Background="{StaticResource Color1}"/>
+
+                <Border Grid.Row="1" Grid.Column="1" Background="{StaticResource Color2}"/>
+                <Border Grid.Row="1" Grid.Column="2" Background="{StaticResource Color3}"/>
+                <Border Grid.Row="1" Grid.Column="3" Background="{StaticResource Color2}"/>
+                <Border Grid.Row="1" Grid.Column="4" Background="{StaticResource Color3}"/>
+                <Border Grid.Row="1" Grid.Column="5" Background="{StaticResource Color2}"/>
+                <Border Grid.Row="1" Grid.Column="6" Background="{StaticResource Color3}"/>
+                <Border Grid.Row="1" Grid.Column="7" Background="{StaticResource Color2}"/>
+
+                <Border Grid.Row="2" Grid.Column="1" Background="{StaticResource Color3}"/>
+                <Border Grid.Row="2" Grid.Column="2" Background="{StaticResource Color4}"/>
+                <Border Grid.Row="2" Grid.Column="3" Background="{StaticResource Color3}"/>
+                <Border Grid.Row="2" Grid.Column="4" Background="{StaticResource Color4}"/>
+                <Border Grid.Row="2" Grid.Column="5" Background="{StaticResource Color3}"/>
+                <Border Grid.Row="2" Grid.Column="6" Background="{StaticResource Color4}"/>
+                <Border Grid.Row="2" Grid.Column="7" Background="{StaticResource Color3}"/>
+
+                <Border Grid.Row="3" Grid.Column="1" Background="{StaticResource Color4}"/>
+                <Border Grid.Row="3" Grid.Column="2" Background="{StaticResource Color2}"/>
+                <Border Grid.Row="3" Grid.Column="3" Background="{StaticResource Color4}"/>
+                <Border Grid.Row="3" Grid.Column="4" Background="{StaticResource Color2}"/>
+                <Border Grid.Row="3" Grid.Column="5" Background="{StaticResource Color4}"/>
+                <Border Grid.Row="3" Grid.Column="6" Background="{StaticResource Color2}"/>
+                <Border Grid.Row="3" Grid.Column="7" Background="{StaticResource Color4}"/>
+
+                <Border Grid.Row="4" Grid.Column="1" Background="{StaticResource Color3}"/>
+                <Border Grid.Row="4" Grid.Column="2" Background="{StaticResource Color4}"/>
+                <Border Grid.Row="4" Grid.Column="3" Background="{StaticResource Color3}"/>
+                <Border Grid.Row="4" Grid.Column="4" Background="{StaticResource Color4}"/>
+                <Border Grid.Row="4" Grid.Column="5" Background="{StaticResource Color3}"/>
+                <Border Grid.Row="4" Grid.Column="6" Background="{StaticResource Color4}"/>
+                <Border Grid.Row="4" Grid.Column="7" Background="{StaticResource Color3}"/>
+
+                <Border Grid.Row="5" Grid.Column="1" Background="{StaticResource Color2}"/>
+                <Border Grid.Row="5" Grid.Column="2" Background="{StaticResource Color3}"/>
+                <Border Grid.Row="5" Grid.Column="3" Background="{StaticResource Color2}"/>
+                <Border Grid.Row="5" Grid.Column="4" Background="{StaticResource Color3}"/>
+                <Border Grid.Row="5" Grid.Column="5" Background="{StaticResource Color2}"/>
+                <Border Grid.Row="5" Grid.Column="6" Background="{StaticResource Color3}"/>
+                <Border Grid.Row="5" Grid.Column="7" Background="{StaticResource Color2}"/>
+
+                <Border Grid.Row="6" Grid.Column="1" Background="{StaticResource Color3}"/>
+                <Border Grid.Row="6" Grid.Column="2" Background="{StaticResource Color4}"/>
+                <Border Grid.Row="6" Grid.Column="3" Background="{StaticResource Color3}"/>
+                <Border Grid.Row="6" Grid.Column="4" Background="{StaticResource Color4}"/>
+                <Border Grid.Row="6" Grid.Column="5" Background="{StaticResource Color3}"/>
+                <Border Grid.Row="6" Grid.Column="6" Background="{StaticResource Color4}"/>
+                <Border Grid.Row="6" Grid.Column="7" Background="{StaticResource Color3}"/>
+
+                <TextBlock Foreground="White" FontWeight="Bold" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center">星期一MON</TextBlock>
+                <TextBlock Foreground="White" FontWeight="Bold" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center">星期二TUE</TextBlock>
+                <TextBlock Foreground="White" FontWeight="Bold" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Center">星期三WED</TextBlock>
+                <TextBlock Foreground="White" FontWeight="Bold" Grid.Row="0" Grid.Column="4" HorizontalAlignment="Center">星期四THU</TextBlock>
+                <TextBlock Foreground="White" FontWeight="Bold" Grid.Row="0" Grid.Column="5" HorizontalAlignment="Center">星期五FRI</TextBlock>
+                <TextBlock Foreground="White" FontWeight="Bold" Grid.Row="0" Grid.Column="6" HorizontalAlignment="Center">星期六SAT</TextBlock>
+                <TextBlock Foreground="White" FontWeight="Bold" Grid.Row="0" Grid.Column="7" HorizontalAlignment="Center">星期日SUN</TextBlock>
+
+                <TextBlock Foreground="White" FontWeight="Bold" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">1/2</TextBlock>
+                <TextBlock Foreground="White" FontWeight="Bold" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">3/4</TextBlock>
+                <TextBlock Foreground="White" FontWeight="Bold" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">5/6</TextBlock>
+                <TextBlock Foreground="White" FontWeight="Bold" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">5/6</TextBlock>
+                <TextBlock Foreground="White" FontWeight="Bold" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">7/8</TextBlock>
+                <TextBlock Foreground="White" FontWeight="Bold" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">9/10</TextBlock>
+                <TextBlock Foreground="White" FontWeight="Bold" Grid.Row="6" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">11/12</TextBlock>
+
+                <TextBlock Foreground="White" Name="MON12" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
+                <TextBlock Foreground="White" Name="MON34" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Foreground="White" Name="MON56" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Foreground="White" Name="MON78" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Foreground="White" Name="MON910" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Foreground="White" Name="MON1112" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+
+                <TextBlock Foreground="White" Name="TUE12" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Foreground="White" Name="TUE34" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Foreground="White" Name="TUE56" Grid.Row="3" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Foreground="White" Name="TUE78" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Foreground="White" Name="TUE910" Grid.Row="5" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Foreground="White" Name="TUE1112" Grid.Row="6" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+
+                <TextBlock Foreground="White" Name="WED12" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Foreground="White" Name="WED34" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Foreground="White" Name="WED56" Grid.Row="3" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Foreground="White" Name="WED78" Grid.Row="4" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Foreground="White" Name="WED910" Grid.Row="5" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Foreground="White" Name="WED1112" Grid.Row="6" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+
+                <TextBlock Foreground="White" Name="THU12" Grid.Row="1" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Foreground="White" Name="THU34" Grid.Row="2" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Foreground="White" Name="THU56" Grid.Row="3" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Foreground="White" Name="THU78" Grid.Row="4" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Foreground="White" Name="THU910" Grid.Row="5" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Foreground="White" Name="THU1112" Grid.Row="6" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+
+                <TextBlock Foreground="White" Name="FRI12" Grid.Row="1" Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Foreground="White" Name="FRI34" Grid.Row="2" Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Foreground="White" Name="FRI56" Grid.Row="3" Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Foreground="White" Name="FRI78" Grid.Row="4" Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Foreground="White" Name="FRI910" Grid.Row="5" Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Foreground="White" Name="FRI1112" Grid.Row="6" Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+
+                <TextBlock Foreground="White" Name="STA12" Grid.Row="1" Grid.Column="6" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Foreground="White" Name="STA34" Grid.Row="2" Grid.Column="6" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Foreground="White" Name="STA56" Grid.Row="3" Grid.Column="6" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Foreground="White" Name="STA78" Grid.Row="4" Grid.Column="6" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Foreground="White" Name="STA910" Grid.Row="5" Grid.Column="6" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Foreground="White" Name="STA1112" Grid.Row="6" Grid.Column="6" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+
+                <TextBlock Foreground="White" Name="SUN12" Grid.Row="1" Grid.Column="7" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Foreground="White" Name="SUN34" Grid.Row="2" Grid.Column="7" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Foreground="White" Name="SUN56" Grid.Row="3" Grid.Column="7" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Foreground="White" Name="SUN78" Grid.Row="4" Grid.Column="7" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Foreground="White" Name="SUN910" Grid.Row="5" Grid.Column="7" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Foreground="White" Name="SUN1112" Grid.Row="6" Grid.Column="7" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

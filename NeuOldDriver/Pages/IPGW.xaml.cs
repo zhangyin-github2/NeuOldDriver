@@ -2,7 +2,6 @@
 
 using NeuOldDriver.Utils;
 using NeuOldDriver.Global;
-using NeuOldDriver.Controls;
 
 namespace NeuOldDriver.Pages {
 
@@ -15,7 +14,7 @@ namespace NeuOldDriver.Pages {
                 if (!await vm.Login(e.username, e.password))
                     await Dialogs.Popup("错误", "登录失败!");
                 else {
-                    var accounts = Globals.Accounts["IPGW"];
+                    var accounts = Globals.Accounts.IPGW;
                     accounts.Active = e.username;
                     if (e.remember || accounts[e.username] != null)
                         accounts[e.username] = e.password;

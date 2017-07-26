@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 using Windows.Data.Json;
 using Windows.Storage;
 
-using NeuOldDriver.Json;
 using NeuOldDriver.Global;
+using NeuOldDriver.Extensions;
 
 namespace NeuOldDriver.Storage {
 
