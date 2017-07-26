@@ -11,33 +11,90 @@
         <Grid.Background>
             <ImageBrush ImageSource="ms-appx:///Assets/cl.jpg"></ImageBrush>
         </Grid.Background>
-        <TextBlock HorizontalAlignment="Left" Margin="28,10,0,0" FontSize="56" TextWrapping="Wrap" Text="空教室查询：" VerticalAlignment="Top" Height="72" Width="374" SelectionChanged="TextBlock_SelectionChanged"/>
+        <TextBlock HorizontalAlignment="Left" Margin="28,10,0,0" FontSize="56" TextWrapping="Wrap" Text="空教室查询：" VerticalAlignment="Top" Height="72" Width="374" />
         <TextBlock HorizontalAlignment="Left" Margin="28,113,0,0" TextWrapping="Wrap" Text="学年学期：" FontSize="26" VerticalAlignment="Top" Height="38" Width="134" RenderTransformOrigin="0.548,1.684"/>
-        <TextBlock HorizontalAlignment="Left" Margin="364,112,0,0" TextWrapping="Wrap" Text="星期：" FontSize="26" VerticalAlignment="Top" RenderTransformOrigin="-1.533,-1.5"/>
+        <TextBlock HorizontalAlignment="Left" Margin="364,112,0,0" TextWrapping="Wrap" Text="星期：" FontSize="26" VerticalAlignment="Top" RenderTransformOrigin="-1.533,-1.5" />
         <TextBlock HorizontalAlignment="Left" Margin="658,112,0,0" TextWrapping="Wrap" Text="节次：" FontSize="26" VerticalAlignment="Top" RenderTransformOrigin="-0.097,-1.3"/>
-        <TextBlock HorizontalAlignment="Left" Margin="948,113,0,0" TextWrapping="Wrap" Text="周类型：" FontSize="26" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="948,185,0,0" TextWrapping="Wrap" Text="上课周：" FontSize="26" VerticalAlignment="Top" RenderTransformOrigin="-0.133,0.4"/>
+        <TextBlock HorizontalAlignment="Left" Margin="32,182,0,0" TextWrapping="Wrap" Text="周类型：" FontSize="26" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="658,182,0,0" TextWrapping="Wrap" Text="上课周：" FontSize="26" VerticalAlignment="Top" RenderTransformOrigin="-0.133,0.4"/>
         <TextBlock HorizontalAlignment="Left" Margin="364,185,0,0" TextWrapping="Wrap" Text="教学楼：" FontSize="26" VerticalAlignment="Top" RenderTransformOrigin="-1.778,0.833"/>
-        <TextBlock HorizontalAlignment="Left" Margin="28,185,0,0" TextWrapping="Wrap" Text="教室类型：" FontSize="26" VerticalAlignment="Top" RenderTransformOrigin="-1.792,0.833"/>
-        <TextBlock HorizontalAlignment="Left" Margin="658,185,0,0" TextWrapping="Wrap" Text="教室：" FontSize="26" VerticalAlignment="Top" RenderTransformOrigin="-0.567,0.3"/>
-        <Button Content="查询" HorizontalAlignment="Left" Margin="1114,256,0,0" Foreground="White" VerticalAlignment="Top" FontSize="26" Width="116" RenderTransformOrigin="0.586,1.319"/>
-        <ComboBox HorizontalAlignment="Left" Margin="162,112,0,0" VerticalAlignment="Top" Width="186" Height="39"/>
-        <ComboBox HorizontalAlignment="Left" Margin="163,185,0,0" VerticalAlignment="Top" Width="186" Height="39"/>
-        <ComboBox HorizontalAlignment="Left" Margin="447,112,0,0" VerticalAlignment="Top" Width="187" Height="39"/>
-        <ComboBox HorizontalAlignment="Left" Margin="468,185,0,0" VerticalAlignment="Top" Width="166" Height="39"/>
-        <ComboBox HorizontalAlignment="Left" Margin="741,113,0,0" VerticalAlignment="Top" Width="185" RenderTransformOrigin="0.017,0.375" Height="39"/>
-        <ComboBox HorizontalAlignment="Left" Margin="741,185,0,0" VerticalAlignment="Top" Width="185" Height="39"/>
-        <ComboBox HorizontalAlignment="Left" Margin="1057,112,0,0" VerticalAlignment="Top" Width="187" Height="39"/>
-        <ComboBox HorizontalAlignment="Left" Margin="1057,185,0,0" VerticalAlignment="Top" Width="187" Height="39"/>
+       
+        <Button Content="查询" HorizontalAlignment="Left" Margin="1114,181,0,0" Foreground="White" VerticalAlignment="Top" FontSize="26" Width="116" RenderTransformOrigin="0.586,1.319"/>
+        <ComboBox HorizontalAlignment="Left" Margin="162,112,0,0" VerticalAlignment="Top" Width="186" Height="39" SelectionChanged="ComboBox_SelectionChanged_1">
+            <ComboBoxItem>2017-2018第一学期</ComboBoxItem>
+            <ComboBoxItem>2017-2018第二学期</ComboBoxItem>
+        </ComboBox>
+        
+        <ComboBox HorizontalAlignment="Left" Margin="447,112,0,0" VerticalAlignment="Top" Width="187" Height="39" SelectionChanged="ComboBox_SelectionChanged_2">
+            <ComboBoxItem>星期一</ComboBoxItem>
+            <ComboBoxItem>星期二</ComboBoxItem>
+            <ComboBoxItem>星期三</ComboBoxItem>
+            <ComboBoxItem>星期四</ComboBoxItem>
+            <ComboBoxItem>星期五</ComboBoxItem>
+            <ComboBoxItem>星期六</ComboBoxItem>
+            <ComboBoxItem>星期日</ComboBoxItem>
+
+        </ComboBox>
+
+        <ComboBox HorizontalAlignment="Left" Margin="468,185,0,0" VerticalAlignment="Top" Width="166" Height="39" SelectionChanged="ComboBox_SelectionChanged_5">
+            <ComboBoxItem>大成教学馆</ComboBoxItem>
+            <ComboBoxItem>逸夫楼</ComboBoxItem>
+            <ComboBoxItem>何世礼教学馆</ComboBoxItem>
+            <ComboBoxItem>机电馆</ComboBoxItem>
+            <ComboBoxItem>采矿馆</ComboBoxItem>
+            <ComboBoxItem>冶金馆</ComboBoxItem>
+            <ComboBoxItem>建筑馆</ComboBoxItem>
+            <ComboBoxItem>浑南信息学馆</ComboBoxItem>
+            <ComboBoxItem>浑南建筑学馆</ComboBoxItem>
+            <ComboBoxItem>浑南生命学馆</ComboBoxItem>
+            <ComboBoxItem>浑南文法学馆</ComboBoxItem>
+            <ComboBoxItem>浑南一号教学楼</ComboBoxItem>
+        </ComboBox>
+        <ComboBox HorizontalAlignment="Left" Margin="741,113,0,0" VerticalAlignment="Top" Width="185" RenderTransformOrigin="0.017,0.375" Height="39" SelectionChanged="ComboBox_SelectionChanged_3">
+            <ComboBoxItem>1-2节</ComboBoxItem>
+            <ComboBoxItem>3-4节</ComboBoxItem>
+            <ComboBoxItem>5-6节</ComboBoxItem>
+            <ComboBoxItem>7-8节</ComboBoxItem>
+            <ComboBoxItem>9-10节</ComboBoxItem>
+        </ComboBox>
+        
+        
+        <ComboBox HorizontalAlignment="Left" Margin="162,185,0,0" VerticalAlignment="Top" Width="187" Height="39" SelectionChanged="ComboBox_SelectionChanged_4" RenderTransformOrigin="0.465,0.564">
+            <ComboBoxItem>单数周</ComboBoxItem>
+            <ComboBoxItem>双数周</ComboBoxItem>
+
+        </ComboBox>
+
+        <ComboBox HorizontalAlignment="Left" Margin="781,181,0,0" VerticalAlignment="Top" Width="187" Height="39" SelectionChanged="ComboBox_SelectionChanged_6">
+            <ComboBoxItem>第一周</ComboBoxItem>
+            <ComboBoxItem>第二周</ComboBoxItem>
+            <ComboBoxItem>第三周</ComboBoxItem>
+            <ComboBoxItem>第四周</ComboBoxItem>
+            <ComboBoxItem>第五周</ComboBoxItem>
+            <ComboBoxItem>第六周</ComboBoxItem>
+            <ComboBoxItem>第七周</ComboBoxItem>
+            <ComboBoxItem>第八周</ComboBoxItem>
+            <ComboBoxItem>第九周</ComboBoxItem>
+            <ComboBoxItem>第十周</ComboBoxItem>
+            <ComboBoxItem>第十一周</ComboBoxItem>
+            <ComboBoxItem>第十二周</ComboBoxItem>
+            <ComboBoxItem>第十三周</ComboBoxItem>
+            <ComboBoxItem>第十四周</ComboBoxItem>
+            <ComboBoxItem>第十五周</ComboBoxItem>
+            <ComboBoxItem>第十六周</ComboBoxItem>
+            <ComboBoxItem>第十七周</ComboBoxItem>
+            <ComboBoxItem>第十八周</ComboBoxItem>
+            <ComboBoxItem>第十九周</ComboBoxItem>
+            <ComboBoxItem>第二十周</ComboBoxItem>
+        </ComboBox>
         <TextBlock HorizontalAlignment="Left" Margin="32,330,0,0" TextWrapping="Wrap" FontSize="26" Text="教室编号" VerticalAlignment="Top" RenderTransformOrigin="0.615,-0.8"/>
         <TextBlock HorizontalAlignment="Left" Margin="214,330,0,0" TextWrapping="Wrap" FontSize="26" Text="教室名称" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="407,330,0,0" TextWrapping="Wrap" FontSize="26" Text="教室类型" VerticalAlignment="Top" RenderTransformOrigin="-0.839,1.05"/>
-        <TextBlock HorizontalAlignment="Left" Margin="598,330,0,0" TextWrapping="Wrap" FontSize="26" Text="教学楼" VerticalAlignment="Top" SelectionChanged="TextBlock_SelectionChanged" RenderTransformOrigin="1,0.571"/>
+        <TextBlock HorizontalAlignment="Left" Margin="598,330,0,0" TextWrapping="Wrap" FontSize="26" Text="教学楼" VerticalAlignment="Top" RenderTransformOrigin="1,0.571"/>
         <TextBlock HorizontalAlignment="Left" Margin="741,330,0,0" TextWrapping="Wrap" FontSize="26" Text="校区" VerticalAlignment="Top" RenderTransformOrigin="0.112,0.571"/>
         <TextBlock HorizontalAlignment="Left" Margin="1178,330,0,0" TextWrapping="Wrap" FontSize="26" Text="楼层" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="1023,330,0,0" TextWrapping="Wrap" FontSize="26" Text="考试人数" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="864,330,0,0" TextWrapping="Wrap" FontSize="26" Text="容纳人数" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="32,388,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="36" Width="88" SelectionChanged="TextBlock_SelectionChanged_1"/>
 
 
 
