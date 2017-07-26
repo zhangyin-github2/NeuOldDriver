@@ -78,6 +78,7 @@
         </SplitView.Pane>
         <SplitView.Content>
             <Grid Background="Transparent">
+                
                 <StackPanel x:Name="container" Orientation="Vertical"
                             HorizontalAlignment="Center" VerticalAlignment="Center"
                             Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -86,7 +87,7 @@
                     <ListView Style="{StaticResource ButtonContainer}" ItemClick="PageNavigate"
                               IsEnabled="{x:Bind vm.Logged, Mode=OneWay}">
                         <models:PageButtonData Glyph="{StaticResource WorldIcon}" Label="查成绩" Page="pages:GradeCheck"></models:PageButtonData>
-                        <models:PageButtonData Glyph="{StaticResource BooksIcon}" Label="查课表"></models:PageButtonData>
+                        <models:PageButtonData Glyph="{StaticResource BooksIcon}" Label="查课表" Page="pages:ClassSchedule"></models:PageButtonData>
                         <models:PageButtonData Glyph="{StaticResource CommentIcon}" Label="查考场"></models:PageButtonData>
                         <models:PageButtonData Glyph="{StaticResource HomeIcon}" Label="培养计划"></models:PageButtonData>
                     </ListView>
@@ -94,8 +95,8 @@
                     <TextBlock Style="{StaticResource LabelStyle}" Text="学习助手"></TextBlock>
                     <ListView Style="{StaticResource ButtonContainer}" ItemClick="PageNavigate"
                               IsEnabled="{x:Bind vm.Logged, Mode=OneWay}">
-                        <models:PageButtonData Glyph="{StaticResource MenuIcon}" Label="空教室查询" Page="pages:ClassSchedule"></models:PageButtonData>
-                        <models:PageButtonData Glyph="{StaticResource OtherUserIcon}" Label="教室评分"></models:PageButtonData>
+                        <models:PageButtonData Glyph="{StaticResource MenuIcon}" Label="空教室查询" Page="pages:EmptyClassroom"></models:PageButtonData>
+                        
                         <models:PageButtonData Glyph="{StaticResource UserIcon}" Label="学习自律助手" Page="pages:Concentrate"></models:PageButtonData>
                     </ListView>
 
@@ -103,7 +104,7 @@
                     <ListView Style="{StaticResource ButtonContainer}" ItemClick="PageNavigate"
                               IsEnabled="{x:Bind vm.Logged, Mode=OneWay}">
                         <models:PageButtonData Glyph="{StaticResource BooksIcon}" Label="选课推荐" Page="pages:Recommend"></models:PageButtonData>
-                        <models:PageButtonData Glyph="{StaticResource OtherUserIcon}" Label="教师评价"></models:PageButtonData>
+                        <models:PageButtonData Glyph="{StaticResource OtherUserIcon}" Label="教师评价" Page="pages:TeacherRating"></models:PageButtonData>
                     </ListView>
                 </StackPanel>
                 <controls:BackDrop x:Name="backdrop" BlurAmount="15" TintColor="Gray"

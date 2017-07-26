@@ -25,20 +25,20 @@
     </Page.DataContext>
     
     <StackPanel Orientation="Vertical" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <RelativePanel>
-            <Button x:Name="SearchButton" FontSize="18" Content="搜索" Margin="0,15,5,0"
+        <RelativePanel Background="#1c445c" Height="80">
+            <Button x:Name="SearchButton" FontSize="18" Content="搜索" Foreground="#dcd6e0" Background="#516da2" Margin="0,23,5,0"
                     RelativePanel.AlignRightWithPanel="True">
             </Button>
-            <TextBox x:Name="SearchTextBox" Width="100" Height="6" Margin="0,18,10,0"
+            <TextBox x:Name="SearchTextBox" Width="100" Height="6" Margin="0,25,10,0"
                      RelativePanel.LeftOf="SearchButton">
             </TextBox>
-            <TextBlock Text="查询:" FontSize="18" Margin="0,0,5,0"
+            <TextBlock Text="查询:" FontSize="18" Foreground="#dcd6e0" Margin="0,0,5,0"
                        RelativePanel.LeftOf="SearchTextBox" RelativePanel.AlignVerticalCenterWithPanel="True">
             </TextBlock>
-            <TextBlock Text="选课推荐" FontSize="48" FontWeight="Bold" Margin="5,0,0,0"></TextBlock>
+            <TextBlock Text="选课推荐" FontSize="36"  Margin="50,15,0,0" Foreground="#49edde"></TextBlock>
         </RelativePanel>
 
-        <Grid>
+        <Grid Margin="0,20,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="90"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
@@ -50,17 +50,17 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Column="0" Text="课程分类" Style="{StaticResource LabelStyle}"></TextBlock>
-            <ComboBox x:Name="categoryCombo" Grid.Column="1" Tag="Category"
+            <ComboBox x:Name="categoryCombo" Grid.Column="1" Tag="Category" Background="#6a9dc2" Foreground="White"
                       Style="{StaticResource DropdownStyle}" ItemsSource="{x:Bind vm.Category}">
             </ComboBox>
 
             <TextBlock Grid.Column="2" Text="课程学期" Style="{StaticResource LabelStyle}"></TextBlock>
-            <ComboBox x:Name="termCombo" Grid.Column="3" Tag="Term"
+            <ComboBox x:Name="termCombo" Grid.Column="3" Tag="Term" Background="#6a9dc2" Foreground="White"
                       Style="{StaticResource DropdownStyle}" ItemsSource="{x:Bind vm.Term}">
             </ComboBox>
 
             <TextBlock Grid.Column="4" Text="所属专业" Style="{StaticResource LabelStyle}"></TextBlock>
-            <ComboBox x:Name="majorCombo" Grid.Column="5" Tag="Major"
+            <ComboBox x:Name="majorCombo" Grid.Column="5" Tag="Major" Background="#6a9dc2" Foreground="White"
                       Style="{StaticResource DropdownStyle}" ItemsSource="{x:Bind vm.Major}">
             </ComboBox>
 
@@ -69,14 +69,14 @@
 
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="50"/>
+                <RowDefinition Height="100"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Row="0" Text="按您所选分类，推荐课程如下：" FontStyle="Italic" FontSize="24" VerticalAlignment="Center" Margin="10,0,0,0"/>
+            <TextBlock Grid.Row="0" Text="按您所选分类，推荐课程如下："  FontSize="24" VerticalAlignment="Center" Margin="10,20,0,0"/>
             <ListView Grid.Row="1" x:Name="classesBox" ItemsSource="{x:Bind vm.Items, Mode=OneWay}"
                       SelectionMode="Multiple" SelectionChanged="ClassSelectionChanged">
                 <ListView.ItemTemplate>
