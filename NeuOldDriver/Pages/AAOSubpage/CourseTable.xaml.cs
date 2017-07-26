@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
@@ -6,6 +7,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 using NeuOldDriver.Net;
+using NeuOldDriver.Extensions;
 
 // “空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234238 上有介绍
 
@@ -13,22 +15,20 @@ namespace NeuOldDriver.Pages.AAOSubPage {
     /// <summary>
     /// 可用于自身或导航至 Frame 内部的空白页。
     /// </summary>
-    public sealed partial class ClassSchedule : Page
+    public sealed partial class CourseTable : Page
     {
         TextBlock[][] textBlocks = new TextBlock[6][];
         string[][][] stringss = new string[20][][];
 
-        /// <summary>
-        /// 定义的实体类用于接收数据
-        /// </summary>
-        public class Data
-        {
-            public string 内容 { get; set; }
-        }
-
-        public ClassSchedule()
-        {
+        public CourseTable() {
             this.InitializeComponent();
+
+            this.Loaded += async (sender, e) => {
+                vm.LoadCourses(await AAOAPI.RequestInfomation("学生课程表"));
+                Enumerable.Range(1, 20).ForEach(i => {
+                    comboBox1.Items.Add(String.Format("第{0}周", i));
+                });
+            }; 
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -99,20 +99,13 @@ namespace NeuOldDriver.Pages.AAOSubPage {
             //List<ComboBoxItem> comboBoxItems = new List<ComboBoxItem>();
             //ComboBoxItem comboBoxIrem = new ComboBoxItem();
 
-            for (int i = 1; i < 21; i++)
-            {
-                //comboBoxItems.Add(comboBoxIrem);
-                comboBox1.Items.Add(new TextBlock() { Text = "第" + i + "周" });
-            }
-            ParseClassScheduleHTML();
-
         }
 
 
 
         private async void ParseClassScheduleHTML() {
             //课程信息, 把学生课程表页面的HTML返回给成string
-            var html = await AAOAPI.RequestInfomation("学生课程表");
+            /*var html = await AAOAPI.RequestInfomation("学生课程表");
 
             for (var row = 4; row < 10; ++row) {
 
@@ -152,7 +145,7 @@ namespace NeuOldDriver.Pages.AAOSubPage {
             //院系
             string xpathStudentInformation = "html/body/table/tr[2]/td/table/tr/td/table/tr/td/div/table/tr[2]/td[1]";
             StudentInformation.Text = String.Join(" ", AAOAPI.ParseHTML(html, xpathStudentInformation))
-                                        .Replace("&nbsp;", " ");
+                                        .Replace("&nbsp;", " ");*/
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

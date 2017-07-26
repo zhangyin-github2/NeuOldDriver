@@ -1,6 +1,6 @@
 ﻿using Windows.Data.Json;
 
-namespace NeuOldDriver.Json {
+namespace NeuOldDriver.Extensions {
 
     public static class JsonExtensions {
 

@@ -2,7 +2,7 @@
 
 using Windows.Data.Json;
 
-using NeuOldDriver.Json;
+using NeuOldDriver.Extensions;
 
 namespace NeuOldDriver.Storage {
 
@@ -34,6 +34,17 @@ namespace NeuOldDriver.Storage {
         }
 
         /// <summary>
+        /// Remove a user's username and password, if he is active, then active set to empty
+        /// </summary>
+        /// <param name="username"></param>
+        public void RemoveUser(string username) {
+            if (users.Remove(username)) {
+                if (active == username)
+                    active = "";
+            }
+        }
+
+        /// <summary>
         /// Get or set password, using indexer format
         /// <para>will also set active account if we are setting a password</para>
         /// </summary>
@@ -50,14 +61,11 @@ namespace NeuOldDriver.Storage {
         /// <summary>
         /// Remove a user, do nothing if the user not exist
         /// </summary>
-        /// <param name="vault"></param>
+        /// <param name="vault">PasswordVault container</param>
         /// <param name="username"></param>
-        /// <returns></returns>
+        /// <returns>modified PasswordVault object</returns>
         public static PasswordVault operator-(PasswordVault vault, string username) {
-            if (vault.users.Remove(username)) {
-                if (vault.active == username)
-                    vault.active = "";
-            }
+            vault.RemoveUser(username);
             return vault;
         }
 
