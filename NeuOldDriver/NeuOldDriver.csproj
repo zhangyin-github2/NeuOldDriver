@@ -116,11 +116,14 @@
     <Compile Include="Pages\AAOSubPage\Concentrate.xaml.cs">
       <DependentUpon>Concentrate.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\AAOSubPage\ClassSchedule.xaml.cs">
-      <DependentUpon>ClassSchedule.xaml</DependentUpon>
+    <Compile Include="Pages\AAOSubPage\CourseTable.xaml.cs">
+      <DependentUpon>CourseTable.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\AAOSubPage\EmptyClassroom.xaml.cs">
       <DependentUpon>EmptyClassroom.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AAOSubPage\ExamRoom.xaml.cs">
+      <DependentUpon>ExamRoom.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\AAOSubPage\Recommend.xaml.cs">
       <DependentUpon>Recommend.xaml</DependentUpon>
@@ -201,11 +204,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\AAOSubPage\ClassSchedule.xaml">
+    <Page Include="Pages\AAOSubPage\CourseTable.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\AAOSubPage\EmptyClassroom.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AAOSubPage\ExamRoom.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

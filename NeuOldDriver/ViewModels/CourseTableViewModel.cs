@@ -10,41 +10,33 @@ using HtmlAgilityPack;
 
 namespace NeuOldDriver.ViewModels {
 
-    public class CourseViewModel : ViewModelBase {
+    /// <summary>
+    /// Courses at specific day and course schedule
+    /// </summary>
+    public class CourseList {
+        public List<Course> courses;
 
-        private Course model;
-        private bool enabled;
-
-        public CourseViewModel(Course course) {
-            model = course;
-            enabled = model.weeks[0];
+        public CourseList() {
+            courses = new List<Course>();
         }
 
-        public static explicit operator CourseViewModel(Course course) {
-            return new CourseViewModel(course);
+        /// <summary>
+        /// Get courses by week
+        /// </summary>
+        /// <param name="week">week number, from 0 to 19</param>
+        /// <returns>A single course</returns>
+        public Course this[int week] {
+            get { return courses.Where(course => course.weeks[week]).FirstOrDefault(); }
         }
 
-        public string CourseName {
-            get { return model.name; }
+        public void Append(IEnumerable<Course> list) {
+            courses.AddRange(list);
         }
 
-        public string Teacher {
-            get { return model.teacher; }
+        public static implicit operator List<Course>(CourseList list) {
+            return list.courses;
         }
-
-        public string Location {
-            get { return model.location; }
-        }
-
-        public bool IsEnabled {
-            get { return enabled; }
-        }
-        
-        public void SetWeek(int week) {
-            enabled = model.weeks[week];
-            OnPropertyChanged(nameof(IsEnabled));
-        }
-    };
+    }
 
     public class CourseTableViewModel : ViewModelBase {
 
@@ -52,7 +44,7 @@ namespace NeuOldDriver.ViewModels {
         /// Courses in one week, from monday(0) to sunday(6) -- first dimension
         /// <para>Courses in one day, from course 1-2 (0) to course 11-12 (5) -- second dimension</para>
         /// </summary>
-        private IList<CourseViewModel>[][] courses;
+        private CourseList[][] courses;
 
         private string term = "";
         private string studentInfo = "";
@@ -73,20 +65,16 @@ namespace NeuOldDriver.ViewModels {
             get { return week; }
             set {
                 week = value; OnPropertyChanged(nameof(Week));
-                courses.Merge().Merge().ForEach(course => course.SetWeek(value));
+                
             }
         }
 
-        public IList<CourseViewModel>[][] Courses {
-            get { return courses; }
-        }
-
         public CourseTableViewModel() {
-            courses = new List<CourseViewModel>[7][];
+            courses = new CourseList[7][];
             for (var row = 0; row < 7; ++row) {
-                courses[row] = new List<CourseViewModel>[6];
+                courses[row] = new CourseList[6];
                 for (var col = 0; col < 6; ++col)
-                    courses[row][col] = new List<CourseViewModel>();
+                    courses[row][col] = new CourseList();
             }
         }
         
@@ -98,7 +86,7 @@ namespace NeuOldDriver.ViewModels {
             for (var col = 0; col < 6; ++col) { // course 
                 for (var row = 0; row < 7; ++row) { // weekdays
                     var result = ParseHTML(container, String.Format("tr[{0}]/td[{1}]", col + 4, row + 2));
-                    courses[row][col] = ParseCourses(result).Cast<CourseViewModel>().ToList();
+                    courses[row][col].Append(ParseCourses(result));
                 }
             }
 
