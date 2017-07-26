@@ -16,16 +16,16 @@
         <StackPanel Grid.Row="0">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="9*"/>
-                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="8*"/>
+                    <ColumnDefinition Width="2*" />
                 </Grid.ColumnDefinitions>
 
                 <Border Grid.Row="0" Grid.Column="0" Background="#1c445c"/>
                 <Border Grid.Row="0" Grid.Column="1" Background="#1c445c"/>
 
-                <TextBlock Foreground="#49edde" FontSize="30" Name="Semester" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
+                <TextBlock Foreground="#49edde" FontSize="40" Name="Semester" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
 
-                <ComboBox Foreground="White" x:Name="comboBox1" Grid.Column="1" HorizontalAlignment="Right" SelectionChanged="ComboBox_SelectionChanged">
+                <ComboBox x:Name="comboBox1" Grid.Column="1" Foreground="White" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center" SelectionChanged="ComboBox_SelectionChanged">
                 </ComboBox>
             </Grid>
         </StackPanel>
@@ -59,14 +59,6 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-
-                <!--
-                <Border Grid.Row="3" Grid.Column="3" Background="#2f5cb6"/>
-                <Border Grid.Row="3" Grid.Column="4" Background="#152951"/>
-                <Border Grid.Column ="1" Background="#1f3d7a"/>
-                <Border Grid.Row="1" Grid.ColumnSpan="2" Background="#152951"/>
-                -->
-
 
                 <Border Grid.Row="0" Grid.Column="1" Background="#0078D7"/>
                 <Border Grid.Row="0" Grid.Column="2" Background="#0078D7"/>
@@ -132,21 +124,21 @@
                 <Border Grid.Row="6" Grid.Column="7" Background="#2f5cb6"/>
                 <Border Grid.Row="6" Grid.Column="0" Background="#0078D7"/>
 
-                <TextBlock Foreground="White" FontWeight="Bold" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center">星期一MON</TextBlock>
-                <TextBlock Foreground="White" FontWeight="Bold" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center">星期二TUE</TextBlock>
-                <TextBlock Foreground="White" FontWeight="Bold" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Center">星期三WED</TextBlock>
-                <TextBlock Foreground="White" FontWeight="Bold" Grid.Row="0" Grid.Column="4" HorizontalAlignment="Center">星期四THU</TextBlock>
-                <TextBlock Foreground="White" FontWeight="Bold" Grid.Row="0" Grid.Column="5" HorizontalAlignment="Center">星期五FRI</TextBlock>
-                <TextBlock Foreground="White" FontWeight="Bold" Grid.Row="0" Grid.Column="6" HorizontalAlignment="Center">星期六SAT</TextBlock>
-                <TextBlock Foreground="White" FontWeight="Bold" Grid.Row="0" Grid.Column="7" HorizontalAlignment="Center">星期日SUN</TextBlock>
+                <TextBlock Foreground="White" FontWeight="Bold" FontSize="20" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">星期一MON</TextBlock>
+                <TextBlock Foreground="White" FontWeight="Bold" FontSize="20" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">星期二TUE</TextBlock>
+                <TextBlock Foreground="White" FontWeight="Bold" FontSize="20" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center">星期三WED</TextBlock>
+                <TextBlock Foreground="White" FontWeight="Bold" FontSize="20" Grid.Row="0" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center">星期四THU</TextBlock>
+                <TextBlock Foreground="White" FontWeight="Bold" FontSize="20" Grid.Row="0" Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center">星期五FRI</TextBlock>
+                <TextBlock Foreground="White" FontWeight="Bold" FontSize="20" Grid.Row="0" Grid.Column="6" HorizontalAlignment="Center" VerticalAlignment="Center">星期六SAT</TextBlock>
+                <TextBlock Foreground="White" FontWeight="Bold" FontSize="20" Grid.Row="0" Grid.Column="7" HorizontalAlignment="Center" VerticalAlignment="Center">星期日SUN</TextBlock>
 
-                <TextBlock Foreground="White" FontWeight="Bold" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">1/2</TextBlock>
-                <TextBlock Foreground="White" FontWeight="Bold" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">3/4</TextBlock>
-                <TextBlock Foreground="White" FontWeight="Bold" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">5/6</TextBlock>
-                <TextBlock Foreground="White" FontWeight="Bold" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">5/6</TextBlock>
-                <TextBlock Foreground="White" FontWeight="Bold" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">7/8</TextBlock>
-                <TextBlock Foreground="White" FontWeight="Bold" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">9/10</TextBlock>
-                <TextBlock Foreground="White" FontWeight="Bold" Grid.Row="6" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">11/12</TextBlock>
+                <TextBlock Foreground="White" FontWeight="Bold" FontSize="20" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">1/2</TextBlock>
+                <TextBlock Foreground="White" FontWeight="Bold" FontSize="20" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">3/4</TextBlock>
+                <TextBlock Foreground="White" FontWeight="Bold" FontSize="20" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">5/6</TextBlock>
+                <TextBlock Foreground="White" FontWeight="Bold" FontSize="20" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">5/6</TextBlock>
+                <TextBlock Foreground="White" FontWeight="Bold" FontSize="20" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">7/8</TextBlock>
+                <TextBlock Foreground="White" FontWeight="Bold" FontSize="20" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">9/10</TextBlock>
+                <TextBlock Foreground="White" FontWeight="Bold" FontSize="20" Grid.Row="6" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">11/12</TextBlock>
 
                 <TextBlock Foreground="White" Name="MON12" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
                 <TextBlock Foreground="White" Name="MON34" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
