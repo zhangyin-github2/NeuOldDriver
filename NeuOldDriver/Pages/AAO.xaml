@@ -87,8 +87,8 @@
                     <ListView Style="{StaticResource ButtonContainer}" ItemClick="PageNavigate"
                               IsEnabled="{x:Bind vm.Logged, Mode=OneWay}">
                         <models:PageButtonData Glyph="{StaticResource WorldIcon}" Label="查成绩" Page="pages:GradeCheck"></models:PageButtonData>
-                        <models:PageButtonData Glyph="{StaticResource BooksIcon}" Label="查课表" Page="pages:ClassSchedule"></models:PageButtonData>
-                        <models:PageButtonData Glyph="{StaticResource CommentIcon}" Label="查考场"></models:PageButtonData>
+                        <models:PageButtonData Glyph="{StaticResource BooksIcon}" Label="查课表" Page="pages:CourseTable"></models:PageButtonData>
+                        <models:PageButtonData Glyph="{StaticResource CommentIcon}" Label="查考场" Page="pages:ExamRoom"></models:PageButtonData>
                         <models:PageButtonData Glyph="{StaticResource HomeIcon}" Label="培养计划"></models:PageButtonData>
                     </ListView>
 

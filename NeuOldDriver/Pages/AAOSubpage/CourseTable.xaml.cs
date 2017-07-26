@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
@@ -6,6 +7,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 using NeuOldDriver.Net;
+using NeuOldDriver.Extensions;
 
 // “空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234238 上有介绍
 
@@ -23,6 +25,9 @@ namespace NeuOldDriver.Pages.AAOSubPage {
 
             this.Loaded += async (sender, e) => {
                 vm.LoadCourses(await AAOAPI.RequestInfomation("学生课程表"));
+                Enumerable.Range(1, 20).ForEach(i => {
+                    comboBox1.Items.Add(String.Format("第{0}周", i));
+                });
             }; 
         }
 
@@ -93,13 +98,6 @@ namespace NeuOldDriver.Pages.AAOSubPage {
 
             //List<ComboBoxItem> comboBoxItems = new List<ComboBoxItem>();
             //ComboBoxItem comboBoxIrem = new ComboBoxItem();
-
-            for (int i = 1; i < 21; i++)
-            {
-                //comboBoxItems.Add(comboBoxIrem);
-                comboBox1.Items.Add(new TextBlock() { Text = "第" + i + "周" });
-            }
-            ParseClassScheduleHTML();
 
         }
 
