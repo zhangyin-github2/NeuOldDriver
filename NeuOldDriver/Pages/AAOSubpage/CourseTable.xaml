@@ -6,7 +6,7 @@
     xmlns:vm="using:NeuOldDriver.ViewModels"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" Loaded="Page_Loaded">
+    mc:Ignorable="d">
 
     <Page.Resources>
         <SolidColorBrush x:Key="BackgroundColor" Color="#1c445c"></SolidColorBrush>
@@ -41,7 +41,7 @@
                            HorizontalAlignment="Center" VerticalAlignment="Center">
                 </TextBlock>
 
-                <ComboBox Foreground="White" x:Name="comboBox1" Grid.Column="1" HorizontalAlignment="Right" SelectionChanged="ComboBox_SelectionChanged"></ComboBox>
+                <ComboBox Foreground="White" x:Name="comboBox1" Grid.Column="1" HorizontalAlignment="Right"></ComboBox>
             </Grid>
         </StackPanel>
 
@@ -55,7 +55,7 @@
             <TextBlock Foreground="White" FontSize="20" Text="{x:Bind vm.StudentInfo, Mode=OneWay}"
                        HorizontalAlignment="Center" VerticalAlignment="Center">
             </TextBlock>
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="1" x:Name="CoursesContainer">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition/>
@@ -156,55 +156,6 @@
                 <TextBlock Foreground="White" FontWeight="Bold" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">7/8</TextBlock>
                 <TextBlock Foreground="White" FontWeight="Bold" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">9/10</TextBlock>
                 <TextBlock Foreground="White" FontWeight="Bold" Grid.Row="6" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">11/12</TextBlock>
-
-                <TextBlock Foreground="White" Name="MON12" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
-                <TextBlock Foreground="White" Name="MON34" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-                <TextBlock Foreground="White" Name="MON56" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-                <TextBlock Foreground="White" Name="MON78" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-                <TextBlock Foreground="White" Name="MON910" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-                <TextBlock Foreground="White" Name="MON1112" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-
-                <TextBlock Foreground="White" Name="TUE12" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-                <TextBlock Foreground="White" Name="TUE34" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-                <TextBlock Foreground="White" Name="TUE56" Grid.Row="3" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-                <TextBlock Foreground="White" Name="TUE78" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-                <TextBlock Foreground="White" Name="TUE910" Grid.Row="5" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-                <TextBlock Foreground="White" Name="TUE1112" Grid.Row="6" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-
-                <TextBlock Foreground="White" Name="WED12" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-                <TextBlock Foreground="White" Name="WED34" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-                <TextBlock Foreground="White" Name="WED56" Grid.Row="3" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-                <TextBlock Foreground="White" Name="WED78" Grid.Row="4" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-                <TextBlock Foreground="White" Name="WED910" Grid.Row="5" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-                <TextBlock Foreground="White" Name="WED1112" Grid.Row="6" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-
-                <TextBlock Foreground="White" Name="THU12" Grid.Row="1" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-                <TextBlock Foreground="White" Name="THU34" Grid.Row="2" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-                <TextBlock Foreground="White" Name="THU56" Grid.Row="3" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-                <TextBlock Foreground="White" Name="THU78" Grid.Row="4" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-                <TextBlock Foreground="White" Name="THU910" Grid.Row="5" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-                <TextBlock Foreground="White" Name="THU1112" Grid.Row="6" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-
-                <TextBlock Foreground="White" Name="FRI12" Grid.Row="1" Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-                <TextBlock Foreground="White" Name="FRI34" Grid.Row="2" Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-                <TextBlock Foreground="White" Name="FRI56" Grid.Row="3" Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-                <TextBlock Foreground="White" Name="FRI78" Grid.Row="4" Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-                <TextBlock Foreground="White" Name="FRI910" Grid.Row="5" Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-                <TextBlock Foreground="White" Name="FRI1112" Grid.Row="6" Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-
-                <TextBlock Foreground="White" Name="STA12" Grid.Row="1" Grid.Column="6" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-                <TextBlock Foreground="White" Name="STA34" Grid.Row="2" Grid.Column="6" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-                <TextBlock Foreground="White" Name="STA56" Grid.Row="3" Grid.Column="6" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-                <TextBlock Foreground="White" Name="STA78" Grid.Row="4" Grid.Column="6" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-                <TextBlock Foreground="White" Name="STA910" Grid.Row="5" Grid.Column="6" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-                <TextBlock Foreground="White" Name="STA1112" Grid.Row="6" Grid.Column="6" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-
-                <TextBlock Foreground="White" Name="SUN12" Grid.Row="1" Grid.Column="7" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-                <TextBlock Foreground="White" Name="SUN34" Grid.Row="2" Grid.Column="7" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-                <TextBlock Foreground="White" Name="SUN56" Grid.Row="3" Grid.Column="7" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-                <TextBlock Foreground="White" Name="SUN78" Grid.Row="4" Grid.Column="7" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-                <TextBlock Foreground="White" Name="SUN910" Grid.Row="5" Grid.Column="7" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-                <TextBlock Foreground="White" Name="SUN1112" Grid.Row="6" Grid.Column="7" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
             </Grid>
         </Grid>
     </Grid>
