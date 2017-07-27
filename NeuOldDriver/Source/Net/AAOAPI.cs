@@ -34,7 +34,6 @@ namespace NeuOldDriver.Net {
             {"学籍注册查询", "/ACTIONQUERYBASESTUDENTINFO.APPPROCESS"},
             {"学业预警", "/ACTIONQUERYBASESTUDENTINFO.APPPROCESS?mode=3"},
         };
-        //ACTIONQUERYEXAMTIMETABLEBYSTUDENT.APPPROCESS
 
         /// <summary>
         /// Extract captcha image source url from requested html
