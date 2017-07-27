@@ -13,11 +13,25 @@ namespace NeuOldDriver.ViewModels {
     /// <summary>
     /// Courses at specific day and course schedule
     /// </summary>
-    public class CourseList {
+    public class CourseList : ViewModelBase {
         public List<Course> courses;
+        public int week;
 
         public CourseList() {
             courses = new List<Course>();
+            week = 0;
+        }
+
+        public int Week {
+            get { return week; }
+            set { week = value; OnPropertyChanged(nameof(Week)); OnPropertyChanged(nameof(Text)); }
+        }
+
+        public string Text {
+            get {
+                var data = courses.Where(course => course.weeks[week]).FirstOrDefault();
+                return data == null ? "" : data.ToString();
+            }
         }
 
         /// <summary>
@@ -64,8 +78,8 @@ namespace NeuOldDriver.ViewModels {
         public int Week {
             get { return week; }
             set {
-                week = value; OnPropertyChanged(nameof(Week));
-                
+                week = value;
+                courses.Merge().ForEach(list => list.Week = value);
             }
         }
 
@@ -78,6 +92,10 @@ namespace NeuOldDriver.ViewModels {
             }
         }
         
+        public CourseList[] this[int weekday] {
+            get { return courses[weekday]; }
+        }
+
         public void LoadCourses(string html) {
             var document = new HtmlDocument();
             document.LoadHtml(html);
@@ -90,8 +108,8 @@ namespace NeuOldDriver.ViewModels {
                 }
             }
 
-            term = String.Join(" ", ParseHTML(container, "tr[1]/td[1]"));
-            studentInfo = String.Join(" ", ParseHTML(container, "tr[2]/td[1]")).Replace("&nbsp;", "");
+            Term = String.Join(" ", ParseHTML(container, "tr[1]/td[1]"));
+            StudentInfo = String.Join(" ", ParseHTML(container, "tr[2]/td[1]")).Replace("&nbsp;", "");
         }
         
         /// <summary>
