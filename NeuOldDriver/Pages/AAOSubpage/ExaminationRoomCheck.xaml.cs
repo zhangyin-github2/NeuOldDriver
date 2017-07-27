@@ -12,26 +12,19 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using NeuOldDriver.Source.Parser;
-using NeuOldDriver.Net;
 
 // “空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234238 上有介绍
 
-namespace NeuOldDriver.Pages.AAOSubPage {
+namespace NeuOldDriver.Pages.AAOSubPage
+{
     /// <summary>
     /// 可用于自身或导航至 Frame 内部的空白页。
     /// </summary>
-    public sealed partial class ExamRoom : Page
+    public sealed partial class ExaminationRoomCheck : Page
     {
-
-        TextBlock[][] textBlocks = new TextBlock[10][];
-
-        public ExamRoom()
+        public ExaminationRoomCheck()
         {
             this.InitializeComponent();
         }
-
-
     }
-
-   }
+}
