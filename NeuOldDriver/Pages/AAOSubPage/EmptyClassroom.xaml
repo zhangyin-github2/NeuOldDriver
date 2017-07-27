@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
- <Grid Background="White">
+    <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>
             <RowDefinition Height="100"/>
@@ -16,6 +16,8 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Background="#1c445c">
             <TextBlock Text="空教室查询"  Foreground="#49edde" FontSize="36"  Margin="50,15,0,0"/>
+            <Button x:Name="btnSearch" VerticalAlignment="Center" HorizontalAlignment="Left" 
+                Content="查询"  Margin="1178,13,0,12" FontSize="30" Foreground="White" RenderTransformOrigin="9.75,1.961" Width="92" Height="55"/>
         </Grid>
         <Grid Grid.Row="1" Margin="30,30,0,0">
             <Grid.ColumnDefinitions>
@@ -25,7 +27,7 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="100"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
-                
+
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" Text="学年学期："  FontSize="24" Margin="0,20,0,0"></TextBlock>
             <TextBlock Grid.Column="2" Text="星期："  FontSize="24" Margin="10,20,0,0"></TextBlock>
@@ -49,9 +51,9 @@
                 <ComboBoxItem>5-6节</ComboBoxItem>
                 <ComboBoxItem>7-8节</ComboBoxItem>
                 <ComboBoxItem>9-10节</ComboBoxItem>
-                
+
             </ComboBox>
-            
+
         </Grid>
         <Grid Grid.Row="2" Margin="30,0,0,0">
             <Grid.ColumnDefinitions>
@@ -128,7 +130,7 @@
             <TextBlock Grid.Column="7" Text="楼层" Margin="25,5,0,0" FontSize="24"/>
         </Grid>
 
-        
+
     </Grid>
 </Page>
 

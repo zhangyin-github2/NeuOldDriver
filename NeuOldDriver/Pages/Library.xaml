@@ -8,6 +8,29 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
-    </Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="200"/>
+            <RowDefinition Height="*"/>
+           
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Background="#1c445c" HorizontalAlignment="Left" Height="107" VerticalAlignment="Top" Width="1280"/>
+        <TextBlock  Text="图书馆"  Foreground="#49edde" FontSize="48"  Margin="37,10,0,0"
+            HorizontalAlignment="Left"  TextWrapping="Wrap"  VerticalAlignment="Top" Height="83" Width="311"/>
+       
+        <Grid Grid.Row="1">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="输入您想要查询的图书名称:" Foreground="#46b5c4" FontSize="36" Margin="150,100,20,0"/>
+                <TextBox FontSize="20" Foreground="Black" x:Name="tBlockKeyword" Margin="12,100,12,49" Width="386" Background="LightGray" Opacity="0.3" TextWrapping="Wrap"/>
+                <Button x:Name="btnSearch" VerticalAlignment="Center" HorizontalAlignment="Left" 
+                Content="查询" Click="btnSearch_Click" Margin="12,80,0,30" FontSize="36" Foreground="White" RenderTransformOrigin="9.75,1.961"/>
+            </StackPanel>
+            
+        </Grid>
+        <Grid Grid.Row="2">
+            <TextBlock x:Name="word" Text="" FontSize="24" Margin="65,32,85,68" Foreground="Gray"></TextBlock>
+        </Grid>
+          </Grid>
+    
 </Page>
+
