@@ -24,12 +24,12 @@ namespace NeuOldDriver.ViewModels {
         }
 
         public string Used {
-            get { return CommonUtils.SanitizeSize(model.used); }
+            get { return Sanitizer.SanitizeSize(model.used); }
             private set { model.used = Convert.ToUInt64(value); OnPropertyChanged("Used"); }
         }
 
         public string UsedTime {
-            get { return CommonUtils.SanitizeTime(model.used_time); }
+            get { return Sanitizer.SanitizeTime(model.used_time); }
             private set { model.used_time = Convert.ToUInt64(value); OnPropertyChanged("UsedTime"); }
         }
 
@@ -67,15 +67,8 @@ namespace NeuOldDriver.ViewModels {
 
         public async Task<bool> UpdateInfo() {
             var result = await IPGWAPI.AccountInfo();
-
-            if(result != null) {
-                Used = result["Used"];
-                UsedTime = result["UsedTime"];
-                Balance = result["Balance"];
-                IP = result["IP"];
-                return true;
-            }
-            return false;
+            model.SetFrom(result);
+            return result != null;
         }
     }
 }

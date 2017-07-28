@@ -15,7 +15,12 @@ namespace NeuOldDriver.Net {
 
         private const int TIMEOUT = 5;
 
-        public static HttpClient Client { get; } = new HttpClient();
+        public delegate void RequestModifier(HttpRequestMessage request);
+        public delegate Task<Ret> ResponseHandler<Ret>(HttpResponseMessage response);
+
+        public static HttpClient Client {
+            get { return Globals.Client; }
+        }
 
         public static string UrlEncode(string url) {
             return WebUtility.UrlEncode(url);
@@ -45,13 +50,21 @@ namespace NeuOldDriver.Net {
             return GetCookie(name, uri) != null;
         }
 
-        private static async Task<Ret> NetworkRequest<Ret>(HttpRequestMessage request, Func<HttpResponseMessage, Task<Ret>> responseHandler, int timeout) {
+        /// <summary>
+        /// Network request forwarder
+        /// </summary>
+        /// <typeparam name="Ret"></typeparam>
+        /// <param name="request"></param>
+        /// <param name="handler"></param>
+        /// <param name="timeout"></param>
+        /// <returns></returns>
+        private static async Task<Ret> NetworkRequest<Ret>(HttpRequestMessage request, ResponseHandler<Ret> handler, int timeout) {
             using (var cts = new CancellationTokenSource()) {
                 cts.CancelAfter(TimeSpan.FromSeconds(timeout));
                 try {
                     using (var response = await Client.SendRequestAsync(request).AsTask(cts.Token)) {
                         if (response.IsSuccessStatusCode)
-                            return await responseHandler(response);
+                            return await handler(response);
                         return default(Ret);
                     }
                 } catch (TaskCanceledException) {
@@ -64,38 +77,19 @@ namespace NeuOldDriver.Net {
                 }
             }
         }
-
-        /// <summary>
-        /// Issue a network request
-        /// </summary>
-        /// <typeparam name="Ret">expected return type after response handled</typeparam>
-        /// <param name="requestModifier">modifications to be made to request</param>
-        /// <param name="responseHandler">response handler</param>
-        /// <param name="timeout">timeout of network request</param>
-        /// <returns>returned value of response handler</returns>
-        public static async Task<Ret> NetworkRequest<Ret>(Action<HttpRequestMessage> requestModifier, Func<HttpResponseMessage, Task<Ret>> responseHandler, int timeout = TIMEOUT) {
-            using (var request = new HttpRequestMessage()) {
-                requestModifier(request);
-                return await NetworkRequest(request, responseHandler, timeout);
+        
+        public static async Task<Ret> PostAsync<Ret>(string url, string content, RequestModifier modifier, ResponseHandler<Ret> handler, int timeout = TIMEOUT) {
+            using (var request = new HttpRequestMessage(HttpMethod.Post, new Uri(url))) {
+                modifier?.Invoke(request);
+                request.Content = UTF8StringContent(content);
+                return await NetworkRequest(request, handler, timeout);
             }
         }
 
-        /// <summary>
-        /// Issue a network request
-        /// </summary>
-        /// <typeparam name="Ret">expected return type after response handled</typeparam>
-        /// <param name="url">request's target url</param>
-        /// <param name="content">request's content</param>
-        /// <param name="responseHandler">response handler</param>
-        /// <param name="method">request's method, GET, POST, etc.</param>
-        /// <param name="timeout">timeout of network request</param>
-        /// <returns>returned value of response handler</returns>
-        public static async Task<Ret> NetworkRequest<Ret>(string url, string content, Action<HttpRequestMessage> requestModifier, Func<HttpResponseMessage, Task<Ret>> responseHandler, HttpMethod method, int timeout = TIMEOUT) {
-            using (var request = new HttpRequestMessage(method, new Uri(url))) {
-                requestModifier?.Invoke(request);
-                if(method.Equals(HttpMethod.Post))
-                    request.Content = UTF8StringContent(content);
-                return await NetworkRequest(request, responseHandler, timeout);
+        public static async Task<Ret> GetAsync<Ret>(string url, RequestModifier modifier, ResponseHandler<Ret> handler, int timeout = TIMEOUT) {
+            using (var request = new HttpRequestMessage(HttpMethod.Get, new Uri(url))) {
+                modifier?.Invoke(request);
+                return await NetworkRequest(request, handler, timeout);
             }
         }
     }

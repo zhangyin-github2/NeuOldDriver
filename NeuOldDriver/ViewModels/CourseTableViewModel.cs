@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
+using NeuOldDriver.Utils;
 using NeuOldDriver.Models;
 using NeuOldDriver.Extensions;
 
@@ -24,7 +25,12 @@ namespace NeuOldDriver.ViewModels {
 
         public int Week {
             get { return week; }
-            set { week = value; OnPropertyChanged(nameof(Week)); OnPropertyChanged(nameof(Text)); }
+            set {
+                if (week == value)
+                    return;
+                week = value;
+                OnPropertyChanged(nameof(Text));
+            }
         }
 
         public string Text {
@@ -33,22 +39,9 @@ namespace NeuOldDriver.ViewModels {
                 return data == null ? "" : data.ToString();
             }
         }
-
-        /// <summary>
-        /// Get courses by week
-        /// </summary>
-        /// <param name="week">week number, from 0 to 19</param>
-        /// <returns>A single course</returns>
-        public Course this[int week] {
-            get { return courses.Where(course => course.weeks[week]).FirstOrDefault(); }
-        }
-
-        public void Append(IEnumerable<Course> list) {
-            courses.AddRange(list);
-        }
-
-        public static implicit operator List<Course>(CourseList list) {
-            return list.courses;
+        
+        public List<Course> Courses {
+            get { return courses; }
         }
     }
 
@@ -103,25 +96,15 @@ namespace NeuOldDriver.ViewModels {
 
             for (var col = 0; col < 6; ++col) { // course 
                 for (var row = 0; row < 7; ++row) { // weekdays
-                    var result = ParseHTML(container, String.Format("tr[{0}]/td[{1}]", col + 4, row + 2));
-                    courses[row][col].Append(ParseCourses(result));
+                    var result = HTMLUtils.ParseHTML(container, String.Format("tr[{0}]/td[{1}]", col + 4, row + 2));
+                    courses[row][col].Courses.AddRange(ParseCourses(result));
                 }
             }
 
-            Term = String.Join(" ", ParseHTML(container, "tr[1]/td[1]"));
-            StudentInfo = String.Join(" ", ParseHTML(container, "tr[2]/td[1]")).Replace("&nbsp;", "");
-        }
-        
-        /// <summary>
-        /// Parse html into list of strings
-        /// </summary>
-        /// <param name="html">content of html, UTF-8 encoding</param>
-        /// <param name="xpath">xpath to element</param>
-        /// <returns></returns>
-        public static IEnumerable<string> ParseHTML(HtmlNode parent, string xpath) {
-            return parent.SelectSingleNode(xpath)?.ChildNodes
-                .Where(node => node.Name != "br" && node.InnerText != "&nbsp;")
-                .Select(node => node.InnerText);
+            Term = String.Join(" ", HTMLUtils.ParseHTML(container, "tr[1]/td[1]"));
+            StudentInfo = String.Join(" ", HTMLUtils.ParseHTML(container, "tr[2]/td[1]").First()
+                                            .Split(new[] { "&nbsp;" }, StringSplitOptions.RemoveEmptyEntries)
+                                     );
         }
 
         /// <summary>

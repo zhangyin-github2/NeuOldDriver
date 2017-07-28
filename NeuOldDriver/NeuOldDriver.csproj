@@ -107,6 +107,7 @@
     <Compile Include="Models\AAOModel.cs" />
     <Compile Include="Models\ClassData.cs" />
     <Compile Include="Models\Course.cs" />
+    <Compile Include="Models\Grade.cs" />
     <Compile Include="Models\IPGWModel.cs" />
     <Compile Include="Models\LoginData.cs" />
     <Compile Include="Models\PageButtonData.cs" />
@@ -150,15 +151,17 @@
     <Compile Include="Source\Global\Globals.cs" />
     <Compile Include="Source\Extensions\JsonExtensions.cs" />
     <Compile Include="Source\Extensions\LinqExtensions.cs" />
-    <Compile Include="Source\Parser\HTMLParser.cs" />
     <Compile Include="Source\Storage\Accounts.cs" />
-    <Compile Include="Source\Utils\CommonUtils.cs" />
+    <Compile Include="Source\Utils\CircularEnumerator.cs" />
+    <Compile Include="Source\Utils\HTMLUtils.cs" />
+    <Compile Include="Source\Utils\Sanitizer.cs" />
     <Compile Include="Source\Utils\CountdownTimer.cs" />
     <Compile Include="Source\Utils\Dialogs.cs" />
     <Compile Include="Source\Storage\PasswordVault.cs" />
     <Compile Include="Source\Net\WebUtils.cs" />
     <Compile Include="ViewModels\AAOViewModel.cs" />
     <Compile Include="ViewModels\CourseTableViewModel.cs" />
+    <Compile Include="ViewModels\GradeCheckViewModel.cs" />
     <Compile Include="ViewModels\IPGWViewModel.cs" />
     <Compile Include="ViewModels\RecommendViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />

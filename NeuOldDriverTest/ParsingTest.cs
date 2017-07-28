@@ -160,7 +160,6 @@ namespace NeuOldDriverTest {
 </body>
 </html>
 ";
-
         private CourseTableViewModel vm = new CourseTableViewModel();
 
         public ParsingTest() {
@@ -197,7 +196,8 @@ namespace NeuOldDriverTest {
 
         [TestMethod]
         public void ParsedResultTest() {
-            Assert.AreEqual("", vm.Term);
+            Assert.AreEqual("东北大学2016-2017学年第二学期学生课表", vm.Term);
+            Assert.AreEqual("院系:计算机科学与工程学院 专业:计算机科学与技术 班级:计算机1403 学号:20141874 姓名:黄文睿", vm.StudentInfo);
         }
     }
 }

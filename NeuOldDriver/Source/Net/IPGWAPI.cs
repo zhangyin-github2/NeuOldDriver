@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Text;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 
-using Windows.Web.Http;
-
 using NeuOldDriver.Global;
+using NeuOldDriver.Models;
 
 namespace NeuOldDriver.Net {
 
@@ -27,7 +25,7 @@ namespace NeuOldDriver.Net {
               .Append("&username=").Append(WebUtils.UrlEncode(username))
               .Append("&password=").Append(WebUtils.UrlEncode(password));
 
-            return await WebUtils.NetworkRequest(Constants.IPGW_AUTH, sb.ToString(), (request) => {
+            return await WebUtils.PostAsync(Constants.IPGW_AUTH, sb.ToString(), (request) => {
                 request.Headers.Add("Referer", Constants.IPGW_LOGIN);
                 request.Headers.Add("Accept", "text/html, application/xhtml+xml, image/jxr, */*");
             }, async (response) => {
@@ -35,7 +33,7 @@ namespace NeuOldDriver.Net {
                     string ret;
                     return response.Headers.TryGetValue("Set-Cookie", out ret) && ret.Contains("login");
                 });
-            }, HttpMethod.Post);
+            });
         }
 
         /// <summary>
@@ -51,25 +49,25 @@ namespace NeuOldDriver.Net {
               .Append("&username=").Append(WebUtils.UrlEncode(username))
               .Append("&password=").Append(WebUtils.UrlEncode(password));
 
-            return await WebUtils.NetworkRequest(Constants.IPGW_AUTH, sb.ToString(), (request) => {
+            return await WebUtils.PostAsync(Constants.IPGW_AUTH, sb.ToString(), (request) => {
                 request.Headers.Add("Referer", Constants.IPGW_AUTH);
                 request.Headers.Add("Accept", "*/*");
             }, async (response) => {
                 var buffer = await response.Content.ReadAsBufferAsync();
                 return Encoding.UTF8.GetString(buffer.ToArray());
-            }, HttpMethod.Post);
+            });
         }
 
         /// <summary>
         /// Get account info from server, must be called after a successful <c>Login</c>
         /// </summary>
         /// <returns>account info in lookup table format</returns>
-        public static async Task<IDictionary<string, string>> AccountInfo() {
+        public static async Task<IPGWModel> AccountInfo() {
             // mysterious paramter required by API
             var rand = new Random(DateTime.Now.Millisecond).NextDouble();
             int k = Convert.ToInt32(Math.Floor(rand * (100000 + 1)));
 
-            return await WebUtils.NetworkRequest(String.Format("{0}?k={1}", Constants.IPGW_AUTH, k),
+            return await WebUtils.PostAsync(String.Format("{0}?k={1}", Constants.IPGW_AUTH, k),
                 String.Format("action=get_online_info&key={0}", k), (request) => {
                     request.Headers.Referer = new Uri(Constants.IPGW_LOGIN);
                     request.Headers.Add("Accept", "*/*");
@@ -79,13 +77,13 @@ namespace NeuOldDriver.Net {
                     if (content == null || content.Length == 0)
                         return null;
 
-                    return new Dictionary<string, string>() {
-                        {"Used", content[0] },
-                        {"UsedTime", content[1] },
-                        {"Balance", content[2] },
-                        {"IP", content[5] }
+                    return new IPGWModel() {
+                        used = Convert.ToUInt64(content[0]),
+                        used_time = Convert.ToUInt64(content[1]),
+                        balance = content[2],
+                        ip = content[5]
                     };
-                }, HttpMethod.Post);
+                });
         }
 
     }
