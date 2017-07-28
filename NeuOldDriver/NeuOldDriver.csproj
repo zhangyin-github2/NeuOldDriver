@@ -107,6 +107,7 @@
     <Compile Include="Models\AAOModel.cs" />
     <Compile Include="Models\ClassData.cs" />
     <Compile Include="Models\Course.cs" />
+    <Compile Include="Models\ExamRoom.cs" />
     <Compile Include="Models\Grade.cs" />
     <Compile Include="Models\IPGWModel.cs" />
     <Compile Include="Models\LoginData.cs" />
@@ -161,6 +162,7 @@
     <Compile Include="Source\Net\WebUtils.cs" />
     <Compile Include="ViewModels\AAOViewModel.cs" />
     <Compile Include="ViewModels\CourseTableViewModel.cs" />
+    <Compile Include="ViewModels\ExamRoomViewModel.cs" />
     <Compile Include="ViewModels\GradeCheckViewModel.cs" />
     <Compile Include="ViewModels\IPGWViewModel.cs" />
     <Compile Include="ViewModels\RecommendViewModel.cs" />

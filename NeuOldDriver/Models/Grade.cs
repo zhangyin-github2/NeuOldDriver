@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace NeuOldDriver.Models {
 
@@ -12,15 +11,16 @@ namespace NeuOldDriver.Models {
         public string total { get; set; } // 总成绩
 
         public static Grade Deserialize(IEnumerable<string> list) {
-            var props = list.ToList();
-            return new Grade() {
-                name = props[0] ?? "",
-                credit = props[1] ?? "",
-                general = props[2] ?? "",
-                midterm = props[3] ?? "",
-                final = props[4] ?? "",
-                total = props[5] ?? ""
-            };
+            using (var i = list.GetEnumerator()) {
+                return new Grade() {
+                    name = i.MoveNext() ? (i.Current ?? "") : "",
+                    credit = i.MoveNext() ? (i.Current ?? "") : "",
+                    general = i.MoveNext() ? (i.Current ?? "") : "",
+                    midterm = i.MoveNext() ? (i.Current ?? "") : "",
+                    final = i.MoveNext() ? (i.Current ?? "") : "",
+                    total = i.MoveNext() ? (i.Current ?? "") : ""
+                };
+            }
         }
 
         public IList<string> Serialize() {
