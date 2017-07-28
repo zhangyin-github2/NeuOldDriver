@@ -95,6 +95,7 @@
     <SDKReference Include="TestPlatform.Universal, Version=$(UnitTestPlatformVersion)" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CircularEnumeratorTest.cs" />
     <Compile Include="LinqExtensionsTest.cs" />
     <Compile Include="ParsingTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
