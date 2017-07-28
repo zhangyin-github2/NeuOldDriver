@@ -13,21 +13,87 @@ using NeuOldDriver.Models;
 
 namespace NeuOldDriver.Controls {
 
-    public sealed partial class Login : UserControl, INotifyPropertyChanged {
+    public sealed partial class Login : UserControl {
 
         public delegate Task<string> RefreshHandler(object sender, EventArgs e);
+        public delegate Task<bool> LoginHandler(object sender, LoginData data);
 
         /// <summary>
         /// Fired when click on "确认" button
         /// </summary>
-        public event EventHandler<LoginData> Submit;
+        public event LoginHandler Submit;
 
         /// <summary>
         /// Fired when click on captcha image
         /// </summary>
         public event RefreshHandler Refresh;
 
+        private ICollection<string> names;
+        private bool notLogged = true;
+
+        public Login() {
+            this.InitializeComponent();
+
+            this.Loaded += (sender, e) => {
+                // get username and password of last logged user
+                var accounts = Globals.Accounts[UsedFor];
+                var username = accounts.Active;
+                var password = accounts[username];
+
+                names = accounts.Users;
+                this.username.Text = username;
+                this.username.ItemsSource = names;
+                this.password.Password = password ?? "";
+            };
+            
+            okButton.Click += async (sender, args) => {
+                var data = new LoginData() {
+                    username = UserName, password = Password, remember = RememberMe
+                };
+                if (CaptchaRequired)
+                    data.captcha = Captcha;
+
+                if (await Submit?.Invoke(this, data)) {
+                    NotLogged = false;
+                    var accounts = Globals.Accounts[UsedFor];
+                    accounts.Active = UserName;
+
+                    if (RememberMe || accounts[UserName] != null)
+                        accounts[UserName] = Password;
+                }
+            };
+
+            captchaContainer.Click += async (sender, e) => {
+                ImageSource = await Refresh?.Invoke(this, new EventArgs());
+            };
+
+            username.TextChanged += (sender, e) => {
+                if (e.Reason == AutoSuggestionBoxTextChangeReason.UserInput) {
+                    sender.ItemsSource = names.Where((item) => {
+                        return item.StartsWith(sender.Text);
+                    });
+                    remember.IsChecked = false;
+                    password.Password = "";
+                }
+            };
+
+            username.SuggestionChosen += (sender, e) => {
+                var username = e.SelectedItem as string;
+                password.Password = Globals.Accounts[UsedFor][username];
+                remember.IsChecked = true;
+            };
+        }
+    }
+
+
+    // Describing attached properties
+    public sealed partial class Login : UserControl, INotifyPropertyChanged {
+
         public event PropertyChangedEventHandler PropertyChanged;
+
+        private void OnPropertyChanged([CallerMemberName] string propname = "") {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propname));
+        }
 
         /// <summary>
         /// Username from user's input
@@ -57,53 +123,21 @@ namespace NeuOldDriver.Controls {
             get { return captchaText.Text; }
         }
 
-        private ICollection<string> names;
-
-        public Login() {
-            this.InitializeComponent();
-
-            this.Loaded += (sender, e) => {
-                // get username and password of last logged user
-                var accounts = Globals.Accounts[UsedFor];
-                var username = accounts.Active;
-                var password = accounts[username];
-
-                names = accounts.Users;
-                this.username.Text = username;
-                this.username.ItemsSource = names;
-                this.password.Password = password ?? "";
-            };
-            
-            okButton.Click += (sender, args) => {
-                var data = new LoginData() {
-                    username = UserName, password = Password, remember = RememberMe
-                };
-                if (CaptchaRequired)
-                    data.captcha = Captcha;
-
-                Submit?.Invoke(this, data);
-            };
-
-            captchaContainer.Click += async (sender, e) => {
-                ImageSource = await Refresh?.Invoke(this, new EventArgs());
-            };
-
-            username.TextChanged += (sender, e) => {
-                if (e.Reason == AutoSuggestionBoxTextChangeReason.UserInput) {
-                    sender.ItemsSource = names.Where((item) => {
-                        return item.StartsWith(sender.Text);
-                    });
-                    remember.IsChecked = false;
-                    password.Password = "";
-                }
-            };
-
-            username.SuggestionChosen += (sender, e) => {
-                var username = e.SelectedItem as string;
-                password.Password = Globals.Accounts[UsedFor][username];
-                remember.IsChecked = true;
-            };
+        public bool NotLogged {
+            get { return notLogged; }
+            private set { notLogged = value; OnPropertyChanged(nameof(NotLogged)); }
         }
+
+        /// <summary>
+        /// Main content
+        /// </summary>
+        public object MainContent {
+            get { return GetValue(MainContentProperty); }
+            set { SetValue(MainContentProperty, value); }
+        }
+
+        public static readonly DependencyProperty MainContentProperty =
+            DependencyProperty.RegisterAttached(nameof(MainContent), typeof(object), typeof(Login), null);
 
         /// <summary>
         /// true if login requires captcha verification
@@ -115,7 +149,7 @@ namespace NeuOldDriver.Controls {
 
         public static readonly DependencyProperty CaptchaRequiredProperty =
             DependencyProperty.RegisterAttached(nameof(CaptchaRequired), typeof(bool), typeof(Login), new PropertyMetadata(false));
-        
+
         /// <summary>
         /// Source of captcha image
         /// </summary>
@@ -137,9 +171,5 @@ namespace NeuOldDriver.Controls {
 
         public static readonly DependencyProperty UsedForProperty =
             DependencyProperty.RegisterAttached(nameof(UsedFor), typeof(string), typeof(Login), null);
-
-        private void OnPropertyChanged([CallerMemberName] string propname = "") {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propname));
-        }
-    }
+    };
 }

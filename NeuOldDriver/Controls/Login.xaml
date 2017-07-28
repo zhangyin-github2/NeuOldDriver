@@ -4,60 +4,80 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:NeuOldDriver.Controls"
     xmlns:cvt="using:NeuOldDriver.Converters"
+    xmlns:controls="using:NeuOldDriver.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
     <UserControl.Resources>
         <cvt:BoolToVisibility x:Key="btv"></cvt:BoolToVisibility>
+
+        <Style x:Key="LoginSplitView" TargetType="SplitView">
+            <Setter Property="DisplayMode" Value="CompactInline"></Setter>
+            <Setter Property="OpenPaneLength" Value="300"></Setter>
+            <Setter Property="CompactPaneLength" Value="0"></Setter>
+            <Setter Property="PanePlacement" Value="Right"></Setter>
+            <Setter Property="Background" Value="{ThemeResource ApplicationPageBackgroundThemeBrush}"></Setter>
+        </Style>
     </UserControl.Resources>
-    
-    <StackPanel VerticalAlignment="Center">
-        <TextBlock FontSize="25" Text="登录" Margin="0,-80,0,0"
+
+    <SplitView Style="{StaticResource LoginSplitView}"
+               IsPaneOpen="{x:Bind NotLogged, Mode=OneWay}">
+        <SplitView.Pane>
+            <StackPanel VerticalAlignment="Center">
+                <TextBlock FontSize="25" Text="登录" Margin="0,-80,0,0"
                    HorizontalAlignment="Center"></TextBlock>
-        
-        <Grid Margin="0,50,0,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="5"></ColumnDefinition>
-                <ColumnDefinition Width="50"></ColumnDefinition>
-                <ColumnDefinition Width="10"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="10"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition Height="25"></RowDefinition>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
+                <Grid Margin="0,50,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
 
-            <TextBlock Grid.Column="1" Grid.Row="0" Text="用户名"
+                    <TextBlock Grid.Column="1" Grid.Row="0" Text="用户名"
                        VerticalAlignment="Center" HorizontalAlignment="Right">
-            </TextBlock>
-            <AutoSuggestBox Grid.Column="3" Grid.Row="0" x:Name="username"></AutoSuggestBox>
+                    </TextBlock>
+                    <AutoSuggestBox Grid.Column="3" Grid.Row="0" x:Name="username"></AutoSuggestBox>
 
-            <TextBlock Grid.Column="1" Grid.Row="2" Text="密   码" 
+                    <TextBlock Grid.Column="1" Grid.Row="2" Text="密   码" 
                        VerticalAlignment="Center" HorizontalAlignment="Right">
-            </TextBlock>
-            <PasswordBox Grid.Column="3" Grid.Row="2" x:Name="password"></PasswordBox>
-        </Grid>
+                    </TextBlock>
+                    <PasswordBox Grid.Column="3" Grid.Row="2" x:Name="password"></PasswordBox>
+                </Grid>
 
-        <Grid Margin="0,25,0,0" Visibility="{x:Bind CaptchaRequired, Converter={StaticResource btv}}">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" x:Name="captchaContainer" Background="Transparent" Margin="5,0,0,0">
-                <Image Width="100" Height="40" Source="{x:Bind ImageSource, Mode=OneWay}"></Image>
-            </Button>
-            <TextBox Grid.Column="1" x:Name="captchaText" Margin="10"></TextBox>
-        </Grid>
+                <Grid Margin="0,25,0,0" Visibility="{x:Bind CaptchaRequired, Converter={StaticResource btv}}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" x:Name="captchaContainer" Background="Transparent" Margin="5,0,0,0">
+                        <Image Width="100" Height="40" Source="{x:Bind ImageSource, Mode=OneWay}"></Image>
+                    </Button>
+                    <TextBox Grid.Column="1" x:Name="captchaText" Margin="10"></TextBox>
+                </Grid>
 
-        <StackPanel Orientation="Vertical" Margin="0,25">
-            <CheckBox Margin="50,0,0,0" Content="记住密码" x:Name="remember"></CheckBox>
-            <Button Margin="0,80,0,0" x:Name="okButton" HorizontalAlignment="Center"
+                <StackPanel Orientation="Vertical" Margin="0,25">
+                    <CheckBox Margin="50,0,0,0" Content="记住密码" x:Name="remember"></CheckBox>
+                    <Button Margin="0,80,0,0" x:Name="okButton" HorizontalAlignment="Center"
                     Content="确认" Width="250" MinHeight="0" Padding="2"></Button>
-        </StackPanel>
-        
-    </StackPanel>
-
+                </StackPanel>
+                
+            </StackPanel>
+        </SplitView.Pane>
+        <SplitView.Content>
+            <Grid Background="Transparent">
+                <ContentPresenter Content="{x:Bind MainContent}"></ContentPresenter>
+                <controls:BackDrop x:Name="backdrop" BlurAmount="15" TintColor="Gray"
+                                   Visibility="{x:Bind NotLogged, Mode=OneWay, Converter={StaticResource btv}}">
+                </controls:BackDrop>
+            </Grid>
+        </SplitView.Content>
+    </SplitView>
 </UserControl>

@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using System.Runtime.InteropServices.WindowsRuntime;
 
 using NeuOldDriver.Global;
-using NeuOldDriver.Models;
 
 namespace NeuOldDriver.Net {
 
@@ -61,8 +60,8 @@ namespace NeuOldDriver.Net {
         /// <summary>
         /// Get account info from server, must be called after a successful <c>Login</c>
         /// </summary>
-        /// <returns>account info in lookup table format</returns>
-        public static async Task<IPGWModel> AccountInfo() {
+        /// <returns>account info in some weird format</returns>
+        public static async Task<string> AccountInfo() {
             // mysterious paramter required by API
             var rand = new Random(DateTime.Now.Millisecond).NextDouble();
             int k = Convert.ToInt32(Math.Floor(rand * (100000 + 1)));
@@ -72,17 +71,7 @@ namespace NeuOldDriver.Net {
                     request.Headers.Referer = new Uri(Constants.IPGW_LOGIN);
                     request.Headers.Add("Accept", "*/*");
                 }, async (response) => {
-                    var content = (await response.Content.ReadAsStringAsync())?.Split(',');
-
-                    if (content == null || content.Length == 0)
-                        return null;
-
-                    return new IPGWModel() {
-                        used = Convert.ToUInt64(content[0]),
-                        used_time = Convert.ToUInt64(content[1]),
-                        balance = content[2],
-                        ip = content[5]
-                    };
+                    return await response.Content.ReadAsStringAsync();
                 });
         }
 

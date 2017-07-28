@@ -101,6 +101,7 @@
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\BoolToVisibility.cs" />
+    <Compile Include="Converters\NegateBool.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -160,7 +161,6 @@
     <Compile Include="Source\Utils\Dialogs.cs" />
     <Compile Include="Source\Storage\PasswordVault.cs" />
     <Compile Include="Source\Net\WebUtils.cs" />
-    <Compile Include="ViewModels\AAOViewModel.cs" />
     <Compile Include="ViewModels\CourseTableViewModel.cs" />
     <Compile Include="ViewModels\ExamRoomViewModel.cs" />
     <Compile Include="ViewModels\GradeCheckViewModel.cs" />

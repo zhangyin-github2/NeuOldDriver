@@ -1,7 +1,6 @@
 ﻿using Windows.UI.Xaml.Controls;
 
 using NeuOldDriver.Utils;
-using NeuOldDriver.Global;
 
 namespace NeuOldDriver.Pages {
 
@@ -11,14 +10,11 @@ namespace NeuOldDriver.Pages {
             this.InitializeComponent();
 
             login.Submit += async (sender, e) => {
-                if (!await vm.Login(e.username, e.password))
+                if (!await vm.Login(e.username, e.password)) {
                     await Dialogs.Popup("错误", "登录失败!");
-                else {
-                    var accounts = Globals.Accounts.IPGW;
-                    accounts.Active = e.username;
-                    if (e.remember || accounts[e.username] != null)
-                        accounts[e.username] = e.password;
+                    return false;
                 }
+                return true;
             };
 
             logoutButton.Click += async (sender, e) => {

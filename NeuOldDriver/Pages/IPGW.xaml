@@ -27,66 +27,56 @@
             <Setter Property="VerticalAlignment" Value="Center"></Setter>
             <Setter Property="Margin" Value="0,0,10,0"></Setter>
         </Style>
-        <cvt:BoolToVisibility x:Key="btv"></cvt:BoolToVisibility>
+        <cvt:NegateBool x:Key="nb"></cvt:NegateBool>
     </Page.Resources>
 
     <Page.DataContext>
         <vm:IPGWViewModel x:Name="vm"></vm:IPGWViewModel>
     </Page.DataContext>
 
-    <SplitView Style="{StaticResource LoginSplitView}"
-               IsPaneOpen="{x:Bind Path=vm.NotLogged, Mode=OneWay}">
-        <SplitView.Pane>
-            <controls:Login x:Name="login" Background="Gray" UsedFor="IPGW"></controls:Login>
-        </SplitView.Pane>
-        <SplitView.Content>
-            <Grid Background="Transparent">
-                <StackPanel Orientation="Vertical"
-                            HorizontalAlignment="Center">
-                    <TextBlock Margin="0,100,0,0" Text="账户信息"
-                               HorizontalAlignment="Center"
-                               FontSize="25" FontWeight="Bold">
+    <controls:Login x:Name="login" Background="Gray" UsedFor="IPGW">
+        <controls:Login.MainContent>
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                <TextBlock Margin="0,100,0,0" Text="账户信息"
+                           HorizontalAlignment="Center"
+                           FontSize="25" FontWeight="Bold">
+                </TextBlock>
+                <StackPanel Style="{StaticResource ContainerStyle}">
+                    <TextBlock Style="{StaticResource LabelStyle}"
+                               Text="已用流量：">
                     </TextBlock>
-                    <StackPanel Style="{StaticResource ContainerStyle}">
-                        <TextBlock Style="{StaticResource LabelStyle}"
-                                   Text="已用流量：">
-                        </TextBlock>
-                        <TextBlock Style="{StaticResource ValueStyle}"
-                                   Text="{x:Bind Path=vm.Used, Mode=OneWay}">
-                        </TextBlock>
-                    </StackPanel>
-                    <StackPanel Style="{StaticResource ContainerStyle}">
-                        <TextBlock Style="{StaticResource LabelStyle}"
-                                   Text="已用时间：">
-                        </TextBlock>
-                        <TextBlock Style="{StaticResource ValueStyle}"
-                                   Text="{x:Bind Path=vm.UsedTime, Mode=OneWay}">
-                        </TextBlock>
-                    </StackPanel>
-                    <StackPanel Style="{StaticResource ContainerStyle}">
-                        <TextBlock Style="{StaticResource LabelStyle}"
-                                   Text="账户余额：">
-                        </TextBlock>
-                        <TextBlock Style="{StaticResource ValueStyle}"
-                                   Text="{x:Bind Path=vm.Balance, Mode=OneWay}">
-                        </TextBlock>
-                    </StackPanel>
-                    <StackPanel Style="{StaticResource ContainerStyle}">
-                        <TextBlock Style="{StaticResource LabelStyle}" 
-                                   Text="IP地址：">
-                        </TextBlock>
-                        <TextBlock Style="{StaticResource ValueStyle}"
-                                   Text="{x:Bind Path=vm.IP, Mode=OneWay}">
-                        </TextBlock>
-                    </StackPanel>
-                    <Button x:Name="logoutButton" HorizontalAlignment="Center"
-                            Content="注销" Width="350" Margin="0,25,0,0"
-                            IsEnabled="{x:Bind Path=vm.Logged, Mode=OneWay}"></Button>
+                    <TextBlock Style="{StaticResource ValueStyle}"
+                               Text="{x:Bind Path=vm.Used, Mode=OneWay}">
+                    </TextBlock>
                 </StackPanel>
-                <controls:BackDrop x:Name="backdrop" BlurAmount="15" TintColor="Gray"
-                                   Visibility="{x:Bind Path=vm.NotLogged, Mode=OneWay, Converter={StaticResource btv}}">
-                </controls:BackDrop>
-            </Grid>
-        </SplitView.Content>
-    </SplitView>
+                <StackPanel Style="{StaticResource ContainerStyle}">
+                    <TextBlock Style="{StaticResource LabelStyle}"
+                               Text="已用时间：">
+                    </TextBlock>
+                    <TextBlock Style="{StaticResource ValueStyle}"
+                               Text="{x:Bind Path=vm.UsedTime, Mode=OneWay}">
+                    </TextBlock>
+                </StackPanel>
+                <StackPanel Style="{StaticResource ContainerStyle}">
+                    <TextBlock Style="{StaticResource LabelStyle}"
+                               Text="账户余额：">
+                    </TextBlock>
+                    <TextBlock Style="{StaticResource ValueStyle}"
+                               Text="{x:Bind Path=vm.Balance, Mode=OneWay}">
+                    </TextBlock>
+                </StackPanel>
+                <StackPanel Style="{StaticResource ContainerStyle}">
+                    <TextBlock Style="{StaticResource LabelStyle}" 
+                               Text="IP地址：">
+                    </TextBlock>
+                    <TextBlock Style="{StaticResource ValueStyle}"
+                               Text="{x:Bind Path=vm.IP, Mode=OneWay}">
+                    </TextBlock>
+                </StackPanel>
+                <Button x:Name="logoutButton" HorizontalAlignment="Center"
+                        Content="注销" Width="350" Margin="0,25,0,0"
+                        IsEnabled="{x:Bind Path=login.NotLogged, Mode=OneWay, Converter={StaticResource nb}}"></Button>
+            </StackPanel>
+        </controls:Login.MainContent>
+    </controls:Login>
 </Page>
