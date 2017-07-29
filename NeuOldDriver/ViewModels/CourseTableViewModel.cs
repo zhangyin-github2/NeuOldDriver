@@ -27,7 +27,8 @@ namespace NeuOldDriver.ViewModels {
             set {
                 if (week == value)
                     return;
-                SetProperty(ref week, value);
+                week = value;
+                OnPropertyChanged(nameof(Text));
             }
         }
 

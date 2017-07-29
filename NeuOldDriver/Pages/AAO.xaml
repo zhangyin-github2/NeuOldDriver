@@ -67,8 +67,8 @@
     <controls:Login x:Name="login" CaptchaRequired="True" Background="Gray" UsedFor="AAO">
         <controls:Login.MainContent>
             <StackPanel x:Name="container" Orientation="Vertical"
-                            HorizontalAlignment="Center" VerticalAlignment="Center"
-                            Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                        HorizontalAlignment="Center" VerticalAlignment="Center"
+                        Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
                 <TextBlock Style="{StaticResource LabelStyle}" Text="教务处查询"></TextBlock>
                 <ListView Style="{StaticResource ButtonContainer}" ItemClick="PageNavigate"
