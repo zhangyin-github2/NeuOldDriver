@@ -105,7 +105,6 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\AAOModel.cs" />
     <Compile Include="Models\ClassData.cs" />
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\ExamRoom.cs" />
@@ -147,6 +146,7 @@
       <DependentUpon>Library.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Source\Extensions\ReflectionExtensions.cs" />
     <Compile Include="Source\Net\AAOAPI.cs" />
     <Compile Include="Source\Net\IPGWAPI.cs" />
     <Compile Include="Source\Global\Constants.cs" />

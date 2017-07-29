@@ -10,6 +10,7 @@ using Windows.UI.Xaml.Controls;
 
 using NeuOldDriver.Global;
 using NeuOldDriver.Models;
+using Windows.UI.Xaml.Hosting;
 
 namespace NeuOldDriver.Controls {
 
@@ -45,23 +46,8 @@ namespace NeuOldDriver.Controls {
                 this.username.ItemsSource = names;
                 this.password.Password = password ?? "";
             };
-            
-            okButton.Click += async (sender, args) => {
-                var data = new LoginData() {
-                    username = UserName, password = Password, remember = RememberMe
-                };
-                if (CaptchaRequired)
-                    data.captcha = Captcha;
 
-                if (await Submit?.Invoke(this, data)) {
-                    NotLogged = false;
-                    var accounts = Globals.Accounts[UsedFor];
-                    accounts.Active = UserName;
-
-                    if (RememberMe || accounts[UserName] != null)
-                        accounts[UserName] = Password;
-                }
-            };
+            okButton.Click += DoLogin;
 
             captchaContainer.Click += async (sender, e) => {
                 ImageSource = await Refresh?.Invoke(this, new EventArgs());
@@ -82,6 +68,33 @@ namespace NeuOldDriver.Controls {
                 password.Password = Globals.Accounts[UsedFor][username];
                 remember.IsChecked = true;
             };
+        }
+
+        private async void DoLogin(object sender, RoutedEventArgs e) {
+            var data = new LoginData() {
+                username = UserName, password = Password, remember = RememberMe
+            };
+            if (CaptchaRequired)
+                data.captcha = Captcha;
+
+            if (await Submit?.Invoke(this, data)) {
+                NotLogged = false;
+                FadeOut(backdrop, 500);
+                var accounts = Globals.Accounts[UsedFor];
+                accounts.Active = UserName;
+                if (RememberMe || accounts[UserName] != null)
+                    accounts[UserName] = Password;
+            }
+        }
+
+        private void FadeOut(FrameworkElement elem, int milliseconds) {
+            var compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
+            var fadeAnim = compositor.CreateScalarKeyFrameAnimation();
+            fadeAnim.InsertKeyFrame(1f, 0f);
+            fadeAnim.Duration = TimeSpan.FromMilliseconds(milliseconds);
+
+            ElementCompositionPreview.GetElementVisual(elem)
+                .StartAnimation("Opacity", fadeAnim);
         }
     }
 

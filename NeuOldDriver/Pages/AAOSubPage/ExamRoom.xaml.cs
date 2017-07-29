@@ -42,7 +42,7 @@ namespace NeuOldDriver.Pages.AAOSubPage {
             int row = 1, col;
             vm.Rooms.Select(room => room.Serialize()).ForEach((list) => {
                 col = 0;
-                list?.ForEach(prop => {
+                list?.ForEach((prop) => {
                     var block = new TextBlock() {
                         Text = prop,
                         Foreground = new SolidColorBrush(Colors.White),

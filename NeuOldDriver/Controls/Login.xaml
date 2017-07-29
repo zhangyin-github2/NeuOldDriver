@@ -21,8 +21,7 @@
         </Style>
     </UserControl.Resources>
 
-    <SplitView Style="{StaticResource LoginSplitView}"
-               IsPaneOpen="{x:Bind NotLogged, Mode=OneWay}">
+    <SplitView Style="{StaticResource LoginSplitView}" IsPaneOpen="{x:Bind NotLogged, Mode=OneWay}">
         <SplitView.Pane>
             <StackPanel VerticalAlignment="Center">
                 <TextBlock FontSize="25" Text="登录" Margin="0,-80,0,0"
@@ -74,9 +73,7 @@
         <SplitView.Content>
             <Grid Background="Transparent">
                 <ContentPresenter Content="{x:Bind MainContent}"></ContentPresenter>
-                <controls:BackDrop x:Name="backdrop" BlurAmount="15" TintColor="Gray"
-                                   Visibility="{x:Bind NotLogged, Mode=OneWay, Converter={StaticResource btv}}">
-                </controls:BackDrop>
+                <controls:BackDrop x:Name="backdrop" BlurAmount="15" TintColor="Gray"></controls:BackDrop>
             </Grid>
         </SplitView.Content>
     </SplitView>

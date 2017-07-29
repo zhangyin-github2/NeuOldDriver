@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 using NeuOldDriver.Models;
+using NeuOldDriver.Extensions;
 
 namespace NeuOldDriver.ViewModels {
 
@@ -193,9 +194,8 @@ namespace NeuOldDriver.ViewModels {
 
         public void FilterBy(string propname, int index) {
             Items = items.Where((item) => {
-                if (index == 0)
-                    return true;
-                return (string)item[propname] == props[propname][index];
+                return index == 0 || 
+                    item.GetValue<string>(propname) == props[propname][index];
             });
         }
 
