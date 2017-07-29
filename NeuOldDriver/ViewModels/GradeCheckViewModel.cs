@@ -17,7 +17,7 @@ namespace NeuOldDriver.ViewModels {
 
         public string StudentInfo {
             get { return studentInfo; }
-            private set { studentInfo = value; OnPropertyChanged(nameof(StudentInfo)); }
+            private set { SetProperty(ref studentInfo, value); }
         }
 
         /// <summary>

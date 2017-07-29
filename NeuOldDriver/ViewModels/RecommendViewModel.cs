@@ -185,7 +185,7 @@ namespace NeuOldDriver.ViewModels {
 
         public IEnumerable<CourseData> Items {
             get { return items; }
-            private set { items = value; OnPropertyChanged(nameof(Items)); }
+            private set { SetProperty(ref items, value); }
         }
 
         public void Reset() {

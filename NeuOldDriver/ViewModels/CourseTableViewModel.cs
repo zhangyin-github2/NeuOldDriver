@@ -27,8 +27,7 @@ namespace NeuOldDriver.ViewModels {
             set {
                 if (week == value)
                     return;
-                week = value;
-                OnPropertyChanged(nameof(Text));
+                SetProperty(ref week, value);
             }
         }
 
@@ -59,12 +58,12 @@ namespace NeuOldDriver.ViewModels {
 
         public string Term {
             get { return term; }
-            private set { term = value; OnPropertyChanged(nameof(Term)); }
+            private set { SetProperty(ref term, value); }
         }
 
         public string StudentInfo {
             get { return studentInfo; }
-            private set { studentInfo = value; OnPropertyChanged(nameof(StudentInfo)); }
+            private set { SetProperty(ref studentInfo, value); }
         }
 
         public int Week {
