@@ -8,9 +8,9 @@ using System.Runtime.CompilerServices;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
+using NeuOldDriver.Utils;
 using NeuOldDriver.Global;
 using NeuOldDriver.Models;
-using Windows.UI.Xaml.Hosting;
 
 namespace NeuOldDriver.Controls {
 
@@ -35,16 +35,9 @@ namespace NeuOldDriver.Controls {
         public Login() {
             this.InitializeComponent();
 
-            this.Loaded += (sender, e) => {
-                // get username and password of last logged user
-                var accounts = Globals.Accounts[UsedFor];
-                var username = accounts.Active;
-                var password = accounts[username];
-
-                names = accounts.Users;
-                this.username.Text = username;
-                this.username.ItemsSource = names;
-                this.password.Password = password ?? "";
+            this.Loaded += async (sender, e) => {
+                if (NotLogged)
+                    await ClearState();
             };
 
             okButton.Click += DoLogin;
@@ -70,6 +63,30 @@ namespace NeuOldDriver.Controls {
             };
         }
 
+        /// <summary>
+        /// Set control to initial state
+        /// </summary>
+        public async Task ClearState() {
+            Animations.StartAnimation(backdrop,
+                    Animations.FadeAnimation(this, 500),
+                    "Opacity");
+
+            // get username and password of last logged user
+            var accounts = Globals.Accounts[UsedFor];
+            var username = accounts.Active;
+            var password = accounts[username];
+
+            if (CaptchaRequired)
+                ImageSource = await Refresh?.Invoke(this, new EventArgs());
+
+            names = accounts.Users;
+            this.username.Text = username;
+            this.username.ItemsSource = names;
+            this.password.Password = password ?? "";
+            this.remember.IsChecked = !String.IsNullOrEmpty(password);
+            NotLogged = true;
+        }
+
         private async void DoLogin(object sender, RoutedEventArgs e) {
             var data = new LoginData() {
                 username = UserName, password = Password, remember = RememberMe
@@ -79,25 +96,17 @@ namespace NeuOldDriver.Controls {
 
             if (await Submit?.Invoke(this, data)) {
                 NotLogged = false;
-                FadeOut(backdrop, 500);
+
+                Animations.StartAnimation(backdrop, 
+                    Animations.FadeAnimation(this, 500, false), 
+                    "Opacity");
                 var accounts = Globals.Accounts[UsedFor];
                 accounts.Active = UserName;
                 if (RememberMe || accounts[UserName] != null)
                     accounts[UserName] = Password;
             }
         }
-
-        private void FadeOut(FrameworkElement elem, int milliseconds) {
-            var compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
-            var fadeAnim = compositor.CreateScalarKeyFrameAnimation();
-            fadeAnim.InsertKeyFrame(1f, 0f);
-            fadeAnim.Duration = TimeSpan.FromMilliseconds(milliseconds);
-
-            ElementCompositionPreview.GetElementVisual(elem)
-                .StartAnimation("Opacity", fadeAnim);
-        }
     }
-
 
     // Describing attached properties
     public sealed partial class Login : UserControl, INotifyPropertyChanged {
@@ -138,7 +147,7 @@ namespace NeuOldDriver.Controls {
 
         public bool NotLogged {
             get { return notLogged; }
-            private set { notLogged = value; OnPropertyChanged(nameof(NotLogged)); }
+            private set { notLogged = value; OnPropertyChanged(); }
         }
 
         /// <summary>
@@ -168,7 +177,7 @@ namespace NeuOldDriver.Controls {
         /// </summary>
         public string ImageSource {
             get { return (string)GetValue(ImageSourceProperty); }
-            set { SetValue(ImageSourceProperty, value); OnPropertyChanged(nameof(ImageSource)); }
+            set { SetValue(ImageSourceProperty, value); OnPropertyChanged(); }
         }
 
         public static readonly DependencyProperty ImageSourceProperty =

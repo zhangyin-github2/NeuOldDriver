@@ -11,4 +11,5 @@
     <x:String x:Key="CommentIcon">&#xE8F2;</x:String>  <!-- alternative &#xE90A;-->
     <x:String x:Key="HomeIcon">&#xE80F;</x:String>
     <x:String x:Key="OtherUserIcon">&#xE7EE;</x:String>
+    <x:String x:Key="ClearIcon">&#xE894;</x:String>
 </ResourceDictionary>
