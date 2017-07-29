@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
-using Windows.Web.Http;
-
 using NeuOldDriver.Global;
-using NeuOldDriver.Extensions;
 
 using HtmlAgilityPack;
 
@@ -40,9 +36,9 @@ namespace NeuOldDriver.Net {
         /// </summary>
         /// <returns>source url of image</returns>
         public static async Task<string> CaptchaImage() {
-            var content = await WebUtils.NetworkRequest(Constants.AAO_API_BASE, "", null, async (response) => {
+            var content = await WebUtils.GetAsync(Constants.AAO_API_BASE, null, async (response) => {
                 return await response.Content.ReadAsStringAsync();
-            }, HttpMethod.Get);
+            });
             if (content == null)
                 return " ";
             var document = new HtmlDocument();
@@ -67,28 +63,33 @@ namespace NeuOldDriver.Net {
               .Append("&Agnomen=").Append(captcha)
               .Append("&submit7=%B5%C7%C2%BC");
 
-            return await WebUtils.NetworkRequest(url, sb.ToString(), (request) => {
+            return await WebUtils.PostAsync(url, sb.ToString(), (request) => {
                 request.Headers.Add("Accept", "text/html, application/xhtml+xml, image/jxr, */*");
                 request.Headers.Add("Referer", Constants.AAO_API_BASE);
             }, async (response) => { 
                 var regex = @"<script language=""JavaScript"">\s*alert\(""([^""]*)""\);\s*</script>";
                 var match = Regex.Match(await response.Content.ReadAsStringAsync(), regex);
                 return match.Success ? match.Groups[1].Value : "";
-            }, HttpMethod.Post);
+            });
         }
 
         public static async Task<bool> Logout(string username, string password) {
-            return await Task.Run(() => true);
+            await WebUtils.GetAsync(String.Format("{0}/{1}", Constants.AAO_API_BASE, "ACTIONLOGOUT.APPPROCESS"), (request) => {
+                request.Headers.Add("Referer", "https://aao.qianhao.aiursoft.com/ACTIONLOGON.APPPROCESS?mode=4");
+            }, async (response) => {
+                // dummy async function
+                return await Task.Run(() => true);
+            });
+            return true;
         }
 
         public static async Task<string> RequestInfomation(string infoname) {
             string address;
             if (!addresses.TryGetValue(infoname, out address))
                 return null;
-            var url = String.Format("{0}{1}", Constants.AAO_API_BASE, address);
-            return await WebUtils.NetworkRequest(url, "", null, async (response) => {
+            return await WebUtils.GetAsync(String.Format("{0}{1}", Constants.AAO_API_BASE, address), null, async (response) => {
                 return await response.Content.ReadAsStringAsync();
-            }, HttpMethod.Get);
+            });
         }
     }
 }

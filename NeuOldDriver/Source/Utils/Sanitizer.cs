@@ -2,7 +2,7 @@
 
 namespace NeuOldDriver.Utils {
 
-    public static class CommonUtils {
+    public static class Sanitizer {
 
         /// <summary>
         /// Convert size in bytes to human readable string

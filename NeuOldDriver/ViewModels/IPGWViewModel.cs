@@ -10,26 +10,17 @@ namespace NeuOldDriver.ViewModels {
     public class IPGWViewModel : ViewModelBase {
 
         private IPGWModel model = new IPGWModel() {
-            username = "", password = "", logged = false,
+            username = "", password = "", 
             used = 0, used_time = 0, balance = "", ip = ""
         };
         
-        public bool NotLogged {
-            get { return !model.logged; }
-            private set { model.logged = !value; OnPropertyChanged("NotLogged"); OnPropertyChanged("Logged"); }
-        }
-
-        public bool Logged {
-            get { return model.logged; }
-        }
-
         public string Used {
-            get { return CommonUtils.SanitizeSize(model.used); }
+            get { return Sanitizer.SanitizeSize(model.used); }
             private set { model.used = Convert.ToUInt64(value); OnPropertyChanged("Used"); }
         }
 
         public string UsedTime {
-            get { return CommonUtils.SanitizeTime(model.used_time); }
+            get { return Sanitizer.SanitizeTime(model.used_time); }
             private set { model.used_time = Convert.ToUInt64(value); OnPropertyChanged("UsedTime"); }
         }
 
@@ -48,34 +39,27 @@ namespace NeuOldDriver.ViewModels {
             model.password = password;
 
             bool success = await IPGWAPI.Login(username, password);
-            if (success) {
-                NotLogged = false;
+            if (success) 
                 await UpdateInfo();
-            }
             return success;
         }
 
         public async Task<bool> Logout() {
-            var success = (await IPGWAPI.Logout(model.username, model.password))
-                            ?.Contains("网络已断开") ?? false;
-
-            if (success) 
-                NotLogged = true;
-            
-            return success;
+            return (await IPGWAPI.Logout(model.username, model.password))
+                       ?.Contains("网络已断开") ?? false;
         }
 
         public async Task<bool> UpdateInfo() {
-            var result = await IPGWAPI.AccountInfo();
+            var result = (await IPGWAPI.AccountInfo())?.Split(',');
 
-            if(result != null) {
-                Used = result["Used"];
-                UsedTime = result["UsedTime"];
-                Balance = result["Balance"];
-                IP = result["IP"];
-                return true;
-            }
-            return false;
+            if (result == null || result.Length == 0)
+                return false;
+
+            Used = result[0];
+            UsedTime = result[1];
+            Balance = result[2];
+            IP = result[5];
+            return true;
         }
     }
 }

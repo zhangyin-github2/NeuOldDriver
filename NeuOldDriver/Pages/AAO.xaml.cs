@@ -2,8 +2,8 @@
 
 using Windows.UI.Xaml.Controls;
 
+using NeuOldDriver.Net;
 using NeuOldDriver.Utils;
-using NeuOldDriver.Global;
 using NeuOldDriver.Models;
 
 // “空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234238 上有介绍
@@ -18,24 +18,20 @@ namespace NeuOldDriver.Pages {
             this.InitializeComponent();
 
             this.Loaded += async (sender, e) => {
-                login.ImageSource = await Net.AAOAPI.CaptchaImage();
+                login.ImageSource = await AAOAPI.CaptchaImage();
             };
 
             login.Refresh += async (sender, e) => {
-                return await Net.AAOAPI.CaptchaImage();
+                return await AAOAPI.CaptchaImage();
             };
 
             login.Submit += async (sender, e) => {
-                var reason = await vm.Login(e.username, e.password, e.captcha);
-                if (!String.IsNullOrEmpty(reason))
+                var reason = await AAOAPI.Login(e.username, e.password, e.captcha);
+                if (!String.IsNullOrEmpty(reason)) {
                     await Dialogs.Popup("错误", reason);
-                else {
-                    var accounts = Globals.Accounts["AAO"];
-                    accounts.Active = e.username;
-
-                    if (e.remember || accounts[e.username] != null)
-                        accounts[e.username] = e.password;
+                    return false;
                 }
+                return true;
             };
             
         }
