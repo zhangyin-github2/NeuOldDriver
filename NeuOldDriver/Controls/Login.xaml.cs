@@ -67,9 +67,7 @@ namespace NeuOldDriver.Controls {
         /// Set control to initial state
         /// </summary>
         public async Task ClearState() {
-            Animations.StartAnimation(backdrop,
-                    Animations.FadeAnimation(this, 500),
-                    "Opacity");
+            Animations.StartFadeAnimation(backdrop, this, FADE_DELAY);
 
             // get username and password of last logged user
             var accounts = Globals.Accounts[UsedFor];
@@ -97,9 +95,8 @@ namespace NeuOldDriver.Controls {
             if (await Submit?.Invoke(this, data)) {
                 NotLogged = false;
 
-                Animations.StartAnimation(backdrop, 
-                    Animations.FadeAnimation(this, 500, false), 
-                    "Opacity");
+                Animations.StartFadeAnimation(backdrop, this, FADE_DELAY, false);
+
                 var accounts = Globals.Accounts[UsedFor];
                 accounts.Active = UserName;
                 if (RememberMe || accounts[UserName] != null)
@@ -110,6 +107,8 @@ namespace NeuOldDriver.Controls {
 
     // Describing attached properties
     public sealed partial class Login : UserControl, INotifyPropertyChanged {
+
+        private const int FADE_DELAY = 200;
 
         public event PropertyChangedEventHandler PropertyChanged;
 

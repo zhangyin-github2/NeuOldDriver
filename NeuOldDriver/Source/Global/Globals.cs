@@ -7,7 +7,7 @@ using NeuOldDriver.Storage;
 namespace NeuOldDriver.Global {
 
     public static class Globals {
-        
+
         // used for synchronization
         private static volatile bool initialized = false;
         private static Accounts accounts;

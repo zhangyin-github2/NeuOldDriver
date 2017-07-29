@@ -20,6 +20,8 @@ namespace NeuOldDriver.Pages {
             logoutButton.Click += async (sender, e) => {
                 if (!await vm.Logout())
                     await Dialogs.Popup("错误", "注销失败!");
+                else
+                    await login.ClearState();
             };
         }
     }
