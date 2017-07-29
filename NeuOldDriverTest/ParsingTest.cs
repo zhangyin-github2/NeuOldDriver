@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 
+using NeuOldDriver.Models;
 using NeuOldDriver.Extensions;
 using NeuOldDriver.ViewModels;
 
@@ -160,15 +161,9 @@ namespace NeuOldDriverTest {
 </body>
 </html>
 ";
-        private CourseTableViewModel vm = new CourseTableViewModel();
-
-        public ParsingTest() {
-            vm.LoadCourses(testSource);
-        }
-
         [TestMethod]
         public void ParseWeeksTest() {
-            var result = CourseTableViewModel.ParseWeekNumbers("1.2-3.6.8-9.15-16.20周 4节");
+            var result = Course.ParseWeekNumbers("1.2-3.6.8-9.15-16.20周 4节");
             foreach (var i in new[] { 1, 2, 3, 6, 8, 9, 15, 16, 20 })
                 Assert.IsTrue(result[i - 1]);
             foreach (var i in new[] { 4, 5, 7, 10, 11, 12, 13, 14, 17, 18, 19 })
@@ -177,10 +172,10 @@ namespace NeuOldDriverTest {
 
         [TestMethod]
         public void ParseCourseTest() {
-            var test1 = CourseTableViewModel.ParseCourses(new List<string>());
+            var test1 = Course.Deserialize(new List<string>());
             Assert.IsTrue(test1.Count == 0);
 
-            var test2 = CourseTableViewModel.ParseCourses(new List<string>() {
+            var test2 = Course.Deserialize(new List<string>() {
                 "数据库原理", "申德荣", "信息A113", "10-13周 2节",
                 "数据库原理", "信息A113", "10-13周 2节"
             });
@@ -196,8 +191,10 @@ namespace NeuOldDriverTest {
 
         [TestMethod]
         public void ParsedResultTest() {
-            Assert.AreEqual("东北大学2016-2017学年第二学期学生课表", vm.Term);
-            Assert.AreEqual("院系:计算机科学与工程学院 专业:计算机科学与技术 班级:计算机1403 学号:20141874 姓名:黄文睿", vm.StudentInfo);
+            var obj = new CourseTableViewModel();
+            obj.LoadCourses(testSource);
+            Assert.AreEqual("东北大学2016-2017学年第二学期学生课表", obj.Term);
+            Assert.AreEqual("院系:计算机科学与工程学院 专业:计算机科学与技术 班级:计算机1403 学号:20141874 姓名:黄文睿", obj.StudentInfo);
         }
     }
 }
