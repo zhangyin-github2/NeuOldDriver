@@ -70,13 +70,6 @@
             <StackPanel x:Name="container" Orientation="Vertical"
                         HorizontalAlignment="Center" VerticalAlignment="Center"
                         Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-                <Button Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Click="Logout"
-                        HorizontalAlignment="Right" VerticalAlignment="Bottom"
-                        Visibility="{x:Bind login.NotLogged, Mode=OneWay, Converter={StaticResource nbtv}}">
-                    <Button.Content>
-                        <FontIcon Glyph="{StaticResource ClearIcon}" FontFamily="Segoe MDL2 Assets"></FontIcon>
-                    </Button.Content>
-                </Button>
                 <TextBlock Style="{StaticResource LabelStyle}" Text="教务处查询"></TextBlock>
                 <ListView Style="{StaticResource ButtonContainer}" ItemClick="PageNavigate"
                           IsEnabled="{x:Bind Path=login.NotLogged, Mode=OneWay, Converter={StaticResource nb}}">
@@ -99,6 +92,12 @@
                     <models:PageButtonData Glyph="{StaticResource PeopleIcon}" Label="选课推荐" Page="pages:Recommend"></models:PageButtonData>
                     <models:PageButtonData Glyph="{StaticResource MessageIcon}" Label="教师评价" Page="pages:TeacherRating"></models:PageButtonData>
                 </ListView>
+
+                <AppBarButton Icon="Clear" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="Logout">
+                    <ToolTipService.ToolTip>
+                        <ToolTip Content="注销"></ToolTip>
+                    </ToolTipService.ToolTip>
+                </AppBarButton>
             </StackPanel>
         </controls:Login.MainContent>
     </controls:Login>

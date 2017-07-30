@@ -16,22 +16,22 @@ namespace NeuOldDriver.ViewModels {
         
         public string Used {
             get { return Sanitizer.SanitizeSize(model.used); }
-            private set { model.used = Convert.ToUInt64(value); OnPropertyChanged("Used"); }
+            private set { model.used = Convert.ToUInt64(value); OnPropertyChanged(); }
         }
 
         public string UsedTime {
             get { return Sanitizer.SanitizeTime(model.used_time); }
-            private set { model.used_time = Convert.ToUInt64(value); OnPropertyChanged("UsedTime"); }
+            private set { model.used_time = Convert.ToUInt64(value); OnPropertyChanged(); }
         }
 
         public string Balance {
             get { return model.balance; }
-            private set { model.balance = value; OnPropertyChanged("Balance"); }
+            private set { model.balance = value; OnPropertyChanged(); }
         }
 
         public string IP {
             get { return model.ip; }
-            private set { model.ip = value; OnPropertyChanged("IP"); }
+            private set { model.ip = value; OnPropertyChanged(); }
         }
 
         public async Task<bool> Login(string username, string password) {
