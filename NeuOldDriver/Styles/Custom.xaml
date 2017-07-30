@@ -11,4 +11,15 @@
     <x:String x:Key="CommentIcon">&#xE8F2;</x:String>  <!-- alternative &#xE90A;-->
     <x:String x:Key="HomeIcon">&#xE80F;</x:String>
     <x:String x:Key="OtherUserIcon">&#xE7EE;</x:String>
+    <x:String x:Key="ClearIcon">&#xE894;</x:String>
+    <x:String x:Key="MappinIcon">&#xE707;</x:String>
+    <x:String x:Key="CheckListIcon">&#xE133;</x:String>
+    <x:String x:Key="GoToStartIcon">&#xE8FC;</x:String>
+    <x:String x:Key="PostUpdateIcon">&#xE8F3;</x:String>
+    <x:String x:Key="PreviewLinkIcon">&#xE8A1;</x:String>
+    <x:String x:Key="PasteIcon">&#xE77F;</x:String>
+    <x:String x:Key="PeopleIcon">&#xE716;</x:String>
+    <x:String x:Key="ContactInfoIcon">&#xE779;</x:String>
+    <x:String x:Key="MessageIcon">&#xE8BD;</x:String>
+    
 </ResourceDictionary>

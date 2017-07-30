@@ -99,6 +99,7 @@
     <Compile Include="LinqExtensionsTest.cs" />
     <Compile Include="ParsingTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReflectionExtensionTest.cs" />
     <Compile Include="UnitTestApp.xaml.cs">
       <DependentUpon>UnitTestApp.xaml</DependentUpon>
     </Compile>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 using NeuOldDriver.Models;
+using NeuOldDriver.Extensions;
 
 namespace NeuOldDriver.ViewModels {
 
@@ -184,7 +185,7 @@ namespace NeuOldDriver.ViewModels {
 
         public IEnumerable<CourseData> Items {
             get { return items; }
-            private set { items = value; OnPropertyChanged(nameof(Items)); }
+            private set { SetProperty(ref items, value); }
         }
 
         public void Reset() {
@@ -193,9 +194,8 @@ namespace NeuOldDriver.ViewModels {
 
         public void FilterBy(string propname, int index) {
             Items = items.Where((item) => {
-                if (index == 0)
-                    return true;
-                return (string)item[propname] == props[propname][index];
+                return index == 0 || 
+                    item.GetValue<string>(propname) == props[propname][index];
             });
         }
 

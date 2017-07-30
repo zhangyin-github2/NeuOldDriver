@@ -48,12 +48,8 @@
 
         <DataTemplate x:DataType="models:PageButtonData" x:Key="ButtonTemplate">
             <StackPanel Orientation="Horizontal" Width="{StaticResource OpenPaneLength}">
-                <FontIcon Style="{StaticResource NavButtonIcon}"
-                                          Glyph="{x:Bind Glyph}">
-                </FontIcon>
-                <TextBlock Style="{StaticResource NavButtonText}"
-                                           Text="{x:Bind Label}">
-                </TextBlock>
+                <FontIcon Style="{StaticResource NavButtonIcon}" Glyph="{x:Bind Glyph}"></FontIcon>
+                <TextBlock Style="{StaticResource NavButtonText}" Text="{x:Bind Label}"></TextBlock>
             </StackPanel>
         </DataTemplate>
 
@@ -91,7 +87,13 @@
         </SplitView.Pane>
         <SplitView.Content>
             <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <Frame x:Name="mainFrame"></Frame>
+                <Frame x:Name="mainFrame">
+                    <Frame.ContentTransitions>
+                        <TransitionCollection>
+                            <NavigationThemeTransition></NavigationThemeTransition>
+                        </TransitionCollection>
+                    </Frame.ContentTransitions>
+                </Frame>
             </ScrollViewer>
         </SplitView.Content>
     </SplitView>

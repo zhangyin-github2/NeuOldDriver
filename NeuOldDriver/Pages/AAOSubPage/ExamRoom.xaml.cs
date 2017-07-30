@@ -24,15 +24,14 @@ namespace NeuOldDriver.Pages.AAOSubPage {
             var color2 = Resources["Color2"] as SolidColorBrush;
             var color3 = Resources["Color3"] as SolidColorBrush;
 
-            using (var color = new CircularEnumerator<SolidColorBrush>(color2, color3)) {
-                for (var row = 1; row <= 20; ++row) {
-                    var border = new Border() {
-                        Background = color.Next()
-                    };
-                    Grid.SetRow(border, row);
-                    Grid.SetColumnSpan(border, 4);
-                    roomContainer.Children.Add(border);
-                }
+            var color = new CircularEnumerator<SolidColorBrush>(color2, color3);
+            for (var row = 1; row <= 20; ++row) {
+                var border = new Border() {
+                    Background = color.Next()
+                };
+                Grid.SetRow(border, row);
+                Grid.SetColumnSpan(border, 4);
+                roomContainer.Children.Add(border);
             }
         }
 
@@ -42,7 +41,7 @@ namespace NeuOldDriver.Pages.AAOSubPage {
             int row = 1, col;
             vm.Rooms.Select(room => room.Serialize()).ForEach((list) => {
                 col = 0;
-                list?.ForEach(prop => {
+                list?.ForEach((prop) => {
                     var block = new TextBlock() {
                         Text = prop,
                         Foreground = new SolidColorBrush(Colors.White),

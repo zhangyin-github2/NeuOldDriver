@@ -36,7 +36,9 @@ namespace NeuOldDriver.Net {
         /// </summary>
         /// <returns>source url of image</returns>
         public static async Task<string> CaptchaImage() {
-            var content = await WebUtils.GetAsync(Constants.AAO_API_BASE, null, async (response) => {
+            var content = await WebUtils.GetAsync(Constants.AAO_API_BASE, (request) => {
+                request.Headers.IfModifiedSince = new DateTimeOffset(DateTime.Now);
+            }, async (response) => {
                 return await response.Content.ReadAsStringAsync();
             });
             if (content == null)
@@ -69,7 +71,7 @@ namespace NeuOldDriver.Net {
             }, async (response) => { 
                 var regex = @"<script language=""JavaScript"">\s*alert\(""([^""]*)""\);\s*</script>";
                 var match = Regex.Match(await response.Content.ReadAsStringAsync(), regex);
-                return match.Success ? match.Groups[1].Value : "";
+                return match.Success ? match.Groups[1].Value.Replace("\\n", "") : "";
             });
         }
 

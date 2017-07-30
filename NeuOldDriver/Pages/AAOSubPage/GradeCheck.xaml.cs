@@ -25,15 +25,14 @@ namespace NeuOldDriver.Pages.AAOSubPage {
             var color2 = Resources["Color2"] as SolidColorBrush;
             var color3 = Resources["Color3"] as SolidColorBrush;
 
-            using (var color = new CircularEnumerator<SolidColorBrush>(color2, color3)) {
-                for (var row = 1; row <= 20; ++row) {
-                    var border = new Border() {
-                        Background = color.Next()
-                    };
-                    Grid.SetRow(border, row);
-                    Grid.SetColumnSpan(border, 6);
-                    gradesContainer.Children.Add(border);
-                }
+            var color = new CircularEnumerator<SolidColorBrush>(color2, color3);
+            for (var row = 1; row <= 20; ++row) {
+                var border = new Border() {
+                    Background = color.Next()
+                };
+                Grid.SetRow(border, row);
+                Grid.SetColumnSpan(border, 6);
+                gradesContainer.Children.Add(border);
             }
         }
 

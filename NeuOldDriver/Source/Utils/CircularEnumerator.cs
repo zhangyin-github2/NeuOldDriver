@@ -3,33 +3,39 @@ using System.Collections.Generic;
 
 namespace NeuOldDriver.Utils {
 
-    public class CircularEnumerator<T> : IDisposable {
+    public class CircularEnumerator<T> {
 
-        private IList<T> elems;
-        private IEnumerator<T> i;
+        private readonly IList<T> elems;
+        private int i; // enumerating index
 
         public CircularEnumerator(params T[] param) {
             elems = new List<T>(param);
-            i = elems.GetEnumerator();
+            i = 0;
         }
 
         public CircularEnumerator(IEnumerable<T> list) {
             elems = new List<T>(list);
-            i = elems.GetEnumerator();
+            i = 0;
         }
 
-        public void Dispose() {
-            i.Dispose();
+        /// <summary>
+        /// index of current element
+        /// </summary>
+        public int Index {
+            get { return i; }
         }
 
+        /// <summary>
+        /// return current element, and forward to next
+        /// </summary>
+        /// <returns></returns>
         public T Next() {
             if (elems.Count == 0)
                 return default(T);
-            if (!i.MoveNext()) {
-                i.Reset();
-                i.MoveNext();
-            }
-            return i.Current;
+            var ret = elems[i];
+            if (++i == elems.Count)
+                i = 0;
+            return ret;
         }
     }
 }

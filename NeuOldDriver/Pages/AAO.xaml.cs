@@ -1,5 +1,6 @@
 ﻿using System;
 
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 using NeuOldDriver.Net;
@@ -16,10 +17,6 @@ namespace NeuOldDriver.Pages {
 
         public AAO() {
             this.InitializeComponent();
-
-            this.Loaded += async (sender, e) => {
-                login.ImageSource = await AAOAPI.CaptchaImage();
-            };
 
             login.Refresh += async (sender, e) => {
                 return await AAOAPI.CaptchaImage();
@@ -46,6 +43,11 @@ namespace NeuOldDriver.Pages {
             }
 
             frame.Navigate(page);
+        }
+
+        private async void Logout(object sender, RoutedEventArgs e) {
+            await AAOAPI.Logout(login.UserName, login.Password);
+            await login.ClearState();
         }
     }
 }

@@ -8,6 +8,7 @@ using System.Runtime.CompilerServices;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
+using NeuOldDriver.Utils;
 using NeuOldDriver.Global;
 using NeuOldDriver.Models;
 
@@ -34,34 +35,12 @@ namespace NeuOldDriver.Controls {
         public Login() {
             this.InitializeComponent();
 
-            this.Loaded += (sender, e) => {
-                // get username and password of last logged user
-                var accounts = Globals.Accounts[UsedFor];
-                var username = accounts.Active;
-                var password = accounts[username];
-
-                names = accounts.Users;
-                this.username.Text = username;
-                this.username.ItemsSource = names;
-                this.password.Password = password ?? "";
+            this.Loaded += async (sender, e) => {
+                if (NotLogged)
+                    await ClearState();
             };
-            
-            okButton.Click += async (sender, args) => {
-                var data = new LoginData() {
-                    username = UserName, password = Password, remember = RememberMe
-                };
-                if (CaptchaRequired)
-                    data.captcha = Captcha;
 
-                if (await Submit?.Invoke(this, data)) {
-                    NotLogged = false;
-                    var accounts = Globals.Accounts[UsedFor];
-                    accounts.Active = UserName;
-
-                    if (RememberMe || accounts[UserName] != null)
-                        accounts[UserName] = Password;
-                }
-            };
+            okButton.Click += DoLogin;
 
             captchaContainer.Click += async (sender, e) => {
                 ImageSource = await Refresh?.Invoke(this, new EventArgs());
@@ -83,11 +62,53 @@ namespace NeuOldDriver.Controls {
                 remember.IsChecked = true;
             };
         }
-    }
 
+        /// <summary>
+        /// Set control to initial state
+        /// </summary>
+        public async Task ClearState() {
+            Animations.StartFadeAnimation(backdrop, this, FADE_DELAY);
+
+            // get username and password of last logged user
+            var accounts = Globals.Accounts[UsedFor];
+            var username = accounts.Active;
+            var password = accounts[username];
+
+            if (CaptchaRequired)
+                ImageSource = await Refresh?.Invoke(this, new EventArgs());
+
+            names = accounts.Users;
+            this.username.Text = username;
+            this.username.ItemsSource = names;
+            this.password.Password = password ?? "";
+            this.remember.IsChecked = !String.IsNullOrEmpty(password);
+            NotLogged = true;
+        }
+
+        private async void DoLogin(object sender, RoutedEventArgs e) {
+            var data = new LoginData() {
+                username = UserName, password = Password, remember = RememberMe
+            };
+            if (CaptchaRequired)
+                data.captcha = Captcha;
+
+            if (await Submit?.Invoke(this, data)) {
+                NotLogged = false;
+
+                Animations.StartFadeAnimation(backdrop, this, FADE_DELAY, false);
+
+                var accounts = Globals.Accounts[UsedFor];
+                accounts.Active = UserName;
+                if (RememberMe || accounts[UserName] != null)
+                    accounts[UserName] = Password;
+            }
+        }
+    }
 
     // Describing attached properties
     public sealed partial class Login : UserControl, INotifyPropertyChanged {
+
+        private const int FADE_DELAY = 200;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -125,7 +146,7 @@ namespace NeuOldDriver.Controls {
 
         public bool NotLogged {
             get { return notLogged; }
-            private set { notLogged = value; OnPropertyChanged(nameof(NotLogged)); }
+            private set { notLogged = value; OnPropertyChanged(); }
         }
 
         /// <summary>
@@ -155,7 +176,7 @@ namespace NeuOldDriver.Controls {
         /// </summary>
         public string ImageSource {
             get { return (string)GetValue(ImageSourceProperty); }
-            set { SetValue(ImageSourceProperty, value); OnPropertyChanged(nameof(ImageSource)); }
+            set { SetValue(ImageSourceProperty, value); OnPropertyChanged(); }
         }
 
         public static readonly DependencyProperty ImageSourceProperty =

@@ -14,7 +14,8 @@
 
     <Page.Resources>
         <cvt:NegateBool x:Key="nb"></cvt:NegateBool>
-        
+        <cvt:NegateBoolToVisibility x:Key="nbtv"></cvt:NegateBoolToVisibility>
+
         <x:Double x:Key="LabelHeight">40</x:Double>
         <x:Double x:Key="ButtonHeight">100</x:Double>
 
@@ -67,32 +68,36 @@
     <controls:Login x:Name="login" CaptchaRequired="True" Background="Gray" UsedFor="AAO">
         <controls:Login.MainContent>
             <StackPanel x:Name="container" Orientation="Vertical"
-                            HorizontalAlignment="Center" VerticalAlignment="Center"
-                            Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+                        HorizontalAlignment="Center" VerticalAlignment="Center"
+                        Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
                 <TextBlock Style="{StaticResource LabelStyle}" Text="教务处查询"></TextBlock>
                 <ListView Style="{StaticResource ButtonContainer}" ItemClick="PageNavigate"
                           IsEnabled="{x:Bind Path=login.NotLogged, Mode=OneWay, Converter={StaticResource nb}}">
-                    <models:PageButtonData Glyph="{StaticResource WorldIcon}" Label="查成绩" Page="pages:GradeCheck"></models:PageButtonData>
-                    <models:PageButtonData Glyph="{StaticResource BooksIcon}" Label="查课表" Page="pages:CourseTable"></models:PageButtonData>
-                    <models:PageButtonData Glyph="{StaticResource CommentIcon}" Label="查考场" Page="pages:ExamRoom"></models:PageButtonData>
-                    <models:PageButtonData Glyph="{StaticResource HomeIcon}" Label="培养计划"></models:PageButtonData>
+                    <models:PageButtonData Glyph="{StaticResource PostUpdateIcon}" Label="查成绩" Page="pages:GradeCheck"></models:PageButtonData>
+                    <models:PageButtonData Glyph="{StaticResource ContactInfoIcon}" Label="查课表" Page="pages:CourseTable"></models:PageButtonData>
+                    <models:PageButtonData Glyph="{StaticResource MappinIcon}" Label="查考场" Page="pages:ExamRoom"></models:PageButtonData>
+                    <models:PageButtonData Glyph="{StaticResource PasteIcon}" Label="培养计划"></models:PageButtonData>
                 </ListView>
 
                 <TextBlock Style="{StaticResource LabelStyle}" Text="学习助手"></TextBlock>
                 <ListView Style="{StaticResource ButtonContainer}" ItemClick="PageNavigate"
                           IsEnabled="{x:Bind Path=login.NotLogged, Mode=OneWay, Converter={StaticResource nb}}">
-                    <models:PageButtonData Glyph="{StaticResource MenuIcon}" Label="空教室查询" Page="pages:EmptyClassroom"></models:PageButtonData>
-
-                    <models:PageButtonData Glyph="{StaticResource UserIcon}" Label="学习自律助手" Page="pages:Concentrate"></models:PageButtonData>
+                    <models:PageButtonData Glyph="{StaticResource GoToStartIcon}" Label="空教室查询" Page="pages:EmptyClassroom"></models:PageButtonData>
+                    <models:PageButtonData Glyph="{StaticResource CheckListIcon}" Label="学习自律助手" Page="pages:Concentrate"></models:PageButtonData>
                 </ListView>
 
                 <TextBlock Style="{StaticResource LabelStyle}" Text="选课助手"></TextBlock>
                 <ListView Style="{StaticResource ButtonContainer}" ItemClick="PageNavigate"
                           IsEnabled="{x:Bind Path=login.NotLogged, Mode=OneWay, Converter={StaticResource nb}}">
-                    <models:PageButtonData Glyph="{StaticResource BooksIcon}" Label="选课推荐" Page="pages:Recommend"></models:PageButtonData>
-                    <models:PageButtonData Glyph="{StaticResource OtherUserIcon}" Label="教师评价" Page="pages:TeacherRating"></models:PageButtonData>
+                    <models:PageButtonData Glyph="{StaticResource PeopleIcon}" Label="选课推荐" Page="pages:Recommend"></models:PageButtonData>
+                    <models:PageButtonData Glyph="{StaticResource MessageIcon}" Label="教师评价" Page="pages:TeacherRating"></models:PageButtonData>
                 </ListView>
+
+                <AppBarButton Icon="Clear" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="Logout">
+                    <ToolTipService.ToolTip>
+                        <ToolTip Content="注销"></ToolTip>
+                    </ToolTipService.ToolTip>
+                </AppBarButton>
             </StackPanel>
         </controls:Login.MainContent>
     </controls:Login>
